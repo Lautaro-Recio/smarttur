@@ -39,7 +39,7 @@ function ModalMain(props) {
 
   const handleSaveChanges = () => {
     // Luego puedes cerrar el modal
-    createElement(newName, text, price, archive);
+    createElement(newName, text, price, [], archive, false, "", 0);
 
     handleClose();
   };

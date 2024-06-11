@@ -7,6 +7,22 @@
     text-transform: uppercase;
 }
 
+
+.subtitles {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 18px;
+    text-transform: uppercase;
+
+}
+
+.center{
+    text-align: center;
+    align-items: center;
+    
+}
 .blue{
     color: #2f4867;
 }

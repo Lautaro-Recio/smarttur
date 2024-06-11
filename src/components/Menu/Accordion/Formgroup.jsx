@@ -10,7 +10,6 @@ function Formgroup(props) {
           <Form.Control
             as={type}
             placeholder={name}
-            value={name}
             onChange={func}
             accept="image/*"
           />
@@ -18,7 +17,6 @@ function Formgroup(props) {
           <Form.Control
             type={type}
             placeholder={name}
-            value={name}
             onChange={func}
             accept="image/*"
           />

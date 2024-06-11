@@ -6,7 +6,6 @@ import { readElements } from "../../../../Firebase";
 import { useEffect, useState } from "react";
 
 function AccordionMain() {
-  
   const [elementos, setElementos] = useState([]);
 
   useEffect(() => {
@@ -22,12 +21,23 @@ function AccordionMain() {
     info();
   }, []);
 
-  console.log(elementos)
   return (
     <div>
       <Accordion>
         {elementos.map((exp, i) => {
-          return <AccorBody key={i} name={exp.name} text={exp.text} price={exp.price} images={exp.images} i={i} />;
+          return (
+            <AccorBody
+              key={i}
+              name={exp.name}
+              text={exp.text}
+              price={exp.price}
+              images={exp.images}
+              offerPriceBD={exp.priceOff}
+              offerBD={exp.offer}
+              offerDateBD={exp.offerDate}
+              i={i}
+            />
+          );
         })}
         <Accordion.Item className="flex">
           <ModalMain whatIs={"Experiencia"} />

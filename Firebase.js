@@ -1,44 +1,89 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { collection, doc, getDocs, getFirestore, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
+const firebaseConfig = {
 
+}; // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const storage = getStorage(app); // Función para agregar un nuevo elemento a la base de datos Firestore
 
-export const createElement = async (name, text, price, archive) => {
-  const images = [];
+export const createElement = async (
+  name,
+  text,
+  price,
+  imagesOfFirebase,
+  archive,
+  offer,
+  offerDate,
+  priceOff
+) => {
+  const images = imagesOfFirebase;
   try {
+    // Subir archivos a Firebase Storage y obtener URLs de descarga
     await Promise.all(
       archive.map(async (img) => {
-        const storageRef = ref(storage, img.name);
+        // Crear una referencia específica para cada archivo utilizando el nombre del archivo como un hijo de la referencia de almacenamiento
+        const storageRef = ref(storage, name + "/" + img.name);
         await uploadBytes(storageRef, img);
-        // getDownloadURL retorna la URL que utilizará la imagen en el almacenamiento para visualizarse
         const url = await getDownloadURL(storageRef);
-        images.push(url);
+        const newImage = { nameOfImage: img.name, url };
+        images.push(newImage);
       })
     );
-    const storageRef = ref(storage, archive[0].name);
-    await uploadBytes(storageRef, archive[0]);
+
     const myRef = doc(db, "experiencias", name);
-    await setDoc(myRef, { name, text, price, images, offer: false});
+    const docSnap = await getDoc(myRef);
+
+    if (docSnap.exists()) {
+      // El documento ya existe, así que lo actualizamos en lugar de sobrescribirlo
+      await updateDoc(myRef, {
+        text,
+        price,
+        images,
+        offer,
+        offerDate,
+        priceOff,
+      });
+    } else {
+      // El documento no existe, lo creamos
+      await setDoc(myRef, {
+        name,
+        text,
+        price,
+        images,
+        offer: false,
+        offerDate: "",
+        priceOff: 0,
+      });
+    }
   } catch (error) {
     console.error("Error al subir imágenes:", error);
-    // Aquí puedes manejar el error de acuerdo a tus necesidades, como mostrar un mensaje al usuario o realizar alguna acción específica.
+    // Manejar el error de acuerdo a tus necesidades
   }
 };
-
 
 export async function readElements() {
   try {
     // Obtener todos los documentos de la colección "experiencias"
     const querySnapshot = await getDocs(collection(db, "experiencias"));
     // Mapear los documentos a un array de objetos con la propiedad "id" y los datos del documento
-    const elementos = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const elementos = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
     // Devolver el array de elementos
     return elementos;
   } catch (error) {
