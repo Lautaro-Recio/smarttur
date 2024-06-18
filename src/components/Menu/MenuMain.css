@@ -28,7 +28,7 @@
 
 .carousel-item img {
     width: 100%;
-    height: 16rem;
+    height: 18rem;
     padding: 2%;
 }
 
@@ -70,4 +70,36 @@
     /* Animación de desvanecimiento */
     pointer-events: auto !important;
     /* Reactivar eventos de puntero */
+}
+
+.fixed .carousel-inner {
+    position: initial;
+}
+
+.deleteImage {
+    padding: 2% !important;
+    width: 100%;
+    height: 100%;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 99999;
+
+}
+
+.deleteImage button {
+    position: absolute;
+    right: 2% !important;
+    border-radius: 0%;
+    width: 65px;
+    height: 65px;
+    padding: 10px;
+    border-end-start-radius: 100%;
+    z-index: 99999;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    height: 50%;
+    margin: 20% 0%;
 }

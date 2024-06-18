@@ -6,6 +6,15 @@
     font-size: 21px;
     text-transform: uppercase;
 }
+h1 {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 30px;
+    text-transform: uppercase;
+    padding-top: 5%;
+}
 
 
 .subtitles {
@@ -25,4 +34,7 @@
 }
 .blue{
     color: #2f4867;
+}
+.white{
+    color: #fffcfe;
 }

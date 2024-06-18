@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import {
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -14,7 +15,12 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 // https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
 const firebaseConfig = {
-
+  apiKey: import.meta.env.VITE_REACT_APP_APIKEY,
+  authDomain: import.meta.env.VITE_REACT_APP_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_REACT_APP_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_REACT_APP_MESSAGING_RENDER_ID,
+  appId: import.meta.env.VITE_REACT_APP_APP_ID,
 }; // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
@@ -31,6 +37,7 @@ export const createElement = async (
   priceOff
 ) => {
   const images = imagesOfFirebase;
+  console.log(archive)
   try {
     // Subir archivos a Firebase Storage y obtener URLs de descarga
     await Promise.all(
@@ -75,6 +82,18 @@ export const createElement = async (
   }
 };
 
+export async function deleteImages(name,images) {
+  const myRef = doc(db, "experiencias",name);
+  console.log(images)
+  try {
+    await updateDoc(myRef, {
+      images,
+    });
+  } catch (error) {
+    console.error("Error al eliminar imagen", error);
+  }
+}
+
 export async function readElements() {
   try {
     // Obtener todos los documentos de la colección "experiencias"
@@ -93,3 +112,14 @@ export async function readElements() {
     return [];
   }
 }
+
+export const deleteElement = async (elementId) => {
+  try {
+    const elementRef = doc(db, "experiencias", elementId); // Referencia al documento específico en la colección "experiencias"
+    await deleteDoc(elementRef); // Eliminar el documento
+    console.log(`Elemento con ID ${elementId} eliminado correctamente.`);
+  } catch (error) {
+    console.error("Error al intentar eliminar el elemento:", error);
+    throw error; // Propagar el error para manejarlo en el componente que llama a esta función, si es necesario
+  }
+};

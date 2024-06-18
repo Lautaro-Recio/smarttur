@@ -1,0 +1,77 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.screen {
+    height: 100rem;
+    width: 100%;
+    background-color: #2f4867;
+}
+
+.curved {
+    position: relative;
+    background: #2f4867;
+    height: 95vh;
+    border-bottom-left-radius: 50% 25%;
+    border-bottom-right-radius: 50% 25%;
+    z-index: 9999;
+    background-size:cover;
+    background-image: url("../../assets/fondo.jpg");
+}
+
+.curved .container {
+    padding-top: 2%;
+    display: flex;
+}
+
+
+
+.curved .container p {
+    padding: 2%;
+    padding-right: 30%;
+}
+
+.curved .container div {
+    display: block
+}
+
+.curved .container img {
+    height: 21rem;
+    padding: 5%;
+
+}
+
+.curved .container button {
+    display: flex;
+    place-items: center;
+    height: 60px !important;
+    width: 90%;
+    font-size: 18px;
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-left: 5%;
+}
+
+.curved .container button ion-icon {
+    margin-right: 10px;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.bg-lightWhite {
+    padding: 2%;
+    background-color: #ffffffbb;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+}

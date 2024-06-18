@@ -4,7 +4,12 @@ import { Button, Form } from "react-bootstrap";
 import { useState } from "react";
 import Formgroup from "./Formgroup";
 import Carousel from "react-bootstrap/Carousel";
-import { createElement } from "../../../../Firebase";
+import {
+  createElement,
+  deleteElement,
+  deleteImages,
+} from "../../../../Firebase";
+import Swal from "sweetalert2";
 
 function AccorBody(props) {
   const { name, text, price, images, offerPriceBD, offerBD, offerDateBD, i } = {
@@ -13,11 +18,32 @@ function AccorBody(props) {
 
   const [mewprice, setprice] = useState(price);
   const [Newtext, setNewText] = useState(text);
-  const [offer, setOffer] = useState(false);
+  const [offer, setOffer] = useState(offerBD);
   const [offerDate, setOfferDate] = useState("");
   const [offerPrice, setOfferPrice] = useState(0);
   const [archive, setArchive] = useState([]);
   const [visible, setVisible] = useState(false);
+
+  const deleteExperience = () => {
+    Swal.fire({
+      title: "Estas seguro?",
+      text: `Desea eliminar la ${name}?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, Eliminar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteElement(name)
+        Swal.fire({
+          title: "Eliminado",
+          text: `La ${name} fue borrada`,
+          icon: "success",
+        });
+      }
+    });
+  };
 
   const handleVisibleChange = (e) => {
     if (e.target.value == "false") {
@@ -28,6 +54,65 @@ function AccorBody(props) {
       setOffer(false);
     }
   };
+  const deleteImage = (name, imgsName) => {
+    const newImages = [];
+
+    // Recorrer el array de imágenes existentes
+    for (let i = 0; i < images.length; i++) {
+      const image = images[i];
+
+      // Verificar si el nombre de la imagen actual coincide con el nombre que queremos eliminar
+      if (image.nameOfImage === imgsName) {
+        // Mostrar notificación de éxito con SweetAlert
+        Swal.fire({
+          title: "Estas seguro?",
+          text: `Desea eliminar la imagen ${name}?`,
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Si, Eliminar",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            deleteImages(name, newImages);
+
+            Swal.fire({
+              title: "Eliminado",
+              text: "Tu imagen fue borrada",
+              icon: "success",
+            });
+          }
+        });
+      } else {
+        // Si no es la imagen que queremos eliminar, la agregamos al nuevo array
+        newImages.push(image);
+      }
+    }
+    // Actualizar el estado de 'archive' con las imágenes restantes
+  };
+
+  const update = () => {
+    createElement(
+      name,
+      Newtext,
+      mewprice,
+      images,
+      archive,
+      offerBD ? offerBD : visible,
+      offerDateBD ? offerDateBD : offerDate,
+      offerPriceBD ? offerPriceBD : offerPrice
+    );
+
+    Swal.fire({
+      position: "center",
+      width: 500,
+      height: 200,
+      icon: "success",
+      showConfirmButton: false,
+      text: `Datos cargados`,
+      timer: 1500,
+    });
+  };
 
   const handlePriceChange = (e) => {
     setprice(e.target.value);
@@ -37,18 +122,25 @@ function AccorBody(props) {
     setNewText(e.target.value);
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     const newImages = [];
-    for (let i = 0; i < images.length; i++) {
-      const imageName = e.target.files[i].name;
-      console.log(imageName);
+    for (let i = 0; i < e.target.files.length; i++) {
       // Verificar si el nombre de la imagen actual está presente en el otro array
-      if (images.some((image) => image.nameOfImage === imageName)) {
-        console.log("La imagen", imageName, "está presente en ambos arrays.");
+      if (
+        images.some((image) => image.nameOfImage === e.target.files[i].name)
+      ) {
+        Swal.fire({
+          position: "center",
+          width: 500,
+          height: 200,
+          icon: "warning",
+          showConfirmButton: false,
+          text: `La imagen ${e.target.files[i].name} ya fue cargada`,
+          timer: 1500,
+        });
       } else {
         newImages.push(e.target.files[i]);
       }
-      //TERMINAR ESTO
     }
     setArchive(newImages);
   };
@@ -91,10 +183,10 @@ function AccorBody(props) {
               <Form.Check
                 label="Desea poner este producto en oferta?"
                 onChange={handleVisibleChange}
-                value={offerBD ? offerBD : offer}
-                checked={offerBD ? offerBD : offer}
+                value={offer}
+                checked={offer}
               />
-              <div className={`${offerBD == false ? "hidden" : "visible"}`}>
+              <div className={`${!offer ? "hidden" : "visible"}`}>
                 <div className="flexAround">
                   <Formgroup
                     name={offerDateBD ? offerDateBD : offerDate}
@@ -121,15 +213,24 @@ function AccorBody(props) {
           </Form>
           <div>
             <h4 className="subtitles center blue">Imagenes</h4>
-            <Carousel fade>
+            <Carousel fade className="fixed">
               {images.map((imgs) => {
                 return (
-                  <Carousel.Item key={name + imgs}>
-                    <img src={imgs.url} className="" alt={imgs.name} />
+                  <Carousel.Item key={name + imgs.nameOfImage}>
+                    <img src={imgs.url} className="" alt={imgs.nameOfImage} />
+                    <Carousel.Caption className="deleteImage">
+                      <Button
+                        variant="danger"
+                        onClick={() => deleteImage(name, imgs.nameOfImage)}
+                      >
+                        <ion-icon size="large" name="trash-outline"></ion-icon>
+                      </Button>
+                    </Carousel.Caption>
                   </Carousel.Item>
                 );
               })}
             </Carousel>
+
             <Formgroup
               name={[]}
               func={handleFileChange}
@@ -138,22 +239,12 @@ function AccorBody(props) {
             />
           </div>
         </div>
-        <Button
-          onClick={() =>
-            createElement(
-              name,
-              Newtext,
-              mewprice,
-              images,
-              archive,
-              offerBD ? offerBD : visible,
-              offerDateBD ? offerDateBD : offerDate,
-              offerPriceBD ? offerPriceBD : offerPrice
-            )
-          }
-        >
-          Actualizar
-        </Button>
+        <div className="flexAround">
+          <Button onClick={() => update()}>Actualizar Datos</Button>
+          <Button variant="danger" onClick={() => deleteExperience(name)}>
+            Eliminar experiencia
+          </Button>
+        </div>
       </Accordion.Body>
     </Accordion.Item>
   );
