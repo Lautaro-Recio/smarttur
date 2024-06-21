@@ -1,7 +1,10 @@
-import Button from "react-bootstrap/Button";
-import "./MenuMain.css";
-import AccordionMain from "./Accordion/AccordionMain";
+import Button from 'react-bootstrap/Button';
+import './MenuMain.css';
+import AccordionMain from './Accordion/AccordionMain';
+
 function MenuMain() {
+
+
   return (
     <div>
       <div className="nav">
@@ -10,7 +13,7 @@ function MenuMain() {
         <Button variant="primary">Salir del Administrador</Button>
       </div>
       <div>
-        <AccordionMain/>
+        <AccordionMain />
       </div>
     </div>
   );

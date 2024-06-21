@@ -20,19 +20,20 @@ body {
     border-bottom-right-radius: 50% 25%;
     z-index: 9999;
     background-size:cover;
-    background-image: url("../../assets/fondo.jpg");
+    background-image: url("https://cloudfront-us-east-1.images.arcpublishing.com/infobae/XE3CZCLCOREFBF2LSJZSDFVGQY.jpg");
 }
 
 .curved .container {
     padding-top: 2%;
-    display: flex;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
 }
 
 
 
 .curved .container p {
     padding: 2%;
-    padding-right: 30%;
+    padding-right: 10%;
 }
 
 .curved .container div {
@@ -69,9 +70,90 @@ body {
 .bg-lightWhite {
     padding: 2%;
     background-color: #ffffffbb;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    height: 30rem;
 
 }
+.padding{
+    padding-left: 50px;
+}
+
+
+
+.home{
+    background-image: url("https://cloudfront-us-east-1.images.arcpublishing.com/infobae/XE3CZCLCOREFBF2LSJZSDFVGQY.jpg");
+    height: 40rem;
+    background-size: cover ;
+}
+
+
+.nav {
+    padding: 0px 5rem;
+    height: 4rem;
+    margin: 0px;
+    overflow: hidden; /* Oculta el contenido que excede el tamaño */
+  }
+  
+  .nav h1 {
+    padding: 0px;
+  }
+  
+  .nav img {
+    height: 3rem;
+    width: 3rem;
+  }
+  
+  .nav .hidden {
+    width: 0px;
+    opacity: 0;
+    transition: width 0.3s ease, opacity 0.3s ease;
+    position: absolute;
+  }
+  
+  .nav .show {
+    width: 15rem;
+    opacity: 1;
+    text-align: end;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    padding-top: 1rem;
+    padding-right: 2rem;
+    background-color: #fffcfe;
+    transition: width 0.3s ease, opacity 0.3s ease;
+    height: 100%;
+  }
+  
+  /* Animación de fade out */
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      width: 0px; /* Aseguramos que se oculte completamente */
+    }
+  }
+  
+  .nav.fade-out {
+    animation: fadeOut 0.3s ease forwards;
+  }
+  
+  .nav ul {
+    list-style: none;
+    padding-right: 3rem;
+  }
+  
+  .nav ul li {
+    margin: 1rem 0rem;
+    font-size: 13px;
+    
+  }
+
+  .nav ul{
+    display: grid;
+  }
+  .nav button{
+    background-color: #fffcfe;
+    border: 0px;
+  }
+  

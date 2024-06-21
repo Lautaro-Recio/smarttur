@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider } from "firebase/auth"
 import {
   collection,
   deleteDoc,
@@ -25,7 +26,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const storage = getStorage(app); // Función para agregar un nuevo elemento a la base de datos Firestore
-
+export const auth = getAuth()
+auth.useDeviceLanguage()
+export const googleProvider = new GoogleAuthProvider()
 export const createElement = async (
   name,
   text,
@@ -37,7 +40,7 @@ export const createElement = async (
   priceOff
 ) => {
   const images = imagesOfFirebase;
-  console.log(archive)
+  console.log(archive);
   try {
     // Subir archivos a Firebase Storage y obtener URLs de descarga
     await Promise.all(
@@ -82,9 +85,9 @@ export const createElement = async (
   }
 };
 
-export async function deleteImages(name,images) {
-  const myRef = doc(db, "experiencias",name);
-  console.log(images)
+export async function deleteImages(name, images) {
+  const myRef = doc(db, "experiencias", name);
+  console.log(images);
   try {
     await updateDoc(myRef, {
       images,

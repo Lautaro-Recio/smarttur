@@ -1,10 +1,13 @@
 
+import AppProvider from './AppProvider';
 import MenuMain from './components/Menu/MenuMain';
 function App() {
   return (
-    <div>
-      <MenuMain/>
-    </div>
+    <AppProvider>
+      <div>
+        <MenuMain />
+      </div>
+    </AppProvider>
   );
 }
 
