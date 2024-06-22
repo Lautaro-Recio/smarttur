@@ -1,37 +1,42 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "../Firebase";
 
-// Creamos el contexto
 export const AppContext = createContext();
 
-// Componente proveedor del contexto
-// eslint-disable-next-line react/prop-types
 const AppProvider = ({ children }) => {
-    
-  // Estado inicial
-  const [state, setState] = useState({
-    message: 'Hola desde el contexto',
-    counter: 0,
-  });
+  const [elementos, setElementos] = useState([]);
+  
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      collection(db, "experiencias"),
+      (snapshot) => {
+        const updatedElementos = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setElementos(updatedElementos); // Actualizar estado con los elementos actualizados
+      },
+      (error) => {
+        console.error("Error al obtener elementos en tiempo real:", error);
+      }
+    );
 
-  // Función para modificar el estado
-  const incrementCounter = () => {
-    setState(prevState => ({
-      ...prevState,
-      counter: prevState.counter + 1,
-    }));
-  };
+    return () => unsubscribe(); // Limpieza al desmontar el componente
+  }, []);
 
-  // Valor del contexto que se pasa a los componentes hijos
   const contextValue = {
-    state,
-    incrementCounter,
+    elementos,
   };
 
   return (
-    <AppContext.Provider value={contextValue}>
-      {children}
-    </AppContext.Provider>
+    <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>
   );
+};
+
+AppProvider.propTypes = {
+  children: PropTypes.node.isRequired, // Validación de children como un nodo React requerido
 };
 
 export default AppProvider;

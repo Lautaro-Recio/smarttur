@@ -26,9 +26,11 @@ function Nav() {
         </button>
         <ul>
           <li className="subtitles"><Link>Home</Link></li>
-          <li className="subtitles"><Link>Home</Link></li>
-          <li className="subtitles"><Link>Home</Link></li>
-          <li className="subtitles"><Link>Home</Link></li>
+          <li className="subtitles"><Link>Ofertas</Link></li>
+          <li className="subtitles"><Link>Experiencias</Link></li>
+          <li className="subtitles"><Link>¿Quienes Somos?</Link></li>
+          <li className="subtitles"><Link>Contacto</Link></li>
+
         </ul>
       </div>
     </div>

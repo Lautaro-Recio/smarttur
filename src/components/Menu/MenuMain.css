@@ -6,7 +6,9 @@
     padding: 10px 50px;
     align-items: center;
 }
-
+.nav button{
+    background-color: #2f4867;
+}
 .flex {
     display: flex;
     justify-content: center;

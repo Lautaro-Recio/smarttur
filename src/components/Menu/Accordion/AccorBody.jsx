@@ -220,8 +220,8 @@ function AccorBody(props) {
                     <img src={imgs.url} className="" alt={imgs.nameOfImage} />
                     <Carousel.Caption className="deleteImage">
                       <Button
-                        className="eliminate"
                         variant="danger"
+                        className="eliminate"
                         onClick={() => deleteImage(name, imgs.nameOfImage)}
                       >
                         <ion-icon size="large" name="trash-outline"></ion-icon>

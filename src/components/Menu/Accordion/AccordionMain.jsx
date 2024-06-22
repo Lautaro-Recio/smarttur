@@ -2,30 +2,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Accordion } from "react-bootstrap";
 import AccorBody from "./AccorBody";
 import ModalMain from "../../Modal/ModalMain";
-import { db } from "../../../../Firebase";
-import { useEffect, useState } from "react";
-import { collection, onSnapshot } from "firebase/firestore";
+import { AppContext } from "../../../AppProvider";
+import { useContext } from "react";
 
 function AccordionMain() {
-  const [elementos, setElementos] = useState([]);
-
-  useEffect(() => {
-    const unsubscribe = onSnapshot(
-      collection(db, "experiencias"),
-      (snapshot) => {
-        const updatedElementos = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setElementos(updatedElementos); // Actualizar estado con los elementos actualizados
-      },
-      (error) => {
-        console.error("Error al obtener elementos en tiempo real:", error);
-      }
-    );
-
-    return () => unsubscribe(); // Limpieza al desmontar el componente
-  }, []);
+  const { elementos } = useContext(AppContext); // Usa useContext con AppContext para acceder al contexto
 
   return (
     <div>

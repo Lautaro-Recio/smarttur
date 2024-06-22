@@ -19,6 +19,16 @@ h1 {
     padding-top: 5%;
 }
 
+.par{
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    padding-top: 5%;
+    
+}
+
 .fontLarge{
     font-size: 35px;
 }
