@@ -332,8 +332,9 @@ body {
   max-width: 20rem;
 }
 
-.container .flex {
+.containerWave .flex {
   justify-content: space-around;
+  margin:0px 20px;
 }
 
 .deleteImage .parraf {

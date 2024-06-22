@@ -16,8 +16,8 @@ function Offers() {
                   debitis molestiae ullam in Voluptatum aperiam perferendis
                 </p>
                 <div className="titles blue flex bg-lightWhite">
-                  <p>$4000</p>
-                  <p>$3000</p>
+                  <p className="">$4000</p>
+                  <p className="">$3000</p>
                 </div>
                 <Button>Mas Informacion</Button>
               </div>
