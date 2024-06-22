@@ -1,11 +1,11 @@
 import Home from "./pageBody/Home";
-import Nav from "./pageBody/Nav";
+import Offers from "./pageBody/Offers";
 
 function Page() {
     return (
         <div>
-            <Nav/>
             <Home/>
+            <Offers/>
         </div>
     );
 }

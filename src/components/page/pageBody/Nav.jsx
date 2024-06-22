@@ -16,7 +16,7 @@ function Nav() {
   return (
     <div className="nav">
       <img src={logo2} alt="" />
-      <h1>Smart Tour</h1>
+      <h1>Smart tur</h1>
       <button onClick={show}>
         <ion-icon size="large" name="menu-outline"></ion-icon>
       </button>

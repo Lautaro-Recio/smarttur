@@ -87,7 +87,7 @@
 
 }
 
-.deleteImage button {
+.deleteImage .eliminate {
     position: absolute;
     right: 2% !important;
     border-radius: 0%;

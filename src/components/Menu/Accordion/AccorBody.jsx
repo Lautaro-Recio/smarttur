@@ -220,6 +220,7 @@ function AccorBody(props) {
                     <img src={imgs.url} className="" alt={imgs.nameOfImage} />
                     <Carousel.Caption className="deleteImage">
                       <Button
+                        className="eliminate"
                         variant="danger"
                         onClick={() => deleteImage(name, imgs.nameOfImage)}
                       >

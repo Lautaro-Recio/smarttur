@@ -1,3 +1,6 @@
+body{
+    overflow-x: hidden;
+}
 .titles {
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
@@ -16,6 +19,12 @@ h1 {
     padding-top: 5%;
 }
 
+.fontLarge{
+    font-size: 35px;
+}
+.fontMid{
+    font-size: 30px;
+}
 
 .subtitles {
     font-family: "Montserrat", sans-serif;
