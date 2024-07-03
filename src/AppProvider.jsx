@@ -7,7 +7,9 @@ export const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
   const [elementos, setElementos] = useState([]);
-  
+  const [galery, setGalery] = useState([]);
+  const [title, setTitle] = useState("");
+
   useEffect(() => {
     const unsubscribe = onSnapshot(
       collection(db, "experiencias"),
@@ -28,6 +30,11 @@ const AppProvider = ({ children }) => {
 
   const contextValue = {
     elementos,
+    setGalery,
+    galery,
+    setTitle,
+    title,
+  
   };
 
   return (

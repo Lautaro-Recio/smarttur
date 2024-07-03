@@ -213,7 +213,7 @@ function AccorBody(props) {
           </Form>
           <div>
             <h4 className="subtitles center blue">Imagenes</h4>
-            <Carousel fade className="fixed">
+            <Carousel fade className="fixed menu">
               {images.map((imgs) => {
                 return (
                   <Carousel.Item key={name + imgs.nameOfImage}>

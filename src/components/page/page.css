@@ -89,7 +89,9 @@ body {
 .home .container {
   height: 76vh;
 }
-
+.modal,.modal-backdrop{
+  z-index: 999999999999999999;
+}
 /* Estilos de la barra de navegación */
 .nav {
   padding: 1rem 2rem;
@@ -287,9 +289,9 @@ body {
 }
 
 .containerWave .carousel img {
-  width: 80%;
+  width: auto;
   margin: 0% 10%;
-  height: 30rem;
+  height: 25rem;
 }
 
 .containerWave .carousel-control-prev,
@@ -316,12 +318,15 @@ body {
   margin: 0% 10%;
 }
 
-.deleteImage .deleteImageBody {
-  position: absolute;
-  left: 40px;
-  top: 40px;
+.offersBody{
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  margin:1rem 10rem;
+  padding: 2.5rem !important;
 }
-
+.offersBody img{
+  width: 80% !important;
+}
 .deleteImageBody p:first-child {
   text-decoration: line-through;
 }
@@ -363,6 +368,9 @@ body {
 .experience p{
   padding: 1rem 2rem;
 }
+.experience img{
+  width: auto;
+}
 
 /* quienesSomos */
 .quienesSomos div{
@@ -377,8 +385,8 @@ body {
 }
 
 .quienesSomos div p{
-  padding: 5rem 2rem ;
-  max-width: 50rem;
+  padding: 5rem 1rem ;
+  max-width: 40rem;
   font-size: 19px;
 }
 .quienesSomos .logo{
@@ -392,7 +400,8 @@ body {
 /* Contact */
 .contact{
   transform: rotate(180deg);
-  height:100vh !important
+  height:100vh !important;
+  margin-top: 100px;
 }
 .contactBody{
   transform: rotate(180deg);
@@ -400,4 +409,8 @@ body {
 }
 .contact .form-label{
   color: #fffcfe;
+}
+.contactBody img{
+  width: 150px;
+  height: 150px;
 }

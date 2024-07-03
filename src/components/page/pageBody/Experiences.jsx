@@ -4,7 +4,7 @@ import { AppContext } from "../../../AppProvider";
 import { Link } from "react-router-dom";
 
 function Experiences() {
-  const { elementos } = useContext(AppContext);
+  const { elementos,setGalery,setTitle } = useContext(AppContext);
 
   return (
     <div className="experience center">
@@ -17,7 +17,7 @@ function Experiences() {
               <Carousel>
                 {exp.images.map((imgs, imgIndex) => (
                   <Carousel.Item key={exp.name + imgs.nameOfImage + imgIndex}>
-                    <Link to={`experience/${exp.name}`}>
+                    <Link to={`experience/${exp.name}`} onClick={()=>{setGalery(exp.images),setTitle(exp.name)}}>
                       <img src={imgs.url} alt={imgs.nameOfImage} />
                     </Link>
                   </Carousel.Item>

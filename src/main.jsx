@@ -6,6 +6,8 @@ import "./index.css";
 import SignIn from "./components/page/SignIn";
 import Page from "./components/page/Page";
 import AppProvider from "./AppProvider";
+import Galery from "./components/galerry/Galery";
+import GaleryCarrousel from "./components/galerry/GaleryCarrousel";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +24,11 @@ const router = createBrowserRouter([
   },
   {
     path: "page/experience/:experienceId",
-    element: <h1>Hola</h1>,
+    element: <Galery/>,
+  },
+  {
+    path: "page/experience/:experienceId/galery/:galeryId",
+    element: <GaleryCarrousel/>,
   },
 ]);
 

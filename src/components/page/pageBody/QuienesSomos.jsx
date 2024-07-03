@@ -1,7 +1,7 @@
 import logo from "../../../assets/logo.png";
 function QuienesSomos() {
   return (
-    <div className="quienesSomos">
+    <div className="quienesSomos mx-5">
       <h2 className="fontLarge blue titles center mt-5">¿Quienes somos?</h2>
       <div>
         <img className="logo" src={logo} alt="" />
@@ -9,7 +9,10 @@ function QuienesSomos() {
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum
           delectus alias recusandae eveniet harum officia culpa repellat
           mollitia minima illum sequi doloribus, ipsam architecto reiciendis,
-          distinctio numquam dolorem labore eius. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate maiores eveniet debitis natus, quaerat obcaecati minus nostrum fugit unde veniam iste tempora nemo optio est libero ex alias dolorem ad?
+          distinctio numquam dolorem labore eius. Lorem ipsum dolor sit amet,
+          consectetur adipisicing elit. Cupiditate maiores eveniet debitis
+          natus, quaerat obcaecati minus nostrum fugit unde veniam iste tempora
+          nemo optio est libero ex alias dolorem ad?
         </p>
       </div>
       <div>

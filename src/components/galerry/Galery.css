@@ -1,0 +1,50 @@
+.galery {
+    columns: 3;
+    padding: 20px;
+    /* Espacio entre las imágenes */
+}
+
+.galery img {
+    width: 100%;
+    height: auto;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.galery img:hover {
+    transform: scale(1.05);
+}
+
+
+/* GaleryCarrousel */
+
+.galeryCarrousel .carousel{
+    margin-top: 09vh;
+    height: 90vh !important;
+} 
+.galeryCarrousel .carousel-item img{
+    height: 90vh !important;
+    width: auto;
+} 
+
+.galeryCarrousel p{
+    font-size: 1.5rem;
+    position: absolute;
+    top: -500px;
+    background-color: rgba(167, 161, 161, 0.537);
+    padding: 5px;
+    border-radius: 5px;
+}
+.galeryCarrousel p{
+    font-size: 21px;
+    position: absolute;
+    top: 5px;
+    background-color: rgba(255, 255, 255, 0.241);
+    padding: 1%;
+    border-radius: 5%;
+}
+.second{
+    width: 20px;
+    right: 25px !important;
+}

@@ -1,6 +1,7 @@
 import { Button, Form } from "react-bootstrap";
 import Formgroup from "../../Menu/Accordion/Formgroup";
 import { useState } from "react";
+import logo2 from "../../../assets/logo2.png";
 
 function Contact() {
   const [mewprice, setprice] = useState("");
@@ -16,9 +17,9 @@ function Contact() {
   };
   return (
     <div className="containerWave contact">
-      <div className="contactBody container">
-        <h2 className="fontLarge white titles center mt-5">Contacto</h2>
+      <div className="contactBody container grid">
         <Form>
+          <h2 className="fontLarge white titles center mt-5">Contacto</h2>
           <Formgroup
             name={"Nombre"}
             func={handleTextChange}
@@ -43,11 +44,15 @@ function Contact() {
             Enviar
           </Button>
         </Form>
+        <div className="center mt-5">
+          <img src={logo2} alt="" />
+          <p className="parraf white p-5">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis pariatur esse voluptatem quibusdam laboriosam debitis totam doloremque temporibus, quae sunt nihil et voluptas possimus officiis odio, natus expedita. Veritatis, aliquam.</p>
+        </div>
       </div>
+
       <div className="wave"></div>
     </div>
   );
 }
-
 
 export default Contact;
