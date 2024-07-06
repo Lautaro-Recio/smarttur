@@ -16,7 +16,7 @@ function Contact() {
     setNewText(e.target.value);
   };
   return (
-    <div className="containerWave contact">
+    <div className="containerWave contact" id="contact">
       <div className="contactBody container grid">
         <Form>
           <h2 className="fontLarge white titles center mt-5">Contacto</h2>
@@ -44,9 +44,9 @@ function Contact() {
             Enviar
           </Button>
         </Form>
-        <div className="center mt-5">
+        <div className="center mt-5 contactDiv2">
           <img src={logo2} alt="" />
-          <p className="parraf white p-5">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis pariatur esse voluptatem quibusdam laboriosam debitis totam doloremque temporibus, quae sunt nihil et voluptas possimus officiis odio, natus expedita. Veritatis, aliquam.</p>
+          <p className="parraf white p-5">Lorem ipsum dolor sit amet consectetur, adipisicing elit debitis totam doloremque temporibus, quae sunt nihil et voluptas possimus officiis odio, natus expedita. Veritatis, aliquam.</p>
         </div>
       </div>
 

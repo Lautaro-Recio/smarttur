@@ -41,7 +41,7 @@ function MenuMain() {
 
       {user && user.email === import.meta.env.VITE_REACT_APP_APP_EMAIL ? (
         <div>
-          <div className="nav">
+          <div className="nav menu">
             <img src={logo2} alt="logo" />
             <h2 className="titles blue">Administrador Smart Tur</h2>
             <Button variant="primary">Salir del Administrador</Button>

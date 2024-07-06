@@ -6,7 +6,6 @@ import { auth, googleProvider } from "../../../Firebase";
 import { useState } from "react";
 
 function SignIn() {
-  const [userGoogle, setUserGogle] = useState("");
   const [show, setShow] = useState(false);
 
   const handleClose = (boolean) => {
@@ -22,7 +21,6 @@ function SignIn() {
   const SignWhitGoogle = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      setUserGogle(auth.currentUser.email);
 
       if (auth.currentUser.email === import.meta.env.VITE_REACT_APP_APP_EMAIL) {
         handleShow();
@@ -34,7 +32,6 @@ function SignIn() {
       console.error("Error al iniciar sesión con Google:", error.message);
     }
   };
-  console.log(userGoogle);
   return (
     <div className="screen">
       <div className="curved">

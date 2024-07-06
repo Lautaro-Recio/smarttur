@@ -89,9 +89,12 @@ body {
 .home .container {
   height: 76vh;
 }
-.modal,.modal-backdrop{
+
+.modal,
+.modal-backdrop {
   z-index: 999999999999999999;
 }
+
 /* Estilos de la barra de navegación */
 .nav {
   padding: 1rem 2rem;
@@ -102,6 +105,7 @@ body {
   position: sticky;
   display: flex;
   place-items: center;
+  z-index: 999999999999;
 }
 
 .nav h1 {
@@ -318,15 +322,17 @@ body {
   margin: 0% 10%;
 }
 
-.offersBody{
+.offersBody {
   display: grid;
   grid-template-columns: 1fr 3fr;
-  margin:1rem 10rem;
+  margin: 1rem 10rem;
   padding: 2.5rem !important;
 }
-.offersBody img{
+
+.offersBody img {
   width: 80% !important;
 }
+
 .deleteImageBody p:first-child {
   text-decoration: line-through;
 }
@@ -365,32 +371,36 @@ body {
   grid-template-columns: repeat(2, 1fr);
   gap: 5rem;
 }
-.experience p{
+
+.experience p {
   padding: 1rem 2rem;
 }
-.experience img{
+
+.experience img {
   width: auto;
 }
 
 /* quienesSomos */
-.quienesSomos div{
+.quienesSomos div {
   display: flex;
   padding: 0.5rem 2rem;
 }
-.quienesSomos div img{
+
+.quienesSomos div img {
   width: 100%;
   height: 15rem;
   padding: 0.5rem;
 
 }
 
-.quienesSomos div p{
-  padding: 5rem 1rem ;
+.quienesSomos div p {
+  padding: 5rem 1rem;
   max-width: 40rem;
   font-size: 19px;
 }
-.quienesSomos .logo{
-  width: 22rem!important; 
+
+.quienesSomos .logo {
+  width: 22rem !important;
   height: 20rem;
   padding: 0rem !important;
 }
@@ -398,19 +408,115 @@ body {
 
 
 /* Contact */
-.contact{
+.contact {
   transform: rotate(180deg);
-  height:100vh !important;
+  height: 100vh !important;
   margin-top: 100px;
 }
-.contactBody{
+
+.contactBody {
   transform: rotate(180deg);
 
 }
-.contact .form-label{
+
+.contact .form-label {
   color: #fffcfe;
 }
-.contactBody img{
+
+.contactBody img {
   width: 150px;
   height: 150px;
+}
+
+@media (max-width: 768px) {
+  .experienceBody {
+    grid-template-columns: repeat(1, 1fr);
+
+  }
+
+  .experience img {
+    width: auto;
+    height: 10rem;
+  }
+
+
+
+  .quienesSomos div img {
+    width: 100%;
+    height: 6rem;
+    padding: 0.5rem;
+
+  }
+
+  .quienesSomos .logo {
+    width: 8rem !important;
+    height: 8rem;
+    padding: 0rem !important;
+  }
+
+  .quienesSomos div {
+    display: flex;
+    padding: 0.5rem 0rem;
+  }
+
+  .quienesSomos div p {
+    padding: 1rem 0rem;
+    max-width: 40rem;
+    font-size: 13px;
+  }
+
+  .mx-5 {
+    margin: 0rem !important;
+  }
+
+  .mt-5 {
+    margin-top: 0rem !important;
+  }
+
+  .contact {
+
+    margin-top: 300px;
+  }
+
+  .contactBody img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .contactDiv2 {
+    display: grid;
+    grid-template-columns: 1fr 3fr !important
+  }
+
+  .contactDiv2 p {
+    padding: 0px !important;
+  }
+  .contactDiv2 img {
+    width: 6rem !important;
+    height: 6rem !important;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+
+
+
+  .offersBody {
+    display: block;
+    margin: 1rem 1rem;
+    grid-template-columns: 0rem;
+
+    padding: 1.5rem !important;
+  }
+
+  .pc {
+    display: none;
+  }
+
+  .phone {
+    height: 15rem !important;
+  }
 }

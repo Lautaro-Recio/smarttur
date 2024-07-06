@@ -6,7 +6,7 @@ function Offers() {
   const { elementos } = useContext(AppContext);
 
   return (
-    <div className="containerWave">
+    <div className="containerWave" id="offers">
       <div className="pt-3">
         <h2 className="titles white center mb-1 fontLarge">Ofertas</h2>
         <Carousel className="fixed">
@@ -25,13 +25,15 @@ function Offers() {
                         {exp.name}
                       </h3>
                       <p className="blue bg-lightWhite parraf">{exp.text}</p>
+                      <img className="phone" src={exp.images[0].url} alt={exp.name} />{" "}
+
                       <div className="titles blue flex bg-lightWhite">
                         <p>${exp.price}</p>
                         <p>${exp.priceOff}</p>
                       </div>
                       <Button>Mas Informacion</Button>
                     </div>
-                    <img src={exp.images[0].url} alt={exp.name} />{" "}
+                    <img className="pc" src={exp.images[0].url} alt={exp.name} />{" "}
                   </div>
                   {/* Utilizar exp.name como texto alternativo */}
                 </Carousel.Item>

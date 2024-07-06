@@ -7,7 +7,7 @@ function Experiences() {
   const { elementos,setGalery,setTitle } = useContext(AppContext);
 
   return (
-    <div className="experience center">
+    <div className="experience center" id="experiences">
       <h2 className="fontLarge blue titles">Experiencias</h2>
       <div className="experienceBody ">
         {elementos.map((exp, index) => (

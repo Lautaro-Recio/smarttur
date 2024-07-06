@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import logo2 from '../../../assets/logo2.png';
-import { Link } from 'react-router-dom';
 
 function Nav() {
   const [navStyle, setNavStyle] = useState('hidden');
@@ -25,11 +24,11 @@ function Nav() {
           <ion-icon name="close-outline"></ion-icon>
         </button>
         <ul>
-          <li className="subtitles"><Link>Home</Link></li>
-          <li className="subtitles"><Link>Ofertas</Link></li>
-          <li className="subtitles"><Link>Experiencias</Link></li>
-          <li className="subtitles"><Link>¿Quienes Somos?</Link></li>
-          <li className="subtitles"><Link>Contacto</Link></li>
+          <li className="subtitles"><a href="#Home">Home</a></li>
+          <li className="subtitles"><a href="#offers">Ofertas</a></li>
+          <li className="subtitles"><a href="#experiences">Experiencias</a></li>
+          <li className="subtitles"><a href="#info">¿Quienes Somos?</a></li>
+          <li className="subtitles"><a href="#contact">Contacto</a></li>
 
         </ul>
       </div>
