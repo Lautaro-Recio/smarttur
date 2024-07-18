@@ -22,7 +22,7 @@ function SignIn() {
     try {
       await signInWithPopup(auth, googleProvider);
 
-      if (auth.currentUser.email === import.meta.env.VITE_REACT_APP_APP_EMAIL) {
+      if (auth.currentUser.email === import.meta.env.VITE_REACT_APP_APP_EMAIL || auth.currentUser.email === import.meta.env.VITE_REACT_APP_APP_EMAIL2 ) {
         handleShow();
       } else {
         window.location.href = "/page";
