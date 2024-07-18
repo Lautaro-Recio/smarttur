@@ -360,6 +360,9 @@ body {
   padding: 1%;
 }
 
+.phone {
+  display: none;
+}
 
 /* Experiencias */
 .experience {
@@ -419,6 +422,10 @@ body {
 
 }
 
+.contactDiv2 {
+  display: grid;
+}
+
 .contact .form-label {
   color: #fffcfe;
 }
@@ -429,16 +436,103 @@ body {
 }
 
 @media (max-width: 768px) {
+
+  /* Sign In */
+  .curved {
+    position: relative;
+    background: #2f4867;
+    height: 95vh;
+    border-bottom-left-radius: 50% 25%;
+    border-bottom-right-radius: 50% 25%;
+    z-index: 9999;
+    background-size: cover;
+    background-image: url("https://cloudfront-us-east-1.images.arcpublishing.com/infobae/XE3CZCLCOREFBF2LSJZSDFVGQY.jpg");
+  }
+
+  .padding {
+    padding: 0% 2%;
+  }
+
+  /* Estilos del contenido dentro del contenedor curvado */
+  .curved .container {
+    padding-top: 2%;
+    display: block;
+    grid-template-columns: none;
+
+  }
+
+  .curved .container h1 {
+    padding-top: 1%;
+  }
+
+  .curved .container p {
+    font-size: 14px;
+    padding: 0px;
+  }
+
+  .bg-lightWhite {
+    height: 20rem;
+  }
+  
+  .curved .container img{
+    height: 10rem;
+    padding: 0px;
+  }
+  .flexPhone {
+    display: grid !important;
+    grid-template-columns: 1fr 3fr;
+    height: 10rem !important;
+    align-items: center;
+  }
+  .curved .container button{
+    font-size: 15px;
+  }
+ 
+  
+
+  .home h2 {
+    font-size: 30px;
+
+  }
+
+  .content button {
+    font-size: 13px;
+  }
+
+  .offersBody p,
+  .offersBody h3 {
+    margin: 0% 10%;
+  }
+
+  .containerWave .carousel-control-prev,
+  .containerWave .carousel-control-next {
+    top: 50px;
+  }
+
   .experienceBody {
     grid-template-columns: repeat(1, 1fr);
 
   }
 
-  .experience img {
-    width: auto;
-    height: 10rem;
+  .galery {
+    columns: 2 !important;
+    padding: 20px;
+    /* Espacio entre las imágenes */
   }
 
+  .galeryCarrousel .carousel-item img {
+    height: 20re, !important;
+    width: auto;
+  }
+
+  .experience img {
+    width: 80%;
+    height: 20rem;
+  }
+
+  .experienceBody .container {
+    padding: 0rem;
+  }
 
 
   .quienesSomos div img {
@@ -449,20 +543,29 @@ body {
   }
 
   .quienesSomos .logo {
-    width: 8rem !important;
-    height: 8rem;
-    padding: 0rem !important;
+    width: 100% !important;
+    height: 10rem !important;
+    padding: 0.5rem !important;
+    margin: 0%;
+    margin-top: 1rem;
   }
 
   .quienesSomos div {
-    display: flex;
+    display: block;
     padding: 0.5rem 0rem;
   }
 
+
   .quienesSomos div p {
-    padding: 1rem 0rem;
+    padding: 1rem 3rem;
     max-width: 40rem;
-    font-size: 13px;
+    font-size: 17px;
+  }
+
+  .quienesSomos div img {
+    width: 90%;
+    margin: 0% 5%;
+    padding: 1rem 2.5rem
   }
 
   .mx-5 {
@@ -484,13 +587,14 @@ body {
   }
 
   .contactDiv2 {
-    display: grid;
-    grid-template-columns: 1fr 3fr !important
+
+    display: none;
   }
 
   .contactDiv2 p {
     padding: 0px !important;
   }
+
   .contactDiv2 img {
     width: 6rem !important;
     height: 6rem !important;
@@ -502,7 +606,11 @@ body {
   }
 
 
-
+  .containerWave {
+    position: relative;
+    background: #2c3e50;
+    height: 130vh;
+  }
 
   .offersBody {
     display: block;
@@ -512,11 +620,22 @@ body {
     padding: 1.5rem !important;
   }
 
+
+
   .pc {
     display: none;
   }
 
   .phone {
     height: 15rem !important;
+    display: block;
   }
+
+
+
+
+
+
+
+
 }

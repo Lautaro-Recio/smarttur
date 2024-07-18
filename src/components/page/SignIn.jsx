@@ -61,7 +61,7 @@ function SignIn() {
               distinctio?
             </p>
           </div>
-          <div className="bg-lightWhite">
+          <div className="bg-lightWhite flexPhone">
             <img src={logo} alt="" />
             <Button onClick={SignWhitGoogle}>
               <ion-icon size="large" name="logo-google"></ion-icon>
