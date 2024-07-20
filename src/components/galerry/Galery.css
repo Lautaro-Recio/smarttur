@@ -19,16 +19,17 @@
 
 /* GaleryCarrousel */
 
-.galeryCarrousel .carousel{
+.galeryCarrousel .carousel {
     margin-top: 09vh;
     height: 90vh !important;
-} 
-.galeryCarrousel .carousel-item img{
-    height: 90vh !important;
-    width: auto;
-} 
+}
 
-.galeryCarrousel p{
+.galeryCarrousel .carousel-item img {
+    height: 90vh ;
+    width: auto;
+}
+
+.galeryCarrousel p {
     font-size: 1.5rem;
     position: absolute;
     top: -500px;
@@ -36,7 +37,8 @@
     padding: 5px;
     border-radius: 5px;
 }
-.galeryCarrousel p{
+
+.galeryCarrousel p {
     font-size: 21px;
     position: absolute;
     top: 5px;
@@ -44,7 +46,18 @@
     padding: 1%;
     border-radius: 5%;
 }
-.second{
+
+.second {
     width: 20px;
     right: 25px !important;
+}
+
+@media (max-width: 768px) {
+    .galery img {
+        padding: 0.5rem;
+    }
+    .GaleryCarrouselImg{
+        width: auto;
+        height: 50vh !important;
+    }
 }

@@ -43,8 +43,8 @@ function MenuMain() {
         <div>
           <div className="nav menu">
             <img src={logo2} alt="logo" />
-            <h2 className="titles blue">Administrador Smart Tur</h2>
-            <Button variant="primary">Salir del Administrador</Button>
+            <h2 className="titles blue">Smart Tur</h2>
+            <Button variant="primary" onClick={()=> window.location.href = "/page"}>Salir</Button>
           </div>
           <div>
             <AccordionMain />

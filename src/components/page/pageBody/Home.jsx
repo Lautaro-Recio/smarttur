@@ -16,7 +16,7 @@ function Home() {
           </p>
         </div>
         <div className="content">
-          <Button>Ir a paquetes</Button>
+          <Button>Paquetes</Button>
           <div>
             <a href="">
               <ion-icon size="large" name="logo-whatsapp"></ion-icon>

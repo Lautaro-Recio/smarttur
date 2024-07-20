@@ -144,3 +144,27 @@
     /* Retrasa la visibilidad */
     background-color: #ffffff;
 }
+
+
+@media (max-width: 768px) {
+    .nav img{
+        width: 2rem !important;
+        height: 2rem !important;
+
+    }
+    .nav button{
+        width: auto !important;
+        font-size: 11px;
+
+    }
+    
+    .titles{
+        font-size: 18px !important;
+        padding-top:10px ;
+    }
+
+    .flexAround button {
+        font-size: 13px;
+        padding: 2%;
+    }
+}
