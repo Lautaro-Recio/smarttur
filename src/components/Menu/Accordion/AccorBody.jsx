@@ -23,7 +23,7 @@ function AccorBody(props) {
   const [offerPrice, setOfferPrice] = useState(0);
   const [archive, setArchive] = useState([]);
   const [visible, setVisible] = useState(false);
-
+  
   const deleteExperience = () => {
     Swal.fire({
       title: "Estas seguro?",
@@ -35,7 +35,7 @@ function AccorBody(props) {
       confirmButtonText: "Si, Eliminar",
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteElement(name)
+        deleteElement(name);
         Swal.fire({
           title: "Eliminado",
           text: `La ${name} fue borrada`,
@@ -98,9 +98,9 @@ function AccorBody(props) {
       mewprice,
       images,
       archive,
-      offerBD ? offerBD : visible,
-      offerDateBD ? offerDateBD : offerDate,
-      offerPriceBD ? offerPriceBD : offerPrice
+      offerBD ? visible : offerBD,
+      offerDateBD ? offerDate : offerDateBD,
+      offerPriceBD ? offerPrice : offerPriceBD,
     );
 
     Swal.fire({
@@ -158,6 +158,9 @@ function AccorBody(props) {
     const formatedDate = `${day}-${month}-${year}`; // Formato DD/MM/YYYY
     setOfferDate(formatedDate);
   };
+
+
+
   return (
     <Accordion.Item key={name} eventKey={i}>
       <Accordion.Header>

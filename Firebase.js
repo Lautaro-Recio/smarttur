@@ -37,7 +37,8 @@ export const createElement = async (
   archive,
   offer,
   offerDate,
-  priceOff
+  priceOff,
+  where
 ) => {
   const images = imagesOfFirebase;
   console.log(archive);
@@ -54,7 +55,7 @@ export const createElement = async (
       })
     );
 
-    const myRef = doc(db, "experiencias", name);
+    const myRef = doc(db, where, name);
     const docSnap = await getDoc(myRef);
 
     if (docSnap.exists()) {

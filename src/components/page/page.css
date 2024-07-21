@@ -333,6 +333,10 @@ body {
   width: 80% !important;
 }
 
+.tached {
+  text-decoration: line-through;
+}
+
 .deleteImageBody p:first-child {
   text-decoration: line-through;
 }
@@ -522,6 +526,8 @@ body {
     margin: 0% 2%;
   }
 
+
+
   .containerWave .carousel-control-prev,
   .containerWave .carousel-control-next {
     top: 50px;
@@ -537,11 +543,13 @@ body {
     padding: 20px;
     /* Espacio entre las imágenes */
   }
-  .galeryCarrousel .titles{
+
+  .galeryCarrousel .titles {
     font-size: 20px !important;
   }
-  .galeryCarrousel .carousel-indicators{
-    bottom: 150px ;
+
+  .galeryCarrousel .carousel-indicators {
+    bottom: 150px;
   }
 
   .galeryCarrousel .carousel-item img {
@@ -557,7 +565,8 @@ body {
   .experienceBody .container {
     padding: 0rem;
   }
-  .experienceBody .carousel-indicators{
+
+  .experienceBody .carousel-indicators {
     bottom: 0px;
   }
 
