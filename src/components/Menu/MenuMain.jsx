@@ -39,12 +39,18 @@ function MenuMain() {
         </div>
       </div>
 
-      {user && user.email === import.meta.env.VITE_REACT_APP_APP_EMAIL ||user && user.email === import.meta.env.VITE_REACT_APP_APP_EMAIL2 ? (
+      {(user && user.email === import.meta.env.VITE_REACT_APP_APP_EMAIL) ||
+      (user && user.email === import.meta.env.VITE_REACT_APP_APP_EMAIL2) ? (
         <div>
           <div className="nav menu">
             <img src={logo2} alt="logo" />
             <h2 className="titles blue">Smart Tur</h2>
-            <Button variant="primary" onClick={()=> window.location.href = "/page"}>Salir</Button>
+            <Button
+              variant="primary"
+              onClick={() => (window.location.href = "/page")}
+            >
+              Salir
+            </Button>
           </div>
           <div>
             <AccordionMain />

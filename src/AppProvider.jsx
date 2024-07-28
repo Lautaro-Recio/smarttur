@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { collection, onSnapshot } from "firebase/firestore";
-import { db } from "../Firebase";
+import { db } from "../Firebase"; // Asegúrate de importar correctamente tu configuración de Firebase y funciones de Firestore
 
 export const AppContext = createContext();
 
@@ -34,7 +34,6 @@ const AppProvider = ({ children }) => {
     galery,
     setTitle,
     title,
-  
   };
 
   return (

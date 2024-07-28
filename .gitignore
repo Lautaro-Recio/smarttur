@@ -24,3 +24,5 @@ Firebase
 *.njsproj
 *.sln
 *.sw?
+.env
+netlify.toml

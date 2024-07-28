@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Accordion } from "react-bootstrap";
+import { Accordion} from "react-bootstrap";
 import AccorBody from "./AccorBody";
 import ModalMain from "../../Modal/ModalMain";
 import { AppContext } from "../../../AppProvider";
@@ -7,9 +7,10 @@ import { useContext } from "react";
 
 function AccordionMain() {
   const { elementos } = useContext(AppContext); // Usa useContext con AppContext para acceder al contexto
-
+ 
   return (
     <div>
+  
       <Accordion>
         {elementos.map((exp, i) => {
           return (
@@ -23,6 +24,7 @@ function AccordionMain() {
               offerBD={exp.offer}
               offerDateBD={exp.offerDate}
               i={i}
+              categoryBD={exp.category}
             />
           );
         })}

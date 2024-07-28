@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth"
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import {
   collection,
   deleteDoc,
@@ -26,9 +26,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const storage = getStorage(app); // Función para agregar un nuevo elemento a la base de datos Firestore
-export const auth = getAuth()
-auth.useDeviceLanguage()
-export const googleProvider = new GoogleAuthProvider()
+export const auth = getAuth();
+auth.useDeviceLanguage();
+export const googleProvider = new GoogleAuthProvider();
+
 export const createElement = async (
   name,
   text,
@@ -38,10 +39,13 @@ export const createElement = async (
   offer,
   offerDate,
   priceOff,
-  where
+  category
 ) => {
   const images = imagesOfFirebase;
-  console.log(archive);
+  if (offer == false) {
+    offerDate = ""
+    priceOff = 0
+  }
   try {
     // Subir archivos a Firebase Storage y obtener URLs de descarga
     await Promise.all(
@@ -55,7 +59,7 @@ export const createElement = async (
       })
     );
 
-    const myRef = doc(db, where, name);
+    const myRef = doc(db, "experiencias", name);
     const docSnap = await getDoc(myRef);
 
     if (docSnap.exists()) {
@@ -67,6 +71,7 @@ export const createElement = async (
         offer,
         offerDate,
         priceOff,
+        category,
       });
     } else {
       // El documento no existe, lo creamos
@@ -78,6 +83,7 @@ export const createElement = async (
         offer: false,
         offerDate: "",
         priceOff: 0,
+        category,
       });
     }
   } catch (error) {

@@ -12,7 +12,7 @@ function Formgroup(props) {
             placeholder={name}
             onChange={func}
             accept="image/*"
-            maxlength="120"
+            maxLength="120"
           />
         ) : (
           <Form.Control

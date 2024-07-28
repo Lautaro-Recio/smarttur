@@ -375,16 +375,96 @@ body {
 
 .experienceBody {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 5rem;
+  grid-template-columns: 2fr 2fr 2fr;
+  gap: 1rem;
+  margin: 0px 1rem;
 }
 
+
 .experience p {
-  padding: 1rem 2rem;
+  padding: 0rem 2rem;
 }
 
 .experience img {
   width: auto;
+}
+
+.formExperiences {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 4rem;
+}
+
+.formExperiences p {
+  font-size: 18px;
+  padding: 0px 10px;
+  font-weight: 600;
+}
+
+
+
+.experienceBody .container {
+  position: relative;
+  padding: 1%;
+}
+
+.experience-card {
+  position: relative; /* Necesario para que los elementos hijos con position: absolute se posicionen relativamente a este contenedor */
+  width: 100%;
+  height: 300px; /* Ajusta el tamaño según lo necesites */
+  overflow: hidden; /* Evita que la imagen se desborde del contenedor */
+  border-radius: 5%; /* Bordes redondeados, ajusta según lo necesites */
+  display: flex; /* Asegura que el contenido esté centrado */
+  align-items: center;
+  justify-content: center;
+  color: #fff; /* Color del texto, si es necesario */
+  text-align: center;
+  text-decoration: none; /* Para quitar el subrayado del enlace si lo aplicas en CSS */
+  transition: border-radius 0.3s ease; /* Transición suave para los bordes si es necesario */
+}
+
+.experience-card img {
+  position: absolute; /* Posiciona la imagen absolutamente dentro del contenedor */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Asegura que la imagen cubra todo el contenedor */
+  transition: transform 0.3s ease; /* Transición suave para el zoom */
+  z-index: 0;
+
+}
+.experience-card div {
+  position: absolute; /* Posiciona la imagen absolutamente dentro del contenedor */
+  z-index: 10;
+  bottom: 0;
+  left: 0;
+  text-align: start;
+
+}
+
+.experience-card:hover img {
+  transform: scale(1.1); /* Aumenta el tamaño de la imagen en un 20% */
+}
+
+.experienceBody .container img {
+  width: 100%;
+}
+
+.experienceBody .grid {
+  padding: 0px 5rem;
+}
+
+.experienceBody .grid p {
+  padding: 0px;
+}
+
+.formExperiences input {
+  width: 12rem;
+}
+
+.formExperiences select {
+  width: 20rem;
 }
 
 /* quienesSomos */
@@ -564,6 +644,7 @@ body {
 
   .experienceBody .container {
     padding: 0rem;
+
   }
 
   .experienceBody .carousel-indicators {

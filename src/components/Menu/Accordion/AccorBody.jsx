@@ -12,7 +12,17 @@ import {
 import Swal from "sweetalert2";
 
 function AccorBody(props) {
-  const { name, text, price, images, offerPriceBD, offerBD, offerDateBD, i } = {
+  const {
+    name,
+    text,
+    price,
+    images,
+    offerPriceBD,
+    offerBD,
+    offerDateBD,
+    i,
+    categoryBD,
+  } = {
     ...props,
   };
 
@@ -22,8 +32,8 @@ function AccorBody(props) {
   const [offerDate, setOfferDate] = useState("");
   const [offerPrice, setOfferPrice] = useState(0);
   const [archive, setArchive] = useState([]);
-  const [visible, setVisible] = useState(false);
-  
+  const [category, setCategory] = useState("");
+
   const deleteExperience = () => {
     Swal.fire({
       title: "Estas seguro?",
@@ -46,13 +56,16 @@ function AccorBody(props) {
   };
 
   const handleVisibleChange = (e) => {
+    console.log(e.target.value)
     if (e.target.value == "false") {
-      setVisible(true);
       setOffer(true);
+      
     } else {
-      setVisible(false);
       setOffer(false);
+      setOfferPrice(0)
+      setOfferDate("")
     }
+    console.log(offerDate)
   };
   const deleteImage = (name, imgsName) => {
     const newImages = [];
@@ -98,11 +111,12 @@ function AccorBody(props) {
       mewprice,
       images,
       archive,
-      offerBD ? visible : offerBD,
-      offerDateBD ? offerDate : offerDateBD,
-      offerPriceBD ? offerPrice : offerPriceBD,
+      offer,
+      offerDate ? offerDate : offerDateBD,
+      offerPrice ? offerPrice : offerPriceBD,
+      category ? category : categoryBD
     );
-
+    console.log(offerDate)
     Swal.fire({
       position: "center",
       width: 500,
@@ -148,6 +162,9 @@ function AccorBody(props) {
   const handlePriceOffChange = (e) => {
     setOfferPrice(e.target.value);
   };
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
+  };
 
   const handleOfferDate = (e) => {
     console.log(e.target.value);
@@ -158,8 +175,6 @@ function AccorBody(props) {
     const formatedDate = `${day}-${month}-${year}`; // Formato DD/MM/YYYY
     setOfferDate(formatedDate);
   };
-
-
 
   return (
     <Accordion.Item key={name} eventKey={i}>
@@ -182,6 +197,23 @@ function AccorBody(props) {
               type="number"
               label="Precio"
             />
+
+            <Form.Group className="mb-3">
+              <Form.Label htmlFor="disabledSelect">
+                Selecciona a que categoria pertenece
+              </Form.Label>
+              <Form.Select
+                id="disabledSelect"
+                onChange={(e) => handleCategoryChange(e)}
+                value={category ? category : categoryBD}
+              >
+                <option>Estudiantil</option>
+                <option>Internacional</option>
+                <option>Nacional</option>
+                <option>Experiencias</option>
+              </Form.Select>
+            </Form.Group>
+
             <div>
               <Form.Check
                 label="Desea poner este producto en oferta?"
