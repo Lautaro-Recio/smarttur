@@ -3,7 +3,7 @@ body {
 }
 
 .titles {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Playfair Display", serif;
     font-optical-sizing: auto;
     font-weight: 800;
     font-style: normal;
@@ -12,7 +12,7 @@ body {
 }
 
 h1 {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Playfair Display", serif;
     font-optical-sizing: auto;
     font-weight: 800;
     font-style: normal;
@@ -22,13 +22,19 @@ h1 {
 }
 
 .par {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Playfair Display", serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
     font-size: 18px;
     padding-top: 5%;
 
+}
+
+p{
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    
 }
 
 .fontLarge {
@@ -40,7 +46,7 @@ h1 {
 }
 
 .subtitles {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Playfair Display", serif;
     font-optical-sizing: auto;
     font-weight: 800;
     font-style: normal;
@@ -56,7 +62,7 @@ h1 {
 }
 
 .blue {
-    color: #2f4867;
+    color: #12345d;
 }
 
 .white {
@@ -66,24 +72,7 @@ h1 {
 
 
 @media (max-width: 768px) {
-    .titles {
-        font-family: "Montserrat", sans-serif;
-        font-optical-sizing: auto;
-        font-weight: 800;
-        font-style: normal;
-        font-size: 21px;
-        text-transform: uppercase;
-    }
-
-    h1 {
-        font-family: "Montserrat", sans-serif;
-        font-optical-sizing: auto;
-        font-weight: 800;
-        font-style: normal;
-        font-size: 30px;
-        text-transform: uppercase;
-        padding-top: 5%;
-    }
+    
 
     .par {
         font-size: 13px;

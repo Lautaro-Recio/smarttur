@@ -46,7 +46,10 @@ function Contact() {
         </Form>
         <div className="center mt-5 contactDiv2">
           <img src={logo2} alt="" />
-          <p className="parraf white p-5">Lorem ipsum dolor sit amet consectetur, adipisicing elit debitis totam doloremque temporibus, quae sunt nihil et voluptas possimus officiis odio, natus expedita. Veritatis, aliquam.</p>
+          <p className="parraf white p-5">No dudes en visitarnos o contactarnos por
+          teléfono al [Número de Teléfono] o por correo electrónico a [Correo
+          Electrónico] para agendar una cita o para más información. ¡Esperamos
+          verte pronto!</p>
         </div>
       </div>
 

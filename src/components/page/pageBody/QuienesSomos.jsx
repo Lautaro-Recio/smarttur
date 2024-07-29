@@ -10,9 +10,15 @@ function QuienesSomos() {
         <img className="logo phone" src={logoAcostado} alt="" />
 
         <p className="par blue ">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum
-          delectus alias recusandae eveniet harum officia culpa repellat
-          mollitia minima illum sequi doloribus, ipsam architecto reiciendis,
+          En Smart Tur, hacemos de cada viaje una experiencia inolvidable. Con
+          una experiencia consolidada en el sector, te ofrecemos itinerarios
+          personalizados que combinan tus intereses y nuestro conocimiento
+          experto. Desde escapadas urbanas hasta aventuras en la naturaleza,
+          nuestro equipo se encarga de cada detalle para que disfrutes de un
+          viaje sin preocupaciones. Disfruta de destinos únicos, guías locales
+          apasionados y un servicio excepcional que se adapta a tus necesidades.
+          Con Smart Tur, cada aventura se convierte en un recuerdo valioso.
+          ¡Prepárate para explorar el mundo con nosotros!
         </p>
       </div>
       <div>
@@ -22,10 +28,14 @@ function QuienesSomos() {
           className="phone"
         />
         <p className="par blue">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum
-          delectus alias recusandae eveniet harum officia culpa repellat
-          mollitia minima illum sequi doloribus, ipsam architecto reiciendis,
-          distinctio numquam dolorem labore eius.
+          Nuestra sede principal está convenientemente ubicada en el corazón de
+          la ciudad. Puedes encontrarnos en: Dirección: Calle Ejemplo 123,
+          Oficina 456, Ciudad, País Estamos a solo unos minutos de las
+          principales estaciones de transporte público, lo que facilita el
+          acceso para todos nuestros clientes y socios. Si prefieres venir en
+          coche, disponemos de estacionamiento gratuito para nuestros
+          visitantes. Horario de Atención: Lunes a Viernes: 9:00 AM - 6:00 PM
+          Sábado: 10:00 AM - 2:00 PM 
         </p>
 
         <img

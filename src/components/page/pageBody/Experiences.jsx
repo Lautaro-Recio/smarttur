@@ -119,8 +119,8 @@ function Experiences() {
                     setGalery(exp.images);
                     setTitle(exp.name);
                     setParraf(exp.text);
-                    setOfferPrice(exp.priceOff)
-                    setPrice(exp.price)
+                    setOfferPrice(exp.priceOff);
+                    setPrice(exp.price);
                   }}
                   style={{ textDecoration: "none" }}
                 >
@@ -142,6 +142,7 @@ function Experiences() {
                         {exp.priceOff != 0 && (
                           <p className="titles">${formattedPriceOff}</p>
                         )}
+                       
                       </span>
                     </div>
                   </div>

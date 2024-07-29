@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Button, Carousel } from "react-bootstrap";
+import {Carousel } from "react-bootstrap";
 import { AppContext } from "../../../AppProvider";
 
 function Offers() {
@@ -15,7 +15,7 @@ function Offers() {
   return (
     <div className="containerWave" id="offers">
       <div className="pt-3">
-        <h2 className="titles white center mb-1 fontLarge">Ofertas</h2>
+        <h2 className="titles white center mb-2 mt-5 fontLarge">Ofertas</h2>
         <Carousel className="fixed">
           {elementos
             .filter(
@@ -46,7 +46,7 @@ function Offers() {
                         <p className="titles">{formatPrice(exp.priceOff)}</p>
                       )}
                     </span>
-                    <Button>Más Información</Button>
+                    <a className="" href="#experiences">Más Información</a>
                   </div>
                 </div>
               </Carousel.Item>
