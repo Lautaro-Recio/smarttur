@@ -253,8 +253,31 @@ body {
 .containerWave {
   position: relative;
   background: #2c3e50;
-  height: 100vh;
+  height: 110vh;
 }
+
+.containerWave .experience-card {
+  width: 75%;
+  margin: 1rem 12.5%;
+  height: 80vh;
+  border-radius: 5px;
+}
+
+.containerWave .experience-card p {
+  height: 65%;
+}
+
+.containerWave .experience-card img {
+  padding: 0px;
+}
+
+.containerWave .experience-card div {
+  left: 0rem;
+  top: 0rem;
+  background-color: #2c3e5062;
+  padding: 2rem;
+}
+
 
 .wave {
   position: absolute;
@@ -292,11 +315,7 @@ body {
   z-index: 999999;
 }
 
-.containerWave .carousel img {
-  width: auto;
-  margin: 0% 10%;
-  height: 25rem;
-}
+
 
 .containerWave .carousel-control-prev,
 .containerWave .carousel-control-next {
@@ -345,7 +364,7 @@ body {
   padding: 3%;
   background-color: #ffffff00;
   height: auto;
-  max-width: 20rem;
+  max-width: 22rem;
 }
 
 .containerWave .flex {
@@ -406,36 +425,62 @@ body {
 .experienceBody .container {
   position: relative;
   padding: 1%;
+  padding: 0px 10%;
 }
 
 .experience-card {
-  position: relative; /* Necesario para que los elementos hijos con position: absolute se posicionen relativamente a este contenedor */
+  position: relative;
+  /* Necesario para que los elementos hijos con position: absolute se posicionen relativamente a este contenedor */
   width: 100%;
-  height: 300px; /* Ajusta el tamaño según lo necesites */
-  overflow: hidden; /* Evita que la imagen se desborde del contenedor */
-  border-radius: 5%; /* Bordes redondeados, ajusta según lo necesites */
-  display: flex; /* Asegura que el contenido esté centrado */
+  height: 350px;
+  /* Ajusta el tamaño según lo necesites */
+  overflow: hidden;
+  /* Evita que la imagen se desborde del contenedor */
+  border-radius: 5%;
+  /* Bordes redondeados, ajusta según lo necesites */
+  display: flex;
+  /* Asegura que el contenido esté centrado */
   align-items: center;
   justify-content: center;
-  color: #fff; /* Color del texto, si es necesario */
+  color: #fff;
+  /* Color del texto, si es necesario */
   text-align: center;
-  text-decoration: none; /* Para quitar el subrayado del enlace si lo aplicas en CSS */
-  transition: border-radius 0.3s ease; /* Transición suave para los bordes si es necesario */
+  text-decoration: none;
+  /* Para quitar el subrayado del enlace si lo aplicas en CSS */
+  transition: border-radius 0.3s ease;
+  /* Transición suave para los bordes si es necesario */
 }
 
+.experience-card .flex {
+  justify-content: start;
+  gap: 10px;
+}
+
+.experience-card p {
+  padding: 0px;
+  margin-left: 5px;
+
+}
+
+
 .experience-card img {
-  position: absolute; /* Posiciona la imagen absolutamente dentro del contenedor */
+  position: absolute;
+  /* Posiciona la imagen absolutamente dentro del contenedor */
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Asegura que la imagen cubra todo el contenedor */
-  transition: transform 0.3s ease; /* Transición suave para el zoom */
+  object-fit: cover;
+  /* Asegura que la imagen cubra todo el contenedor */
+  transition: transform 0.3s ease;
+  /* Transición suave para el zoom */
   z-index: 0;
 
 }
+
 .experience-card div {
-  position: absolute; /* Posiciona la imagen absolutamente dentro del contenedor */
+  position: absolute;
+  /* Posiciona la imagen absolutamente dentro del contenedor */
   z-index: 10;
   bottom: 0;
   left: 0;
@@ -443,8 +488,13 @@ body {
 
 }
 
+.containerWave .experience-card p {
+  height: 50%;
+}
+
 .experience-card:hover img {
-  transform: scale(1.1); /* Aumenta el tamaño de la imagen en un 20% */
+  transform: scale(1.1);
+  /* Aumenta el tamaño de la imagen en un 20% */
 }
 
 .experienceBody .container img {
@@ -537,6 +587,11 @@ body {
     padding: 0% 2%;
   }
 
+  .experience-card img{
+   width: 100% !important;
+   height: 25rem !important;
+  }
+
   /* Estilos del contenido dentro del contenedor curvado */
   .curved .container {
     padding-top: 2%;
@@ -576,7 +631,10 @@ body {
     font-size: 15px;
   }
 
+  .formExperiences {
+    display: block;
 
+  }
 
   .home h2 {
     font-size: 30px;
@@ -613,9 +671,9 @@ body {
     top: 50px;
   }
 
-  .experienceBody {
-    grid-template-columns: repeat(1, 1fr);
 
+  .experienceBody {
+    grid-template-columns: 2fr;
   }
 
   .galery {

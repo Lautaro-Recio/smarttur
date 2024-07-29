@@ -4,12 +4,14 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { createElement } from "../../../Firebase";
 
-function ModalMain(props) {
+function ModalMain() {
+
   const [show, setShow] = useState(false);
   const [newName, setNewName] = useState("");
   const [price, setprice] = useState(0);
   const [text, setNewText] = useState("");
   const [archive, setArchive] = useState([]);
+  const [category, setCategory] = useState("");
 
   const handleClose = () => {
     setShow(false);
@@ -19,7 +21,6 @@ function ModalMain(props) {
     setArchive([]);
   };
   const handleShow = () => setShow(true);
-  const { whatIs } = { ...props };
 
   const handleNameChange = (e) => {
     setNewName(e.target.value);
@@ -39,20 +40,23 @@ function ModalMain(props) {
 
   const handleSaveChanges = () => {
     // Luego puedes cerrar el modal
-    createElement(newName, text, price, [], archive, false, "", 0);
+    createElement(newName, text, price, [], archive, false, "", 0, category);
 
     handleClose();
+  };
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
   };
 
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Sumar {whatIs}
+        Sumar Paquete
       </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title> Sumar {whatIs}</Modal.Title>
+          <Modal.Title> Sumar Paquete</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -60,7 +64,7 @@ function ModalMain(props) {
               <Form.Label>Nombre</Form.Label>
               <Form.Control
                 type="text"
-                placeholder={`${whatIs} ...`}
+                placeholder={`Paquete `}
                 autoFocus
                 value={newName}
                 onChange={handleNameChange}
@@ -91,6 +95,20 @@ function ModalMain(props) {
                 value={price}
                 onChange={handlePriceChange}
               />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label htmlFor="disabledSelect">
+                Selecciona a que categoria pertenece
+              </Form.Label>
+              <Form.Select
+                id="disabledSelect"
+                onChange={(e) => handleCategoryChange(e)}
+              >
+                <option>Estudiantil</option>
+                <option>Internacional</option>
+                <option>Nacional</option>
+                <option>Experiencia</option>
+              </Form.Select>
             </Form.Group>
             <Form.Group controlId="formFileMultiple" className="mb-3">
               <Form.Label>Imagenes para slider </Form.Label>

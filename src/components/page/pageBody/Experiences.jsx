@@ -4,63 +4,62 @@ import { AppContext } from "../../../AppProvider";
 import { Link } from "react-router-dom";
 
 function Experiences() {
-  const { elementos, setGalery, setTitle } = useContext(AppContext);
+  const { elementos, setGalery, setTitle, setParraf, setOfferPrice, setPrice } =
+    useContext(AppContext);
   const [category, setCategory] = useState([]);
-  const [min, setMin] = useState(9999999999);
-  const [max, setMax] = useState(0);
+  const [min, setMin] = useState(null);
+  const [max, setMax] = useState(null);
 
   useEffect(() => {
-    setCategory(elementos);
     if (elementos.length > 0) {
-      const prices = elementos.map((eles) => eles.price);
+      const prices = elementos
+        .map((eles) => parseFloat(eles.price.replace(/[^0-9.,]/g, "")))
+        .filter((price) => !isNaN(price)); // Filtra valores no numéricos
       const minPrice = Math.min(...prices);
       const maxPrice = Math.max(...prices);
 
-      // Actualiza el estado
       setMin(minPrice);
       setMax(maxPrice);
+      setCategory(elementos);
     } else {
-      // Si no hay elementos, puedes establecer precios por defecto o valores nulos
-      setMin(null); // O cualquier valor por defecto que consideres
-      setMax(null); // O cualquier valor por defecto que consideres
+      setCategory([]);
+      setMin(null);
+      setMax(null);
     }
   }, [elementos]);
 
   const handleCategoryChange = (e) => {
     const selectedCategory = e.target.value;
 
-    // Filtra los elementos por categoría seleccionada o muestra todos si es "sin filtrar"
     const experiences =
       selectedCategory === "Sin Filtrar"
         ? elementos
         : elementos.filter((eles) => eles.category === selectedCategory);
 
-    // Encuentra el precio mínimo y máximo solo si hay elementos
     if (experiences.length > 0) {
-      const prices = experiences.map((eles) => eles.price);
+      const prices = experiences
+        .map((eles) => parseFloat(eles.price.replace(/[^0-9.,]/g, "")))
+        .filter((price) => !isNaN(price));
       const minPrice = Math.min(...prices);
       const maxPrice = Math.max(...prices);
 
-      // Actualiza el estado
       setMin(minPrice);
       setMax(maxPrice);
     } else {
-      // Si no hay elementos, puedes establecer precios por defecto o valores nulos
-      setMin(null); // O cualquier valor por defecto que consideres
-      setMax(null); // O cualquier valor por defecto que consideres
+      setMin(null);
+      setMax(null);
     }
 
     setCategory(experiences);
   };
 
   const handlePriceChange = (e) => {
-    // Obtén el valor del input range
     const maxPrice = parseFloat(e.target.value);
 
-    // Filtra los elementos según el rango de precios
-    const experiences = elementos.filter((eles) => eles.price <= maxPrice);
+    const experiences = elementos.filter(
+      (eles) => parseFloat(eles.price.replace(/[^0-9.,]/g, "")) <= maxPrice
+    );
 
-    // Actualiza el estado
     setCategory(experiences);
   };
 
@@ -69,65 +68,90 @@ function Experiences() {
       <h2 className="fontLarge blue titles">Paquetes</h2>
       <Form.Group className="mb-3 formExperiences">
         <div>
-          <Form.Label htmlFor="disabledSelect">
-            Selecciona a que categoria pertenece
+          <Form.Label htmlFor="categorySelect">
+            Selecciona a qué categoría pertenece
           </Form.Label>
           <Form.Select
-            className=""
-            id="disabledSelect"
+            id="categorySelect"
             onChange={(e) => handleCategoryChange(e)}
           >
             <option>Sin Filtrar</option>
             <option>Estudiantil</option>
             <option>Internacional</option>
             <option>Nacional</option>
-            <option>Experiencias</option>
+            <option>Experiencia</option>
           </Form.Select>
         </div>
         <div>
           <Form.Label>Precio</Form.Label>
           <div className="flex">
-            <p className="blue">${min}</p>
+            <p className="blue">
+              {min !== null ? `$${min.toLocaleString("de-DE")}` : "N/A"}
+            </p>
             <Form.Range
-              min={min}
-              max={max}
+              min={min || 0}
+              max={max || 0}
               onChange={(e) => handlePriceChange(e)}
             />
-            <p className="blue">${max}</p>
+            <p className="blue">
+              {max !== null ? `$${max.toLocaleString("de-DE")}` : "N/A"}
+            </p>
           </div>
         </div>
       </Form.Group>
-      <div className="experienceBody ">
-        {category.map((exp, index) => (
-          <div className="container" key={exp.name + index}>
-            {exp.images && exp.images.length > 0 ? (
-              <Link
-                to={`experience/${exp.name}`}
-                onClick={() => {
-                  setGalery(exp.images);
-                  setTitle(exp.name);
-                }}
-                style={{ textDecoration: "none" }} // Para quitar el subrayado del enlace
-              >
-                <div className="experience-card">
-                  <img
-                    src={exp.images[0].url}
-                    alt={exp.images[0].nameOfImage}
-                  />
-                  <div>
-                    <p className="subtitles">{exp.name}</p>
-                    <span className="flex">
-                      <p>${exp.price}</p>
-                      <p>${exp.priceOff}</p>
-                    </span>
+      <div className="experienceBody">
+        {category.map((exp, index) => {
+          const price = parseFloat(exp.price.replace(/[^0-9.,]/g, ""));
+          const priceOff = exp.priceOff
+            ? parseFloat(exp.priceOff.replace(/[^0-9.,]/g, ""))
+            : null;
+          const formattedPrice = price ? price.toLocaleString("de-DE") : "N/A";
+          const formattedPriceOff = priceOff
+            ? priceOff.toLocaleString("de-DE")
+            : "N/A";
+
+          return (
+            <div key={exp.name + index}>
+              {exp.images && exp.images.length > 0 ? (
+                <Link
+                  to={`experience/${exp.name}`}
+                  onClick={() => {
+                    setGalery(exp.images);
+                    setTitle(exp.name);
+                    setParraf(exp.text);
+                    setOfferPrice(exp.priceOff)
+                    setPrice(exp.price)
+                  }}
+                  style={{ textDecoration: "none" }}
+                >
+                  <div className="experience-card">
+                    <img
+                      src={exp.images[0].url}
+                      alt={exp.images[0].nameOfImage}
+                    />
+                    <div>
+                      <p className="subtitles">
+                        {exp.category + " " + exp.name}
+                      </p>
+                      <span className="flex">
+                        <p
+                          className={`titles ${exp.priceOff != 0 && "tached"}`}
+                        >
+                          ${formattedPrice}
+                        </p>
+                        {exp.priceOff != 0 && (
+                          <p className="titles">${formattedPriceOff}</p>
+                        )}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ) : (
-              <p>No hay imágenes disponibles para esta experiencia.</p>
-            )}
-          </div>
-        ))}
+                </Link>
+              ) : (
+                <p>No hay imágenes disponibles para esta experiencia.</p>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

@@ -9,6 +9,9 @@ const AppProvider = ({ children }) => {
   const [elementos, setElementos] = useState([]);
   const [galery, setGalery] = useState([]);
   const [title, setTitle] = useState("");
+  const [parraf, setParraf] = useState("");
+  const [price, setPrice] = useState(0);
+  const [offerPrice, setOfferPrice] = useState(0);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -34,6 +37,12 @@ const AppProvider = ({ children }) => {
     galery,
     setTitle,
     title,
+    setParraf,
+    parraf,
+    setPrice,
+    price,
+    setOfferPrice,
+    offerPrice
   };
 
   return (

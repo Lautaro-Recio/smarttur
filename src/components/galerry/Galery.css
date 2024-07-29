@@ -3,6 +3,14 @@
     padding: 20px;
     /* Espacio entre las imágenes */
 }
+.galeryBody .containerWave{
+    height: 35vh;
+    z-index: -100;
+}
+.galeryBody .containerWave .center{
+    z-index: 100;
+    position: relative;
+}
 
 .galery img {
     width: 100%;

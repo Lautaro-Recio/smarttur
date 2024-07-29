@@ -29,7 +29,7 @@ function AccordionMain() {
           );
         })}
         <Accordion.Item className="flex">
-          <ModalMain whatIs={"Experiencia"} />
+          <ModalMain />
         </Accordion.Item>
       </Accordion>
     </div>

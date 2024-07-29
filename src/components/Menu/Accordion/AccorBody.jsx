@@ -56,16 +56,15 @@ function AccorBody(props) {
   };
 
   const handleVisibleChange = (e) => {
-    console.log(e.target.value)
+    console.log(e.target.value);
     if (e.target.value == "false") {
       setOffer(true);
-      
     } else {
       setOffer(false);
-      setOfferPrice(0)
-      setOfferDate("")
+      setOfferPrice(0);
+      setOfferDate("");
     }
-    console.log(offerDate)
+    console.log(offerDate);
   };
   const deleteImage = (name, imgsName) => {
     const newImages = [];
@@ -116,7 +115,7 @@ function AccorBody(props) {
       offerPrice ? offerPrice : offerPriceBD,
       category ? category : categoryBD
     );
-    console.log(offerDate)
+    console.log(offerDate);
     Swal.fire({
       position: "center",
       width: 500,
@@ -179,7 +178,7 @@ function AccorBody(props) {
   return (
     <Accordion.Item key={name} eventKey={i}>
       <Accordion.Header>
-        <h2 className="titles blue">{name}</h2>
+        <h2 className="titles blue">{categoryBD+" "+name}</h2>
       </Accordion.Header>
       <Accordion.Body>
         <div className="grid">
@@ -210,7 +209,7 @@ function AccorBody(props) {
                 <option>Estudiantil</option>
                 <option>Internacional</option>
                 <option>Nacional</option>
-                <option>Experiencias</option>
+                <option>Experiencia</option>
               </Form.Select>
             </Form.Group>
 
@@ -278,7 +277,7 @@ function AccorBody(props) {
         <div className="flexAround">
           <Button onClick={() => update()}>Actualizar Datos</Button>
           <Button variant="danger" onClick={() => deleteExperience(name)}>
-            Eliminar experiencia
+            Eliminar Paquete
           </Button>
         </div>
       </Accordion.Body>

@@ -26,7 +26,7 @@ function Nav() {
         <ul>
           <li className="subtitles"><a href="#Home">Home</a></li>
           <li className="subtitles"><a href="#offers">Ofertas</a></li>
-          <li className="subtitles"><a href="#experiences">Experiencias</a></li>
+          <li className="subtitles"><a href="#experiences">Paquetes</a></li>
           <li className="subtitles"><a href="#info">¿Quienes Somos?</a></li>
           <li className="subtitles"><a href="#contact">Contacto</a></li>
 

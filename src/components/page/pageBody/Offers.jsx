@@ -5,47 +5,52 @@ import { AppContext } from "../../../AppProvider";
 function Offers() {
   const { elementos } = useContext(AppContext);
 
+  const formatPrice = (price) => {
+    if (!price) return "N/A";
+    // Elimina caracteres no numéricos y convierte a número
+    const number = parseFloat(price.replace(/[^0-9.,]/g, ""));
+    return number ? `$${number.toLocaleString("de-DE")}` : "N/A";
+  };
+
   return (
     <div className="containerWave" id="offers">
       <div className="pt-3">
         <h2 className="titles white center mb-1 fontLarge">Ofertas</h2>
         <Carousel className="fixed">
-          {elementos.map(
-            (exp) =>
-              exp.offer &&
-              exp.images[0].url && ( // Verificar que exp.offer existe y exp.images[0].url está definido
-                <Carousel.Item
-                  className="center"
-                  key={exp.images[0].url}
-                  interval={10000}
-                >
-                  <div className="offersBody bg-whitee">
-                    <div>
-                      <h3 className="titles blue bg-lightWhite fontMid">
-                        {exp.name}
-                      </h3>
-                      <p className="blue bg-lightWhite parraf">{exp.text}</p>
-                      <img
-                        className="phone"
-                        src={exp.images[0].url}
-                        alt={exp.name}
-                      />{" "}
-                      <div className="titles blue flex bg-lightWhite">
-                        <p className="tached">${exp.price}</p>
-                        <p>${exp.priceOff}</p>
-                      </div>
-                      <Button>Mas Informacion</Button>
-                    </div>
-                    <img
-                      className="pc"
-                      src={exp.images[0].url}
-                      alt={exp.name}
-                    />{" "}
+          {elementos
+            .filter(
+              (exp) =>
+                exp.offer &&
+                exp.images &&
+                exp.images.length > 0 &&
+                exp.images[0].url
+            ) // Filtrar elementos con ofertas y URL de imagen válidos
+            .map((exp) => (
+              <Carousel.Item
+                className="center"
+                key={exp.images[0].url}
+                interval={10000}
+              >
+                <div className="experience-card">
+                  <img
+                    src={exp.images[0].url}
+                    alt={exp.images[0].nameOfImage || exp.name} // Uso de nombre como texto alternativo si no hay nombre de imagen
+                  />
+                  <div className="bg-lightWhite">
+                    <h2 className="titles">{exp.category + " " +  exp.name}</h2>
+                    <p className=" parraf">{exp.text}</p>
+
+                    <span className="flex">
+                      <p className="titles tached">{formatPrice(exp.price)}</p>
+                      {exp.priceOff && (
+                        <p className="titles">{formatPrice(exp.priceOff)}</p>
+                      )}
+                    </span>
+                    <Button>Más Información</Button>
                   </div>
-                  {/* Utilizar exp.name como texto alternativo */}
-                </Carousel.Item>
-              )
-          )}
+                </div>
+              </Carousel.Item>
+            ))}
         </Carousel>
       </div>
       <div className="wave"></div>

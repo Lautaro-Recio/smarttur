@@ -63,7 +63,6 @@ export const createElement = async (
     const docSnap = await getDoc(myRef);
 
     if (docSnap.exists()) {
-      // El documento ya existe, así que lo actualizamos en lugar de sobrescribirlo
       await updateDoc(myRef, {
         text,
         price,
@@ -74,7 +73,6 @@ export const createElement = async (
         category,
       });
     } else {
-      // El documento no existe, lo creamos
       await setDoc(myRef, {
         name,
         text,
