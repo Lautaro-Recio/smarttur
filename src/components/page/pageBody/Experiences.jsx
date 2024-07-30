@@ -142,7 +142,12 @@ function Experiences() {
                         {exp.priceOff != 0 && (
                           <p className="titles">${formattedPriceOff}</p>
                         )}
-                       
+                        <a href="https://wa.me/5493515184315" target="blank">
+                          <ion-icon
+                            size="large"
+                            name="logo-whatsapp"
+                          ></ion-icon>
+                        </a>
                       </span>
                     </div>
                   </div>

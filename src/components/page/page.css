@@ -167,18 +167,19 @@ body {
 }
 
 .nav ul li a {
-  text-decoration: none; 
+  text-decoration: none;
   color: #12345d;
-  font-size: 15px; 
-  padding-right: 10px; 
-  transition: all 0.3s ease; 
+  font-size: 15px;
+  padding-right: 10px;
+  transition: all 0.3s ease;
 }
 
 
 .nav ul li a:hover {
   color: #12345d;
-  font-size: 17px; 
+  font-size: 17px;
 }
+
 .nav ul {
   display: grid;
 }
@@ -261,6 +262,7 @@ body {
   background: #12345d;
   height: 110vh;
 }
+
 .containerWave .experience-card {
   width: 75%;
   margin: 1rem 12.5%;
@@ -373,7 +375,7 @@ body {
 }
 
 .containerWave .bg-lightWhite .parraf {
- height: 65%;
+  height: 65%;
 }
 
 .containerWave .flex {
@@ -451,11 +453,13 @@ body {
   text-decoration: none;
   transition: border-radius 0.3s ease;
 }
-.experience-card div{
- background-color: #47474774;
- width: 100%;
- padding-top: 5px;
+
+.experience-card div {
+  background-color: #47474774;
+  width: 100%;
+  padding-top: 5px;
 }
+
 .experience-card .flex {
   justify-content: start;
   gap: 10px;
@@ -463,29 +467,28 @@ body {
 
 .experience-card p {
   padding: 0px;
+  margin: 0px;
   margin-left: 5px;
-
 }
+
 .containerWave .experience-card a {
   background-color: #12345d;
-  text-decoration: none; 
+  text-decoration: none;
   color: #fff;
   padding: 10px;
   border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
 }
 
-.experience-card a {
-  background-color: #12345d;
-  width: 40px;
-  height: 50px;
 
-  text-decoration: none; 
-  color: #fff;
-  font-size: 30px;
-  padding: 5px;
-  border-radius: 5px;
-  z-index: 999999999;
+
+
+.experience-card a:hover {
+  background-color: #acacac;
+  color: #12345d;
 }
+
 .experience-card img {
   position: absolute;
   /* Posiciona la imagen absolutamente dentro del contenedor */
@@ -520,6 +523,32 @@ body {
   text-align: start;
 
 }
+
+.experienceBody .experience-card .flex {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.experienceBody .experience-card a {
+  background-color: #12345d;
+  text-decoration: none;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  z-index: 99999;
+}
+
+.experienceBody .experience-card a:hover {
+  background-color: #acacac;
+  color: #12345d;
+}
+
 .containerWave .experience-card p {
   height: 50%;
 }
@@ -620,9 +649,9 @@ body {
     padding: 0% 2%;
   }
 
-  .experience-card img{
-   width: 100% !important;
-   height: 25rem !important;
+  .experience-card img {
+    width: 100% !important;
+    height: 30rem !important;
   }
 
   /* Estilos del contenido dentro del contenedor curvado */
@@ -816,7 +845,7 @@ body {
 
   .containerWave {
     position: relative;
-    background: #2c3e50;
+    background: #12345d;
     height: 130vh;
   }
 

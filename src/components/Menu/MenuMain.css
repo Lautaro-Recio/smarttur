@@ -148,8 +148,8 @@
 
 @media (max-width: 768px) {
     .nav img{
-        width: 2rem !important;
-        height: 2rem !important;
+        width: 2.5rem !important;
+        height: 2.5rem !important;
 
     }
     .nav button{
