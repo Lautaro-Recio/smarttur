@@ -7,7 +7,7 @@ body {
 
 /* Estilo de pantalla */
 .screen {
-  height: 100rem;
+  height: 100vh;
   width: 100%;
   background-color: #12345d;
 }
@@ -454,11 +454,6 @@ body {
   transition: border-radius 0.3s ease;
 }
 
-.experience-card div {
-  background-color: #47474774;
-  width: 100%;
-  padding-top: 5px;
-}
 
 .experience-card .flex {
   justify-content: start;
@@ -504,24 +499,17 @@ body {
 
 }
 
-.experience-card div {
-  position: absolute;
-  /* Posiciona la imagen absolutamente dentro del contenedor */
-  z-index: 10;
-  bottom: 0;
-  left: 0;
-  text-align: start;
-
-}
 
 .experience-card div {
   position: absolute;
   /* Posiciona la imagen absolutamente dentro del contenedor */
-  z-index: 10;
+  z-index: 999999;
   bottom: 0;
   left: 0;
   text-align: start;
-
+  background-color: #47474774;
+  width: 100%;
+  padding-top: 5px;
 }
 
 .experienceBody .experience-card .flex {
@@ -678,24 +666,29 @@ body {
   }
 
   .curved .container img {
-    height: 10rem;
+    height: 8rem;
     padding: 0px;
   }
 
   .flexPhone {
     display: grid !important;
     grid-template-columns: 1fr 3fr;
-    height: 25rem !important;
-    align-items: center;
+    height: 15rem !important;
+    align-items: end;
   }
 
   .curved .container button {
     font-size: 15px;
+    margin: 15% 0%;
   }
 
   .formExperiences {
     display: block;
 
+  }
+
+  .formExperiences .form-select {
+    width: 100%;
   }
 
   .home h2 {

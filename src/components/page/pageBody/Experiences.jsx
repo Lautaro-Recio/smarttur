@@ -110,25 +110,35 @@ function Experiences() {
             ? priceOff.toLocaleString("de-DE")
             : "N/A";
 
+          // Crear el enlace de WhatsApp dinámicamente
+          const message = `Hola! Queria obtener mas informacion sobre el paquete ${
+            exp.category + " " + exp.name
+          }`;
+          const encodedMessage = encodeURIComponent(message);
+          const whatsappLink = `https://wa.me/5493515184315?text=${encodedMessage}`;
+
           return (
             <div key={exp.name + index}>
               {exp.images && exp.images.length > 0 ? (
-                <Link
-                  to={`experience/${exp.name}`}
-                  onClick={() => {
-                    setGalery(exp.images);
-                    setTitle(exp.name);
-                    setParraf(exp.text);
-                    setOfferPrice(exp.priceOff);
-                    setPrice(exp.price);
-                  }}
-                  style={{ textDecoration: "none" }}
-                >
+                <>
                   <div className="experience-card">
-                    <img
-                      src={exp.images[0].url}
-                      alt={exp.images[0].nameOfImage}
-                    />
+                    <Link
+                      to={`experience/${exp.name}`}
+                      onClick={() => {
+                        setGalery(exp.images);
+                        setTitle(exp.name);
+                        setParraf(exp.text);
+                        setOfferPrice(exp.priceOff);
+                        setPrice(exp.price);
+                      }}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <img
+                        src={exp.images[0].url}
+                        alt={exp.images[0].nameOfImage}
+                      />
+                    </Link>
+
                     <div>
                       <p className="subtitles">
                         {exp.category + " " + exp.name}
@@ -142,7 +152,12 @@ function Experiences() {
                         {exp.priceOff != 0 && (
                           <p className="titles">${formattedPriceOff}</p>
                         )}
-                        <a href="https://wa.me/5493515184315" target="blank">
+                        <a
+                          type="button"
+                          href={whatsappLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <ion-icon
                             size="large"
                             name="logo-whatsapp"
@@ -151,7 +166,7 @@ function Experiences() {
                       </span>
                     </div>
                   </div>
-                </Link>
+                </>
               ) : (
                 <p>No hay imágenes disponibles para esta experiencia.</p>
               )}

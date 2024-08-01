@@ -50,15 +50,7 @@ function SignIn() {
               nobis odio fuga placeat tempore voluptate, mollitia laborum
               distinctio?
               <br />
-              adipisicing elit. Architecto ipsam aliquam et nulla odio
-              blanditiis. Nulla similique blanditiis veniam sint doloremque
-              nobis odio fuga placeat tempore voluptate, mollitia laborum
-              distinctio?
-              <br />
-              adipisicing elit. Architecto ipsam aliquam et nulla odio
-              blanditiis. Nulla similique blanditiis veniam sint doloremque
-              nobis odio fuga placeat tempore voluptate, mollitia laborum
-              distinctio?
+             
             </p>
           </div>
           <div className="bg-lightWhite flexPhone">
