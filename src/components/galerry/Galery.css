@@ -1,11 +1,32 @@
 .galery {
-    columns: 3;
+    columns: 4;
     padding: 20px;
     /* Espacio entre las imágenes */
 }
 
+.galeryBody {
+    z-index: -100;
+    position: absolute;
+}
+
+.galeryBody h1 {
+    padding-top: 10px;
+}
+
+.galeryBody p {
+    padding-inline: 40px;
+    font-size: 18px;
+    padding-top: 10px;
+
+}
+
+.galeryBody .flex p {
+    font-size: 40px;
+
+}
+
 .galeryBody .containerWave {
-    height: 35vh;
+    height: 80vh;
     z-index: -100;
 }
 
@@ -93,6 +114,10 @@
         padding: 0.5rem;
     }
 
+    .galeryBody h1 {
+        font-size: 27px;
+    }
+
     .GaleryCarrouselImg {
         width: auto;
         height: 50vh !important;
@@ -100,7 +125,7 @@
 
 
     .galeryBody .containerWave {
-        height: 50vh;
+        height: 80vh;
         z-index: -100;
     }
 
@@ -118,6 +143,16 @@
         background-color: #12345d;
         left: -8%;
         top: 11%;
+    }
+
+    .galeryBody p {
+        padding-inline: 10px;
+        font-size: 16px;
+
+    }
+
+    .galeryBody .titles {
+        font-size: 30px !important;
     }
 
 }

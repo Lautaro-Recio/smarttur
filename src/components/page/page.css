@@ -780,6 +780,11 @@ body {
     margin-top: 1rem;
   }
 
+  .quienesSomos {
+
+    padding-top: 3rem;
+  }
+
   .quienesSomos div {
     display: block;
     padding: 0.5rem 0rem;
@@ -864,7 +869,7 @@ body {
 
   .nav h1 {
     padding-top: 10px;
-    font-size: 21px;
+    font-size: 25px;
   }
 
   .subtitles {
@@ -875,6 +880,12 @@ body {
   .titles {
     font-size: 25px !important;
   }
+
+  .home .content {
+    margin-top: 15%;
+  }
+
+
 
 
 

@@ -12,6 +12,7 @@ const AppProvider = ({ children }) => {
   const [parraf, setParraf] = useState("");
   const [price, setPrice] = useState(0);
   const [offerPrice, setOfferPrice] = useState(0);
+  const [categoryBd, setCategoryBD] = useState("");
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -42,7 +43,9 @@ const AppProvider = ({ children }) => {
     setPrice,
     price,
     setOfferPrice,
-    offerPrice
+    offerPrice,
+    setCategoryBD,
+    categoryBd
   };
 
   return (

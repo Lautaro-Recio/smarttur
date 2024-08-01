@@ -9,7 +9,7 @@ function QuienesSomos() {
         <img className="logo pc" src={logo} alt="" />
         <img className="logo phone" src={logoAcostado} alt="" />
 
-        <p className="par blue ">
+        <p className=" blue ">
           En Smart Tur, hacemos de cada viaje una experiencia inolvidable. Con
           una experiencia consolidada en el sector, te ofrecemos itinerarios
           personalizados que combinan tus intereses y nuestro conocimiento
@@ -27,7 +27,7 @@ function QuienesSomos() {
           alt=""
           className="phone"
         />
-        <p className="par blue">
+        <p className=" blue">
           Nuestra sede principal está convenientemente ubicada en el corazón de
           la ciudad. Puedes encontrarnos en: Dirección: Calle Ejemplo 123,
           Oficina 456, Ciudad, País Estamos a solo unos minutos de las

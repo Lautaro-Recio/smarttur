@@ -4,7 +4,7 @@ import { AppContext } from "../../../AppProvider";
 import { Link } from "react-router-dom";
 
 function Experiences() {
-  const { elementos, setGalery, setTitle, setParraf, setOfferPrice, setPrice } =
+  const { elementos, setGalery, setTitle, setParraf, setOfferPrice, setPrice,setCategoryBD } =
     useContext(AppContext);
   const [category, setCategory] = useState([]);
   const [min, setMin] = useState(null);
@@ -130,6 +130,7 @@ function Experiences() {
                         setParraf(exp.text);
                         setOfferPrice(exp.priceOff);
                         setPrice(exp.price);
+                        setCategoryBD(exp.category)
                       }}
                       style={{ textDecoration: "none" }}
                     >
