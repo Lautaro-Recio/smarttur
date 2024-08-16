@@ -10,7 +10,7 @@ function Formgroup(props) {
         as={as}
         type={type}
         value={value} // Pasa el valor al componente
-        placeholder={label} // Usa label para el placeholder
+        placeholder={name} // Usa label para el placeholder
         onChange={func} // Maneja el cambio
         maxLength={type === "textarea" ? "120" : undefined} // Max length solo para textarea
       />

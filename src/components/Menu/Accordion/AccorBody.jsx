@@ -187,12 +187,12 @@ function AccorBody(props) {
               name={text}
               func={handleTextChange}
               type="textarea"
+              as="textarea"
               label="Texto presentacion"
             />
             <Formgroup
               name={price}
               func={handlePriceChange}
-              as="textarea"
               type="number"
               label="Precio"
             />
@@ -206,10 +206,10 @@ function AccorBody(props) {
                 onChange={(e) => handleCategoryChange(e)}
                 value={category ? category : categoryBD}
               >
-                <option>Estudiantil</option>
+                <option>Educativo</option>
                 <option>Internacional</option>
                 <option>Nacional</option>
-                <option>Experiencia</option>
+                <option>Escapada</option>
               </Form.Select>
             </Form.Group>
 

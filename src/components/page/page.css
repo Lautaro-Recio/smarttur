@@ -109,9 +109,11 @@ body {
 }
 
 .flexPhone img {
-  height: 7rem !important;
+  height: 15rem !important;
   padding: 5%;
-  margin-inline: 0%;
+  margin-inline: 25%;
+  margin-bottom: 10%;
+  margin-top: 10%;
 }
 
 .nav h1 {
@@ -741,6 +743,10 @@ body {
 
   }
 
+  .flexPhone img {
+    height: 7rem !important;
+    margin-inline: 0%;
+  }
   .curved .container button {
     font-size: 15px;
   }
