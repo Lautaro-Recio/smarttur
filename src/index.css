@@ -1,7 +1,9 @@
 body {
     overflow-x: hidden;
 }
-
+#root{
+    overflow-x: hidden;
+}
 .flotantButton {
     position: fixed;
     bottom: 15px;
@@ -58,7 +60,7 @@ h1 {
 
 }
 
-p {
+p,label {
     font-family: "Playfair Display", serif;
     font-optical-sizing: auto;
 

@@ -1,12 +1,73 @@
+/* Estilo general para la galería */
 .galery {
-    columns: 4;
-    padding: 20px;
-    /* Espacio entre las imágenes */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px; /* Espacio entre las imágenes */
+    padding: 1rem;
+}
+.galery img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave para la escala y la sombra */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra predeterminada */
 }
 
+/* Efecto de escala y sombra al hacer hover sobre la imagen */
+.galery a:hover img {
+    transform: scale(1.05); /* Escala de la imagen */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Sombra más pronunciada */
+}
+
+/* Estilo base para el enlace dentro de la galería */
+.galery a {
+    position: relative;
+    display: block;
+    overflow: hidden; /* Asegura que el span no sobresalga de la imagen */
+    border-radius: 25px;
+}
+
+/* Estilo para el span con el botón */
+.galery span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1001;
+    display: grid;
+    place-items: center;
+    opacity: 0; /* Inicialmente oculto */
+    background-color: rgba(71, 71, 71, 0.667); /* Fondo negro claro */
+    transition: opacity 0.3s ease; /* Transición suave para la opacidad */
+}
+.galery span p{
+    color: #fff;
+    font-size: 21px;
+    font-weight: 800;
+}
+
+/* Efecto de desvanecimiento al hacer hover sobre el enlace */
+.galery a:hover span {
+    opacity: 1; /* Hacer visible el span */
+    animation: fadeIn 0.6s ease-out; /* Aplicar animación fadeIn */
+}
+
+/* Animación de fadeIn */
+@keyframes fadeIn {
+    0% {
+        opacity: 0; /* Comienza completamente transparente */
+    }
+    100% {
+        opacity: 1; /* Termina completamente opaco */
+    }
+}
+
+/* Estilo específico para elementos dentro de galeryBody */
 .galeryBody {
     z-index: -100;
     position: absolute;
+    width: 100%;
 }
 
 .galeryBody h1 {
@@ -17,12 +78,10 @@
     padding-inline: 40px;
     font-size: 18px;
     padding-top: 10px;
-
 }
 
 .galeryBody .flex p {
     font-size: 40px;
-
 }
 
 .galeryBody .containerWave {
@@ -38,23 +97,6 @@
 .galeryBody .containerWave .center img {
     z-index: 1000;
     position: relative;
-
-}
-
-.galery img {
-    width: 100%;
-    height: auto;
-    padding: 1.5rem;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.galery img:hover {
-    transform: scale(1.05);
-}
-
-.containerWave .galery {
-    position: absolute;
 }
 
 .galeryBody .wave::before {
@@ -73,26 +115,15 @@
     top: 11%;
 }
 
-
-/* GaleryCarrousel */
-
+/* Estilo para el carrusel */
 .galeryCarrousel .carousel {
-    margin-top: 09vh;
+    margin-top: 9vh;
     height: 90vh !important;
 }
 
 .galeryCarrousel .carousel-item img {
     height: 90vh;
     width: auto;
-}
-
-.galeryCarrousel p {
-    font-size: 1.5rem;
-    position: absolute;
-    top: -500px;
-    background-color: rgba(167, 161, 161, 0.537);
-    padding: 5px;
-    border-radius: 5px;
 }
 
 .galeryCarrousel p {
@@ -109,10 +140,12 @@
     right: 25px !important;
 }
 
+/* Adaptaciones para pantallas pequeñas */
 @media (max-width: 768px) {
-    .galery img {
-        padding: 0.5rem;
+    .galery {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Ajustar la cantidad de columnas */
     }
+
 
     .galeryBody h1 {
         font-size: 27px;
@@ -122,7 +155,6 @@
         width: auto;
         height: 50vh !important;
     }
-
 
     .galeryBody .containerWave {
         height: 80vh;
@@ -148,11 +180,9 @@
     .galeryBody p {
         padding-inline: 10px;
         font-size: 16px;
-
     }
 
     .galeryBody .titles {
         font-size: 30px !important;
     }
-
 }

@@ -5,10 +5,9 @@ import Modal from "react-bootstrap/Modal";
 import { createElement } from "../../../Firebase";
 
 function ModalMain() {
-
   const [show, setShow] = useState(false);
   const [newName, setNewName] = useState("");
-  const [price, setprice] = useState(0);
+  const [price, setPrice] = useState(0);
   const [text, setNewText] = useState("");
   const [archive, setArchive] = useState([]);
   const [category, setCategory] = useState("");
@@ -16,36 +15,27 @@ function ModalMain() {
   const handleClose = () => {
     setShow(false);
     setNewText("");
-    setprice(0);
+    setPrice(0);
     setNewName("");
     setArchive([]);
+    setCategory("");
   };
+
   const handleShow = () => setShow(true);
 
-  const handleNameChange = (e) => {
-    setNewName(e.target.value);
-  };
-
-  const handlePriceChange = (e) => {
-    setprice(e.target.value);
-  };
-
-  const handleTextChange = (e) => {
-    setNewText(e.target.value);
-  };
-
-  const handleFileChange = (e) => {
-    setArchive([...e.target.files]);
-  };
+  const handleNameChange = (e) => setNewName(e.target.value);
+  const handlePriceChange = (e) => setPrice(e.target.value);
+  const handleTextChange = (e) => setNewText(e.target.value);
+  const handleFileChange = (e) => setArchive([...e.target.files]);
+  const handleCategoryChange = (e) => setCategory(e.target.value);
 
   const handleSaveChanges = () => {
-    // Luego puedes cerrar el modal
     createElement(newName, text, price, [], archive, false, "", 0, category);
-
     handleClose();
   };
-  const handleCategoryChange = (e) => {
-    setCategory(e.target.value);
+
+  const isFormValid = () => {
+    return newName && text && price && archive.length > 0 && category;
   };
 
   return (
@@ -56,7 +46,7 @@ function ModalMain() {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title> Sumar Paquete</Modal.Title>
+          <Modal.Title>Sumar Paquete</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -64,7 +54,7 @@ function ModalMain() {
               <Form.Label>Nombre</Form.Label>
               <Form.Control
                 type="text"
-                placeholder={`Paquete `}
+                placeholder="Paquete"
                 autoFocus
                 value={newName}
                 onChange={handleNameChange}
@@ -78,7 +68,7 @@ function ModalMain() {
               <Form.Control
                 as="textarea"
                 rows={3}
-                placeholder={`Este destino se caracteriza por...`}
+                placeholder="Este destino se caracteriza por..."
                 value={text}
                 onChange={handleTextChange}
               />
@@ -91,27 +81,29 @@ function ModalMain() {
               <Form.Control
                 type="number"
                 rows={3}
-                placeholder={`$ 50000 (no hace falta poner el signo)`}
+                placeholder="50000 (no hace falta poner el signo)"
                 value={price}
                 onChange={handlePriceChange}
               />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label htmlFor="disabledSelect">
-                Selecciona a que categoria pertenece
+                Selecciona a qué categoría pertenece
               </Form.Label>
               <Form.Select
                 id="disabledSelect"
-                onChange={(e) => handleCategoryChange(e)}
+                value={category}
+                onChange={handleCategoryChange}
               >
-                <option>Estudiantil</option>
-                <option>Internacional</option>
-                <option>Nacional</option>
-                <option>Experiencia</option>
+                <option value="">Selecciona una opción</option>
+                <option value="Educativo">Educativo</option>
+                <option value="Internacional">Internacional</option>
+                <option value="Nacional">Nacional</option>
+                <option value="Escapada">Escapada</option>
               </Form.Select>
             </Form.Group>
             <Form.Group controlId="formFileMultiple" className="mb-3">
-              <Form.Label>Imagenes para slider </Form.Label>
+              <Form.Label>Imágenes para slider</Form.Label>
               <Form.Control
                 type="file"
                 accept="image/*"
@@ -125,7 +117,11 @@ function ModalMain() {
           <Button variant="secondary" onClick={handleClose}>
             Cerrar
           </Button>
-          <Button variant="primary" onClick={handleSaveChanges}>
+          <Button
+            variant="primary"
+            onClick={handleSaveChanges}
+            disabled={!isFormValid()}
+          >
             Guardar Cambios
           </Button>
         </Modal.Footer>

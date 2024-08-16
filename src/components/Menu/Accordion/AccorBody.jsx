@@ -171,14 +171,14 @@ function AccorBody(props) {
     const day = (date.getDate() + 1).toString().padStart(2, "0");
     const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Los meses en JavaScript son indexados desde 0, por eso se suma 1
     const year = date.getFullYear();
-    const formatedDate = `${day}-${month}-${year}`; // Formato DD/MM/YYYY
+    const formatedDate = `${year}-${month}-${day}`; // Formato DD/MM/YYYY
     setOfferDate(formatedDate);
   };
 
   return (
     <Accordion.Item key={name} eventKey={i}>
       <Accordion.Header>
-        <h2 className="titles blue">{categoryBD+" "+name}</h2>
+        <h2 className="titles blue">{categoryBD + " " + name}</h2>
       </Accordion.Header>
       <Accordion.Body>
         <div className="grid">

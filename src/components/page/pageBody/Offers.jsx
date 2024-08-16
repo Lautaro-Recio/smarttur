@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import {Carousel } from "react-bootstrap";
+import { Carousel } from "react-bootstrap";
 import { AppContext } from "../../../AppProvider";
 
 function Offers() {
@@ -12,6 +12,11 @@ function Offers() {
     return number ? `$${number.toLocaleString("de-DE")}` : "N/A";
   };
 
+  const today = new Date();
+  const day = today.getDate();
+  const month = today.getMonth() + 1; // Los meses empiezan en 0
+  const year = today.getFullYear();
+  const formatedDate = `${year}-0${month}-${day}`;
   return (
     <div className="containerWave" id="offers">
       <div className="pt-3">
@@ -23,7 +28,8 @@ function Offers() {
                 exp.offer &&
                 exp.images &&
                 exp.images.length > 0 &&
-                exp.images[0].url
+                exp.images[0].url &&
+                formatedDate <= exp.offerDate
             ) // Filtrar elementos con ofertas y URL de imagen válidos
             .map((exp) => (
               <Carousel.Item
@@ -37,7 +43,7 @@ function Offers() {
                     alt={exp.images[0].nameOfImage || exp.name} // Uso de nombre como texto alternativo si no hay nombre de imagen
                   />
                   <div className="bg-lightWhite">
-                    <h2 className="titles">{exp.category + " " +  exp.name}</h2>
+                    <h2 className="titles">{exp.category + " " + exp.name}</h2>
                     <p className=" parraf">{exp.text}</p>
 
                     <span className="flex">
@@ -46,7 +52,8 @@ function Offers() {
                         <p className="titles">{formatPrice(exp.priceOff)}</p>
                       )}
                     </span>
-                    <a className="" href="#experiences">Más Información</a>
+                    <a href="#experiences">Más Información</a>
+                    <p className="mt-3">Oferta valida hasta {exp.offerDate} </p>
                   </div>
                 </div>
               </Carousel.Item>

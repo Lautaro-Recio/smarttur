@@ -1,20 +1,31 @@
 import { useContext, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
-import { AppContext } from "../../../AppProvider";
 import { Link } from "react-router-dom";
+import { AppContext } from "../../../AppProvider";
 
 function Experiences() {
-  const { elementos, setGalery, setTitle, setParraf, setOfferPrice, setPrice,setCategoryBD } =
-    useContext(AppContext);
+  const {
+    elementos,
+    setGalery,
+    setTitle,
+    setParraf,
+    setOfferPrice,
+    setPrice,
+    setCategoryBD,
+  } = useContext(AppContext);
+  
   const [category, setCategory] = useState([]);
   const [min, setMin] = useState(null);
   const [max, setMax] = useState(null);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [filterPrice, setFilterPrice] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(6); // Número de paquetes visibles inicialmente
 
   useEffect(() => {
     if (elementos.length > 0) {
       const prices = elementos
         .map((eles) => parseFloat(eles.price.replace(/[^0-9.,]/g, "")))
-        .filter((price) => !isNaN(price)); // Filtra valores no numéricos
+        .filter((price) => !isNaN(price));
       const minPrice = Math.min(...prices);
       const maxPrice = Math.max(...prices);
 
@@ -29,12 +40,21 @@ function Experiences() {
   }, [elementos]);
 
   const handleCategoryChange = (e) => {
-    const selectedCategory = e.target.value;
+    const { value, checked } = e.target;
+    setSelectedCategories((prevCategories) =>
+      checked
+        ? [...prevCategories, value]
+        : prevCategories.filter((category) => category !== value)
+    );
+  };
 
+  useEffect(() => {
     const experiences =
-      selectedCategory === "Sin Filtrar"
+      selectedCategories.length === 0
         ? elementos
-        : elementos.filter((eles) => eles.category === selectedCategory);
+        : elementos.filter((eles) =>
+            selectedCategories.includes(eles.category)
+          );
 
     if (experiences.length > 0) {
       const prices = experiences
@@ -51,7 +71,7 @@ function Experiences() {
     }
 
     setCategory(experiences);
-  };
+  }, [selectedCategories, elementos]);
 
   const handlePriceChange = (e) => {
     const maxPrice = parseFloat(e.target.value);
@@ -59,31 +79,42 @@ function Experiences() {
     const experiences = elementos.filter(
       (eles) => parseFloat(eles.price.replace(/[^0-9.,]/g, "")) <= maxPrice
     );
-
+    setFilterPrice(maxPrice);
     setCategory(experiences);
   };
+
+  // Mostrar más paquetes
+  const showMore = () => {
+    setVisibleCount(visibleCount + 6);
+  };
+
+  // Paquetes visibles
+  const displayedItems = category.slice(0, visibleCount);
 
   return (
     <div className="experience center" id="experiences">
       <h2 className="fontLarge blue titles">Paquetes</h2>
       <Form.Group className="mb-3 formExperiences">
         <div>
-          <Form.Label htmlFor="categorySelect">
-            Selecciona a qué categoría pertenece
-          </Form.Label>
-          <Form.Select
-            id="categorySelect"
-            onChange={(e) => handleCategoryChange(e)}
-          >
-            <option>Sin Filtrar</option>
-            <option>Estudiantil</option>
-            <option>Internacional</option>
-            <option>Nacional</option>
-            <option>Experiencia</option>
-          </Form.Select>
+          <p className="blue">Categorías</p>
+          <div className="categorys">
+            {["Educativo", "Internacional", "Nacional", "Escapada"].map(
+              (cat) => (
+                <div key={cat}>
+                  <Form.Check
+                    type="checkbox"
+                    id={`category-${cat}`}
+                    label={cat}
+                    value={cat}
+                    onChange={handleCategoryChange}
+                  />
+                </div>
+              )
+            )}
+          </div>
         </div>
         <div>
-          <Form.Label>Precio</Form.Label>
+          <p className="blue">Precio</p>
           <div className="flex">
             <p className="blue">
               {min !== null ? `$${min.toLocaleString("de-DE")}` : "N/A"}
@@ -97,10 +128,11 @@ function Experiences() {
               {max !== null ? `$${max.toLocaleString("de-DE")}` : "N/A"}
             </p>
           </div>
+          <p className="blue">$ {filterPrice.toLocaleString("de-DE")}</p>
         </div>
       </Form.Group>
       <div className="experienceBody">
-        {category.map((exp, index) => {
+        {displayedItems.map((exp, index) => {
           const price = parseFloat(exp.price.replace(/[^0-9.,]/g, ""));
           const priceOff = exp.priceOff
             ? parseFloat(exp.priceOff.replace(/[^0-9.,]/g, ""))
@@ -110,7 +142,6 @@ function Experiences() {
             ? priceOff.toLocaleString("de-DE")
             : "N/A";
 
-          // Crear el enlace de WhatsApp dinámicamente
           const message = `Hola! Queria obtener mas informacion sobre el paquete ${
             exp.category + " " + exp.name
           }`;
@@ -122,24 +153,27 @@ function Experiences() {
               {exp.images && exp.images.length > 0 ? (
                 <>
                   <div className="experience-card">
-                    <Link
-                      to={`experience/${exp.name}`}
-                      onClick={() => {
-                        setGalery(exp.images);
-                        setTitle(exp.name);
-                        setParraf(exp.text);
-                        setOfferPrice(exp.priceOff);
-                        setPrice(exp.price);
-                        setCategoryBD(exp.category)
-                      }}
-                      style={{ textDecoration: "none" }}
-                    >
-                      <img
-                        src={exp.images[0].url}
-                        alt={exp.images[0].nameOfImage}
-                      />
-                    </Link>
+                    <span className="info">
+                      <Link
+                        to={`experience/${exp.name}`}
+                        onClick={() => {
+                          setGalery(exp.images);
+                          setTitle(exp.name);
+                          setParraf(exp.text);
+                          setOfferPrice(exp.priceOff);
+                          setPrice(exp.price);
+                          setCategoryBD(exp.category);
+                        }}
+                        style={{ textDecoration: "none" }}
+                      >
+                        Ver más
+                      </Link>
+                    </span>
 
+                    <img
+                      src={exp.images[0].url}
+                      alt={exp.images[0].nameOfImage}
+                    />
                     <div>
                       <p className="subtitles">
                         {exp.category + " " + exp.name}
@@ -175,6 +209,11 @@ function Experiences() {
           );
         })}
       </div>
+      {category.length > visibleCount && (
+        <button onClick={showMore} className="btn btn-primary mt-3">
+          Ver mas + {category.length-visibleCount }
+        </button>
+      )}
     </div>
   );
 }

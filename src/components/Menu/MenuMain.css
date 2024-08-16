@@ -124,8 +124,9 @@
 }
 
 .enterMenu img {
-    width: 55% ;
+    width: 20rem ;
     height: 60% ;
+    margin-bottom: 10px;
 }
 
 .fadeOutTop {
