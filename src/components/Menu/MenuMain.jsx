@@ -44,7 +44,7 @@ function MenuMain() {
         <div>
           <div className="nav menu">
             <img src={logo2} alt="logo" />
-            <h2 className="titles blue">Smart Tur</h2>
+            <h2 className="titles blue">GRUPTUR</h2>
             <Button
               variant="primary"
               onClick={() => (window.location.href = "/page")}

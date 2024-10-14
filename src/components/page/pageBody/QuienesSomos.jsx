@@ -1,5 +1,4 @@
-import logo from "../../../assets/logo.png";
-import logoAcostado from "../../../assets/logoAcostado.png";
+import logo from "../../../assets/logo2.png";
 
 function QuienesSomos() {
   return (
@@ -7,17 +6,17 @@ function QuienesSomos() {
       <h2 className="fontLarge blue titles center mt-5">¿Quienes somos?</h2>
       <div>
         <img className="logo pc" src={logo} alt="" />
-        <img className="logo phone" src={logoAcostado} alt="" />
+        <img className="logo phone" src={logo} alt="" />
 
         <p className=" blue ">
-          En Smart Tur, hacemos de cada viaje una experiencia inolvidable. Con
+          En Gruptur, hacemos de cada viaje una experiencia inolvidable. Con
           una experiencia consolidada en el sector, te ofrecemos itinerarios
           personalizados que combinan tus intereses y nuestro conocimiento
           experto. Desde escapadas urbanas hasta aventuras en la naturaleza,
           nuestro equipo se encarga de cada detalle para que disfrutes de un
           viaje sin preocupaciones. Disfruta de destinos únicos, guías locales
           apasionados y un servicio excepcional que se adapta a tus necesidades.
-          Con Smart Tur, cada aventura se convierte en un recuerdo valioso.
+          Con Gruptur, cada aventura se convierte en un recuerdo valioso.
           ¡Prepárate para explorar el mundo con nosotros!
         </p>
       </div>

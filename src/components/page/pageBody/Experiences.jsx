@@ -2,6 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { AppContext } from "../../../AppProvider";
+import airplane from "../../../assets/airplane.png";
+import argentinaMap from "../../../assets/argentina-map.png";
+import backpack from "../../../assets/backpack.png";
+import lightning from "../../../assets/lightning.png";
 
 function Experiences() {
   const {
@@ -13,7 +17,7 @@ function Experiences() {
     setPrice,
     setCategoryBD,
   } = useContext(AppContext);
-  
+
   const [category, setCategory] = useState([]);
   const [min, setMin] = useState(null);
   const [max, setMax] = useState(null);
@@ -39,13 +43,13 @@ function Experiences() {
     }
   }, [elementos]);
 
-  const handleCategoryChange = (e) => {
-    const { value, checked } = e.target;
-    setSelectedCategories((prevCategories) =>
-      checked
-        ? [...prevCategories, value]
-        : prevCategories.filter((category) => category !== value)
-    );
+  const handleCategoryChange = (categ) => {
+    setSelectedCategories((prevCategories) => {
+      if (prevCategories.includes(categ)) {
+        return prevCategories.filter((category) => category !== categ);
+      }
+      return [...prevCategories, categ];
+    });
   };
 
   useEffect(() => {
@@ -75,7 +79,6 @@ function Experiences() {
 
   const handlePriceChange = (e) => {
     const maxPrice = parseFloat(e.target.value);
-
     const experiences = elementos.filter(
       (eles) => parseFloat(eles.price.replace(/[^0-9.,]/g, "")) <= maxPrice
     );
@@ -92,28 +95,31 @@ function Experiences() {
   const displayedItems = category.slice(0, visibleCount);
 
   return (
-    <div className="experience center" id="experiences">
+    <div className="experience center bggray p-2" id="experiences">
       <h2 className="fontLarge blue titles">Paquetes</h2>
-      <Form.Group className="mb-3 formExperiences">
-        <div>
-          <p className="blue">Categorías</p>
-          <div className="categorys">
-            {["Educativo", "Internacional", "Nacional", "Escapada"].map(
-              (cat) => (
-                <div key={cat}>
-                  <Form.Check
-                    type="checkbox"
-                    id={`category-${cat}`}
-                    label={cat}
-                    value={cat}
-                    onChange={handleCategoryChange}
-                  />
-                </div>
-              )
-            )}
-          </div>
+      <Form.Group className="p-2 formExperiences">
+        <div className="categories-container">
+          {[
+            { categ: "Educativo", icon: backpack },
+            { categ: "Internacional", icon: airplane },
+            { categ: "Nacional", icon: argentinaMap },
+            { categ: "Escapada", icon: lightning },
+          ].map((cat) => (
+            <button
+              key={cat.categ}
+              className={`category-item ${
+                selectedCategories.includes(cat.categ) ? "active" : ""
+              }`}
+              onClick={() => handleCategoryChange(cat.categ)}
+            >
+              <div className="icon-circle">
+                <img src={cat.icon} alt="" />
+              </div>
+              <p>{cat.categ.toUpperCase()}</p>
+            </button>
+          ))}
         </div>
-        <div>
+        <div className="hidden w-0 ">
           <p className="blue">Precio</p>
           <div className="flex">
             <p className="blue">
@@ -122,7 +128,7 @@ function Experiences() {
             <Form.Range
               min={min || 0}
               max={max || 0}
-              onChange={(e) => handlePriceChange(e)}
+              onChange={handlePriceChange}
             />
             <p className="blue">
               {max !== null ? `$${max.toLocaleString("de-DE")}` : "N/A"}
@@ -131,7 +137,7 @@ function Experiences() {
           <p className="blue">$ {filterPrice.toLocaleString("de-DE")}</p>
         </div>
       </Form.Group>
-      <div className="experienceBody">
+      <div className="experienceBody p-2">
         {displayedItems.map((exp, index) => {
           const price = parseFloat(exp.price.replace(/[^0-9.,]/g, ""));
           const priceOff = exp.priceOff
@@ -142,66 +148,63 @@ function Experiences() {
             ? priceOff.toLocaleString("de-DE")
             : "N/A";
 
-          const message = `Hola! Queria obtener mas informacion sobre el paquete ${
+          const message = `Hola! Quería obtener más información sobre el paquete ${
             exp.category + " " + exp.name
           }`;
           const encodedMessage = encodeURIComponent(message);
           const whatsappLink = `https://wa.me/5493515184315?text=${encodedMessage}`;
 
           return (
-            <div key={exp.name + index}>
+            <div key={`${exp.name}-${index}`}>
               {exp.images && exp.images.length > 0 ? (
-                <>
-                  <div className="experience-card">
-                    <span className="info">
-                      <Link
-                        to={`experience/${exp.name}`}
-                        onClick={() => {
-                          setGalery(exp.images);
-                          setTitle(exp.name);
-                          setParraf(exp.text);
-                          setOfferPrice(exp.priceOff);
-                          setPrice(exp.price);
-                          setCategoryBD(exp.category);
-                        }}
-                        style={{ textDecoration: "none" }}
-                      >
-                        Ver más
-                      </Link>
-                    </span>
+                <div className="experience-card">
+                  <span className="info">
+                    <Link
+                      to={`experience/${exp.name}`}
+                      onClick={() => {
+                        setGalery(exp.images);
+                        setTitle(exp.name);
+                        setParraf(exp.text);
+                        setOfferPrice(exp.priceOff);
+                        setPrice(exp.price);
+                        setCategoryBD(exp.category);
+                      }}
+                      style={{ textDecoration: "none" }}
+                      aria-label={`Ver más sobre ${exp.name}`} // Mejora de accesibilidad
+                    >
+                      Ver más
+                    </Link>
+                  </span>
 
-                    <img
-                      src={exp.images[0].url}
-                      alt={exp.images[0].nameOfImage}
-                    />
-                    <div>
-                      <p className="subtitles">
-                        {exp.category + " " + exp.name}
+                  <img
+                    src={exp.images[0].url}
+                    alt={exp.images[0].nameOfImage || "Imagen de experiencia"} // Texto alternativo
+                  />
+                  <div>
+                    <p className="subtitles">{`${exp.category} ${exp.name}`}</p>
+                    <span className="flex">
+                      <p
+                        className={`titles ${
+                          exp.priceOff !== 0 ? "tached" : ""
+                        }`}
+                      >
+                        ${formattedPrice}
                       </p>
-                      <span className="flex">
-                        <p
-                          className={`titles ${exp.priceOff != 0 && "tached"}`}
-                        >
-                          ${formattedPrice}
-                        </p>
-                        {exp.priceOff != 0 && (
-                          <p className="titles">${formattedPriceOff}</p>
-                        )}
-                        <a
-                          type="button"
-                          href={whatsappLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <ion-icon
-                            size="large"
-                            name="logo-whatsapp"
-                          ></ion-icon>
-                        </a>
-                      </span>
-                    </div>
+                      {exp.priceOff !== 0 && (
+                        <p className="titles">${formattedPriceOff}</p>
+                      )}
+                      <a
+                        type="button"
+                        href={whatsappLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Enviar mensaje de WhatsApp sobre ${exp.name}`} // Mejora de accesibilidad
+                      >
+                        <ion-icon size="large" name="logo-whatsapp"></ion-icon>
+                      </a>
+                    </span>
                   </div>
-                </>
+                </div>
               ) : (
                 <p>No hay imágenes disponibles para esta experiencia.</p>
               )}
@@ -210,8 +213,8 @@ function Experiences() {
         })}
       </div>
       {category.length > visibleCount && (
-        <button onClick={showMore} className="btn btn-primary mt-3">
-          Ver mas + {category.length-visibleCount }
+        <button onClick={showMore} className="btn mt-3">
+          Ver más + {category.length - visibleCount}
         </button>
       )}
     </div>

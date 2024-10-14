@@ -66,49 +66,55 @@ function Contact() {
         <Form onSubmit={handleSubmit}>
           <h2 className="fontLarge white titles center mt-5">Contacto</h2>
           <Formgroup
-            name={"name"}
+            name="name"
             func={handleNameChange}
             type="text"
             value={name}
             label="Nombre"
+            aria-label="Nombre"
           />
           <Formgroup
-            name={"email"}
+            name="email"
             func={handleEmailChange}
             type="email"
             value={email}
             label="Dirección de email"
+            aria-label="Dirección de email"
           />
           <Formgroup
-            name={"phone"}
+            name="phone"
             func={handlePhoneChange}
             type="text"
             value={phone}
             label="Teléfono"
+            aria-label="Teléfono"
           />
           <Formgroup
-            name={"consulta"}
+            name="consulta"
             func={handleConsultaChange}
             as="textarea"
             type="textarea"
             value={consulta}
             label="Escribe tu consulta aquí"
+            aria-label="Consulta"
           />
           <Button variant="primary" className="mb-5" type="submit">
             Enviar
           </Button>
-          <div className="formError">
-            {messageSent && <p className="text-success">Mensaje enviado con éxito.</p>}
+          <div className="formError mt-3">
+            {messageSent && (
+              <p className="text-success">Mensaje enviado con éxito.</p>
+            )}
             {error && <p className="text-danger">{error}</p>}
             {formError && <p className="text-danger">{formError}</p>}
           </div>
         </Form>
         <div className="center mt-5 contactDiv2">
           <img src={logo2} alt="Logo" />
-          <p className="parraf white p-5">
-            No dudes en visitarnos o contactarnos por teléfono al{" "}
-            <strong>+1 (234) 567-8901</strong> o por correo electrónico a{" "}
-            <strong>info@smarttur.com</strong> para agendar una cita o para más
+          <p className="parraf white px-5">
+            No dudes en visitarnos o contactarnos por teléfono al
+            <strong> +1 (234) 567-8901</strong> o por correo electrónico a
+            <strong> info@smarttur.com</strong> para agendar una cita o para más
             información. ¡Esperamos verte pronto!
           </p>
         </div>

@@ -12,7 +12,7 @@ function Home() {
           </h2>
           <p className="subtitles blue ">
             Mendoza, Buenos Aires, Europa, Brasil y muchos destinos mas, solo en
-            Smart Tur
+            Gruptur
           </p>
         </div>
         <div className="content">

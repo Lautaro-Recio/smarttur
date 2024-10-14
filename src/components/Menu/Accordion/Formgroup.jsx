@@ -4,13 +4,12 @@ function Formgroup(props) {
   const { name, func, type, label, as, value } = { ...props };
 
   return (
-    <Form.Group className="mb-3" controlId={name}>
-      <Form.Label>{label}</Form.Label>
+    <Form.Group className="mb-5 white" controlId={name}>
       <Form.Control
         as={as}
         type={type}
         value={value} // Pasa el valor al componente
-        placeholder={name} // Usa label para el placeholder
+        placeholder={label} // Usa label para el placeholder
         onChange={func} // Maneja el cambio
         maxLength={type === "textarea" ? "120" : undefined} // Max length solo para textarea
       />

@@ -37,7 +37,7 @@ function SignIn() {
       <div className="curved">
         <div className="container ">
           <div className="bg-lightWhite padding">
-            <h1 className="blue ">Bienvenido a Smart Tur</h1>
+            <h1 className="blue ">Bienvenido a Gruptur</h1>
             <p className="blue">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
               mollitia excepturi voluptas voluptatum doloribus ut numquam nulla

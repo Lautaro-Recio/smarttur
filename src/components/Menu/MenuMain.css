@@ -7,6 +7,11 @@
     align-items: center;
 }
 
+.accordion-button,
+.accordion-item {
+    background-color: #f5f5f5 !important;
+}
+
 .menu button {
     background-color: #12345d !important;
 }
@@ -39,7 +44,7 @@
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
     border-radius: 100%;
-    background-color: #12345d !important;
+    background-color: #1c1c1c !important;
     width: 2.5rem !important;
     height: 2.5rem !important;
     background-size: 25px !important;
@@ -50,7 +55,7 @@
 }
 
 .carousel-indicators .active {
-    background-color: #12345d;
+    background-color: #1c1c1c;
 }
 
 .center {
@@ -124,8 +129,8 @@
 }
 
 .enterMenu img {
-    width: 20rem ;
-    height: 60% ;
+    width: 20rem;
+    height: 60%;
     margin-bottom: 10px;
 }
 
@@ -146,22 +151,52 @@
     background-color: #ffffff;
 }
 
+.categories-container-menu {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    margin-bottom: 20px;
+
+}
+
+.category-item-menu {
+    background-color: #e3e3e3;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.category-item-menu.active {
+    background-color: #9f9f9f;
+    /* Color de fondo cuando está activo */
+    color: white;
+    /* Color del texto cuando está activo */
+}
 
 @media (max-width: 768px) {
-    .nav img{
+    .nav img {
         width: 2.5rem !important;
         height: 2.5rem !important;
 
     }
-    .nav button{
+
+    .categories-container {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        height: 400px !important;
+    }
+
+    .nav button {
         width: auto !important;
         font-size: 11px;
 
     }
-    
-    .titles{
+
+    .titles {
         font-size: 18px !important;
-        padding-top:10px ;
+        padding-top: 10px;
     }
 
     .flexAround button {
