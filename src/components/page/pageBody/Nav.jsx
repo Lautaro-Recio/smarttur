@@ -15,7 +15,7 @@ function Nav() {
   return (
     <div className="nav">
       <img src={logo2} alt="" />
-      <h1>GRUPTUR</h1>
+      <h1 className='white'>GRUPTUR</h1>
       <button onClick={show}>
         <ion-icon size="large" name="menu-outline"></ion-icon>
       </button>
@@ -25,7 +25,7 @@ function Nav() {
         </button>
         <ul>
           <li className="subtitles"><a href="#Home">Home</a></li>
-          <li className="subtitles"><a href="#offers">Ofertas</a></li>
+          <li className="subtitles"><a href="#offers">Destacados de la semana</a></li>
           <li className="subtitles"><a href="#experiences">Paquetes</a></li>
           <li className="subtitles"><a href="#info">¿Quienes Somos?</a></li>
           <li className="subtitles"><a href="#contact">Contacto</a></li>

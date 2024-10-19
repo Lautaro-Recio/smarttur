@@ -7,10 +7,10 @@ function Home() {
       <Nav />
       <div className="container ">
         <div>
-          <h2 className="titles ">
+          <h2 className="titles white ">
             Planea tu proximo viaje <br /> con nosotros
           </h2>
-          <p className="subtitles blue ">
+          <p className="subtitles white ">
             Mendoza, Buenos Aires, Europa, Brasil y muchos destinos mas, solo en
             Gruptur
           </p>

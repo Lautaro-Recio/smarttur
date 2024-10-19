@@ -113,8 +113,7 @@ function Contact() {
           <img src={logo2} alt="Logo" />
           <p className="parraf white px-5">
             No dudes en visitarnos o contactarnos por teléfono al
-            <strong> +1 (234) 567-8901</strong> o por correo electrónico a
-            <strong> info@smarttur.com</strong> para agendar una cita o para más
+            <strong> 351 - 5184315</strong> para agendar una cita o para más
             información. ¡Esperamos verte pronto!
           </p>
         </div>

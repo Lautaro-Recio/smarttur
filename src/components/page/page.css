@@ -21,7 +21,7 @@ body {
   border-bottom-right-radius: 50% 25%;
   z-index: 9999;
   background-size: cover;
-  background-image: url("https://www.tuexperto.com/wp-content/uploads/2022/02/17-fondos-de-pantalla-para-pc-de-playas-13-1080x607.jpg.webp");
+  background-image: url("https://i.pinimg.com/originals/d5/c1/30/d5c1304b49253a11382cc8d3b0599d30.jpg");
 }
 
 /* Estilos del contenido dentro del contenedor curvado */
@@ -81,7 +81,7 @@ body {
 
 /* Estilos de la sección Home */
 .home {
-  background-image: url("https://i.pinimg.com/564x/5b/0a/fb/5b0afbfd74add7a5abcb393a8707d2e3.jpg");
+  background-image: url("https://i.pinimg.com/originals/d5/c1/30/d5c1304b49253a11382cc8d3b0599d30.jpg");
   height: 100vh;
   background-size: cover;
 }
@@ -249,7 +249,6 @@ body {
 }
 
 .home p {
-  color: #1c1c1c;
   font-weight: 600;
   text-transform: none;
   font-size: 25px;
@@ -267,12 +266,15 @@ body {
 .content button {
   width: 10rem;
   height: 3rem;
-  background-color: #1c1c1c;
-  border: #1c1c1c;
+  background-color: #e0e0e0;
+  border-color: #e0e0e0;
+  color: #000;
 }
 
 .content button:hover {
-  background-color: #1c1c1c;
+  background-color: #bdbdbd81;
+  border-color: #000;
+
 }
 
 .content div {
@@ -286,14 +288,13 @@ body {
   color: #fffcfe;
   padding: 5px;
   border-radius: 5px;
-  background-color: #1c1c1c;
   transition: transform 0.3s ease, color 0.3s ease, background-color 0.3s ease;
 }
 
 .content div ion-icon:hover {
   color: #fffcfe;
   transform: scale(1.2);
-  background-color: #1c1c1c;
+  background-color: #bdbdbd81;
 }
 
 /* Estilos de la sección de ofertas */
@@ -649,6 +650,56 @@ body {
   padding: 0.5rem 2rem;
 }
 
+.quien2Div {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.mapContainer {
+  flex: 1;
+  height: 600px;
+  /* Ajusta la altura como desees */
+  border-radius: 8px;
+  overflow: hidden;
+  /* Asegura que el mapa no se desborde */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.infoContainer {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.infoText {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.infoText strong {
+  color: #000;
+  /* Color destacado */
+}
+
+.localImages {
+  display: flex;
+  gap: 10px;
+}
+
+.local {
+  width: 48%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 .quienesSomos div img {
   width: 100%;
   height: 15rem;
@@ -829,6 +880,10 @@ button {
 
 
 @media (max-width: 768px) {
+  .localImages {
+    display: grid !important;
+    height: 400px;
+  }
 
   /* Sign In */
   .curved {
@@ -894,6 +949,23 @@ button {
 
   }
 
+  .quien2Div {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .imageContainer {
+    max-width: 100%;
+    height: 300px;
+  }
+
+
+
+
+  .local {
+    width: 100%;
+  }
+
   .flexPhone img {
     height: 7rem !important;
     margin-inline: 0%;
@@ -940,7 +1012,10 @@ button {
     margin: 0% 2%;
   }
 
-
+  .mapContainer {
+    height: 400px;
+    padding: 0px 10px !important;
+  }
 
   .containerWave .carousel-control-prev,
   .containerWave .carousel-control-next {
@@ -987,25 +1062,17 @@ button {
   }
 
 
-  .quienesSomos div img {
-    width: 100%;
-    height: 6rem;
-    padding: 0.5rem;
 
-  }
 
   .quienesSomos .logo {
     width: 70% !important;
-    height: 10rem !important;
+    height: 12rem !important;
     padding: 0.5rem !important;
     margin: 0% 15%;
     margin-top: 1rem;
   }
 
-  .quienesSomos {
 
-    padding-top: 3rem;
-  }
 
   .quienesSomos div {
     display: block;

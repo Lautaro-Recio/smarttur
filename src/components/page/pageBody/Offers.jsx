@@ -20,7 +20,7 @@ function Offers() {
   return (
     <div className="containerWave" id="offers">
       <div className="pt-3">
-        <h2 className="titles white center mb-2 mt-5 fontLarge">Ofertas</h2>
+        <h2 className="titles white center mb-2 mt-5 fontLarge">Destacados de la semana</h2>
         <Carousel className="fixed">
           {elementos
             .filter(
