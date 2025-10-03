@@ -15,19 +15,19 @@ const router = createBrowserRouter([
     element: <MenuMain />,
   },
   {
-    path: "/",
+    path: "/signIn",
     element: <SignIn />,
   },
   {
-    path: "/page",
+    path: "/",
     element: <Page />,
   },
   {
-    path: "page/experience/:experienceId",
+    path: "experience/:experienceId",
     element: <Galery/>,
   },
   {
-    path: "page/experience/:experienceId/galery/:galeryId",
+    path: "experience/:experienceId/galery/:galeryId",
     element: <GaleryCarrousel/>,
   },
 ]);

@@ -1,17 +1,24 @@
 import { Form } from "react-bootstrap";
 
 function Formgroup(props) {
-  const { name, func, type, label, as, value } = { ...props };
+  const { name, func, type, as, value, label, placeholder,disabled } = { ...props };
 
   return (
-    <Form.Group className="mb-5 white" controlId={name}>
+    <Form.Group controlId={name}>
+      {label &&
+        <Form.Label controlId={name}>
+          {label}
+        </Form.Label>
+      }
       <Form.Control
         as={as}
         type={type}
         value={value} // Pasa el valor al componente
-        placeholder={label} // Usa label para el placeholder
+        placeholder={placeholder} // Usa label para el placeholder
         onChange={func} // Maneja el cambio
         maxLength={type === "textarea" ? "120" : undefined} // Max length solo para textarea
+        className="form-control"
+        disabled={disabled}
       />
     </Form.Group>
   );

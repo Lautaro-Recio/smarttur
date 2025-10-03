@@ -25,11 +25,19 @@ function Experiences() {
   const [filterPrice, setFilterPrice] = useState(0);
   const [visibleCount, setVisibleCount] = useState(6); // Número de paquetes visibles inicialmente
 
+  // Helper para convertir a número de forma segura
+  const getNumber = (value) => {
+    if (value === null || value === undefined) return null;
+    const num = parseFloat(String(value).replace(/[^0-9.,]/g, ""));
+    return isNaN(num) ? null : num;
+  };
+
+  // Inicialización de min/max y categorías
   useEffect(() => {
     if (elementos.length > 0) {
       const prices = elementos
-        .map((eles) => parseFloat(eles.price.replace(/[^0-9.,]/g, "")))
-        .filter((price) => !isNaN(price));
+        .map((eles) => getNumber(eles.price))
+        .filter((price) => price !== null);
       const minPrice = Math.min(...prices);
       const maxPrice = Math.max(...prices);
 
@@ -62,8 +70,8 @@ function Experiences() {
 
     if (experiences.length > 0) {
       const prices = experiences
-        .map((eles) => parseFloat(eles.price.replace(/[^0-9.,]/g, "")))
-        .filter((price) => !isNaN(price));
+        .map((eles) => getNumber(eles.price))
+        .filter((price) => price !== null);
       const minPrice = Math.min(...prices);
       const maxPrice = Math.max(...prices);
 
@@ -80,7 +88,7 @@ function Experiences() {
   const handlePriceChange = (e) => {
     const maxPrice = parseFloat(e.target.value);
     const experiences = elementos.filter(
-      (eles) => parseFloat(eles.price.replace(/[^0-9.,]/g, "")) <= maxPrice
+      (eles) => getNumber(eles.price) <= maxPrice
     );
     setFilterPrice(maxPrice);
     setCategory(experiences);
@@ -119,7 +127,7 @@ function Experiences() {
             </button>
           ))}
         </div>
-        <div className="hidden w-0 ">
+        <div className="hidden w-0">
           <p className="blue">Precio</p>
           <div className="flex">
             <p className="blue">
@@ -139,18 +147,13 @@ function Experiences() {
       </Form.Group>
       <div className="experienceBody p-2">
         {displayedItems.map((exp, index) => {
-          const price = parseFloat(exp.price.replace(/[^0-9.,]/g, ""));
-          const priceOff = exp.priceOff
-            ? parseFloat(exp.priceOff.replace(/[^0-9.,]/g, ""))
-            : null;
-          const formattedPrice = price ? price.toLocaleString("de-DE") : "N/A";
-          const formattedPriceOff = priceOff
-            ? priceOff.toLocaleString("de-DE")
-            : "N/A";
+          const price = getNumber(exp.price);
+          const priceOff = getNumber(exp.priceOff);
 
-          const message = `Hola! Quería obtener más información sobre el paquete ${
-            exp.category + " " + exp.name
-          }`;
+          const formattedPrice = price !== null ? price.toLocaleString("de-DE") : "N/A";
+          const formattedPriceOff = priceOff !== null ? priceOff.toLocaleString("de-DE") : "N/A";
+
+          const message = `Hola! Quería obtener más información sobre el paquete ${exp.category} ${exp.name}`;
           const encodedMessage = encodeURIComponent(message);
           const whatsappLink = `https://wa.me/5493515184315?text=${encodedMessage}`;
 
@@ -170,7 +173,7 @@ function Experiences() {
                         setCategoryBD(exp.category);
                       }}
                       style={{ textDecoration: "none" }}
-                      aria-label={`Ver más sobre ${exp.name}`} // Mejora de accesibilidad
+                      aria-label={`Ver más sobre ${exp.name}`}
                     >
                       Ver más
                     </Link>
@@ -178,19 +181,17 @@ function Experiences() {
 
                   <img
                     src={exp.images[0].url}
-                    alt={exp.images[0].nameOfImage || "Imagen de experiencia"} // Texto alternativo
+                    alt={exp.images[0].nameOfImage || "Imagen de experiencia"}
                   />
                   <div>
                     <p className="subtitles">{`${exp.category} ${exp.name}`}</p>
                     <span className="flex">
                       <p
-                        className={`titles ${
-                          exp.priceOff !== 0 ? "tached" : ""
-                        }`}
+                        className={`titles ${(priceOff !== null && priceOff !== 0 && priceOff < price) ? "tached" : ""}`}
                       >
                         ${formattedPrice}
                       </p>
-                      {exp.priceOff !== 0 && (
+                      {(priceOff !== null && priceOff !== 0 && priceOff < price) && (
                         <p className="titles">${formattedPriceOff}</p>
                       )}
                       <a
@@ -198,7 +199,7 @@ function Experiences() {
                         href={whatsappLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label={`Enviar mensaje de WhatsApp sobre ${exp.name}`} // Mejora de accesibilidad
+                        aria-label={`Enviar mensaje de WhatsApp sobre ${exp.name}`}
                       >
                         <ion-icon size="large" name="logo-whatsapp"></ion-icon>
                       </a>

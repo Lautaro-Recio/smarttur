@@ -39,7 +39,10 @@ export const createElement = async (
   offer,
   offerDate,
   priceOff,
-  category
+  category,
+  initOfferDate,
+  currency,
+  destacar
 ) => {
   const images = imagesOfFirebase;
   if (offer == false) {
@@ -63,15 +66,23 @@ export const createElement = async (
     const docSnap = await getDoc(myRef);
 
     if (docSnap.exists()) {
-      await updateDoc(myRef, {
+      const updateData = {
         text,
         price,
         images,
-        offer,
-        offerDate,
-        priceOff,
-        category,
-      });
+        offer: Boolean(offer),
+        offerDate: offerDate || "",
+        priceOff: priceOff || 0,
+        category: category || "",
+        initOfferDate: initOfferDate || "",
+        currency: currency || "ARS",
+        destacar: Boolean(destacar)
+      };
+      
+      // Eliminar campos undefined
+      Object.keys(updateData).forEach(key => updateData[key] === undefined && delete updateData[key]);
+      
+      await updateDoc(myRef, updateData);
     } else {
       await setDoc(myRef, {
         name,
@@ -82,6 +93,9 @@ export const createElement = async (
         offerDate: "",
         priceOff: 0,
         category,
+        initOfferDate,
+        currency,
+        destacar
       });
     }
   } catch (error) {

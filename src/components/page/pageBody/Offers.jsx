@@ -6,17 +6,19 @@ function Offers() {
   const { elementos } = useContext(AppContext);
 
   const formatPrice = (price) => {
-    if (!price) return "N/A";
-    // Elimina caracteres no numéricos y convierte a número
-    const number = parseFloat(price.replace(/[^0-9.,]/g, ""));
-    return number ? `$${number.toLocaleString("de-DE")}` : "N/A";
-  };
+    if (price === null || price === undefined) return "N/A";
 
-  const today = new Date();
-  const day = today.getDate();
-  const month = today.getMonth() + 1; // Los meses empiezan en 0
-  const year = today.getFullYear();
-  const formatedDate = `${year}-0${month}-${day}`;
+    if (typeof price === "number") {
+      return `$${price.toLocaleString("de-DE")}`;
+    }
+
+    if (typeof price === "string") {
+      const number = parseFloat(String(price).replace(/[^0-9.,]/g, ""));
+      return !isNaN(number) ? `$${number.toLocaleString("de-DE")}` : "N/A";
+    }
+
+    return "N/A";
+  };
   return (
     <div className="containerWave" id="offers">
       <div className="pt-3">
@@ -25,11 +27,10 @@ function Offers() {
           {elementos
             .filter(
               (exp) =>
-                exp.offer &&
+                exp.destacar &&
                 exp.images &&
                 exp.images.length > 0 &&
-                exp.images[0].url &&
-                formatedDate <= exp.offerDate
+                exp.images[0].url
             ) // Filtrar elementos con ofertas y URL de imagen válidos
             .map((exp) => (
               <Carousel.Item
@@ -47,9 +48,9 @@ function Offers() {
                     <p className=" parraf">{exp.text}</p>
 
                     <span className="flex">
-                      <p className="titles tached">{formatPrice(exp.price)}</p>
-                      {exp.priceOff && (
-                        <p className="titles">{formatPrice(exp.priceOff)}</p>
+                      <p className={`titles ${(exp.priceOff  !== null && exp.priceOff !== 0 && exp.priceOff < exp.price) ? "tached" : ""}`}>{formatPrice(exp.price)}</p>
+                      {(exp.priceOff !== null && exp.priceOff !== 0 && exp.priceOff < exp.price) && (
+                        <p className="titles">${exp.priceOff}</p>
                       )}
                     </span>
                     <a href="#experiences">Más Información</a>
