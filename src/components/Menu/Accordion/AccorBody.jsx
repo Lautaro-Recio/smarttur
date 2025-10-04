@@ -82,6 +82,8 @@ function AccorBody(props) {
     if (!isChecked) {
       setOfferPrice(0);
       setOfferDate("");
+      setInitOfferDate("");
+
     }
   };
 

@@ -60,6 +60,9 @@ function AccordionMain() {
             offerDateBD={exp.offerDate}
             i={i}
             categoryBD={exp.category}
+            currencyBD={exp.currency}
+            initOfferDateBD={exp.initOfferDateBD}
+            destacarBD={exp.destacar}
           />
         ))}
         <Accordion.Item className="flex">

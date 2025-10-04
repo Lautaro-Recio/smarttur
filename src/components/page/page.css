@@ -5,6 +5,7 @@ body {
   padding: 0;
 }
 
+
 /* Estilo de pantalla */
 .screen {
   height: 100vh;
@@ -245,7 +246,7 @@ body {
 .home h2 {
   font-size: 35px;
   max-width: 40rem;
-  margin: 4rem 0rem 0rem 0rem;
+  margin: 4rem 0rem 10rem 0rem;
 }
 
 .home p {

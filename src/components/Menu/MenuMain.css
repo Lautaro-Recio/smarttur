@@ -178,6 +178,7 @@
     transition: opacity 0.5s ease, visibility 0s linear 0.5s;
     /* Retrasa la visibilidad */
     background-color: #ffffff;
+    
 }
 
 .categories-container-menu {
@@ -231,5 +232,19 @@
     .flexAround button {
         font-size: 13px;
         padding: 2%;
+    }
+
+    .categories-container-menu {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+    
+    }
+    
+    .category-item-menu {
+        margin: 4px;
+    }
+    .fadeOutTop{
+        overflow-x: hidden;   
     }
 }

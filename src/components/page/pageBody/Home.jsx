@@ -7,13 +7,9 @@ function Home() {
       <Nav />
       <div className="container ">
         <div>
-          <h2 className="titles white ">
+          <h2 className="titles white title-home">
             Planea tu proximo viaje <br /> con nosotros
           </h2>
-          <p className="subtitles white ">
-            Mendoza, Buenos Aires, Europa, Brasil y muchos destinos mas, solo en
-            Gruptur
-          </p>
         </div>
         <div className="content">
           <Button>Paquetes</Button>

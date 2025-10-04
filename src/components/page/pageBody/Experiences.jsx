@@ -189,10 +189,10 @@ function Experiences() {
                       <p
                         className={`titles ${(priceOff !== null && priceOff !== 0 && priceOff < price) ? "tached" : ""}`}
                       >
-                        ${formattedPrice}
+                        {exp.currency === "ARS" ? "$" : exp.currency === "USD" ? "US$" : exp.currency === "EUR" ? "€" : exp.currency === "BRL" ? "R$" : "$"} {formattedPrice}
                       </p>
                       {(priceOff !== null && priceOff !== 0 && priceOff < price) && (
-                        <p className="titles">${formattedPriceOff}</p>
+                        <p className="titles">{exp.currency === "ARS" ? "$" : exp.currency === "USD" ? "US$" : exp.currency === "EUR" ? "€" : exp.currency === "BRL" ? "R$" : "$"} {formattedPriceOff}</p>
                       )}
                       <a
                         type="button"
