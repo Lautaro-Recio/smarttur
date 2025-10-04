@@ -14,9 +14,8 @@ function Galery() {
     return `$${parseFloat(price).toLocaleString("de-DE")}`;
   };
 
-  const message = `Hola! Queria obtener mas informacion sobre el paquete ${
-    categoryBd + " " + title
-  }`;
+  const message = `Hola! Queria obtener mas informacion sobre el paquete ${categoryBd + " " + title
+    }`;
   const encodedMessage = encodeURIComponent(message);
   const whatsappLink = `https://wa.me/5493515184315?text=${encodedMessage}`;
 
@@ -59,10 +58,10 @@ function Galery() {
           <h1 className="white">{data.categoryBd + " " + data.title}</h1>
           <p className="white">{data.parraf}</p>
           <div className="flex">
-            <p className={`titles white ${data.offerPrice != 0 && "tached"}`}>
+            <p className={`titles white ${(data.offerPrice !== null && data.offerPrice !== 0 && data.offerPrice < data.price) && "tached"}`}>
               {formatPrice(data.price)}
             </p>
-            {data.offerPrice ? (
+            {(data.offerPrice !== null && data.offerPrice !== 0 && data.offerPrice < data.priceprice) ? (
               <p className="titles white mx-5">
                 {formatPrice(data.offerPrice)}
               </p>

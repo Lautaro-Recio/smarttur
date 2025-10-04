@@ -8,6 +8,7 @@ import Page from "./components/page/Page";
 import AppProvider from "./AppProvider";
 import Galery from "./components/galerry/Galery";
 import GaleryCarrousel from "./components/galerry/GaleryCarrousel";
+import NotFound from "./components/page/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "experience/:experienceId/galery/:galeryId",
     element: <GaleryCarrousel/>,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 

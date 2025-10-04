@@ -12,7 +12,7 @@ function SignIn() {
     if (boolean) {
       window.location.href = "/menu";
     } else {
-      window.location.href = "/page";
+      window.location.href = "/";
     }
     setShow(false);
   };
@@ -22,7 +22,7 @@ function SignIn() {
     try {
       await signInWithPopup(auth, googleProvider);
 
-      if (auth.currentUser.email === import.meta.env.VITE_REACT_APP_APP_EMAIL || auth.currentUser.email === import.meta.env.VITE_REACT_APP_APP_EMAIL2 ) {
+      if (auth.currentUser.email === import.meta.env.VITE_REACT_APP_APP_EMAIL || auth.currentUser.email === import.meta.env.VITE_REACT_APP_APP_EMAIL2) {
         handleShow();
       } else {
         window.location.href = "/page";
@@ -38,19 +38,9 @@ function SignIn() {
         <div className="container ">
           <div className="bg-lightWhite padding">
             <h1 className="blue ">Bienvenido a Gruptur</h1>
-            <p className="blue">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
-              mollitia excepturi voluptas voluptatum doloribus ut numquam nulla
-              deleniti neque molestias illo ex voluptates at, amet unde
-              provident? Doloremque, reiciendis autem? Lorem ipsum dolor sit
-              amet consectetur
-              <br />
-              adipisicing elit. Architecto ipsam aliquam et nulla odio
-              blanditiis. Nulla similique blanditiis veniam sint doloremque
-              nobis odio fuga placeat tempore voluptate, mollitia laborum
-              distinctio?
-              <br />
-             
+            <p className="blue fontMid">
+              ¿Listo para tu próxima escapada? Inicia sesión para disfrutar de todas las ventajas de ser miembro: acceso a ofertas exclusivas, historial de reservas, listas de deseos y mucho más. ¡Comienza a planificar tu viaje ideal!
+
             </p>
           </div>
           <div className="bg-lightWhite flexPhone">
