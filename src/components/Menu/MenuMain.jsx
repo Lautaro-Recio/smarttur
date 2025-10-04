@@ -47,7 +47,7 @@ function MenuMain() {
             <h2 className="titles blue">GRUPTUR</h2>
             <Button
               variant="primary"
-              onClick={() => (window.location.href = "/page")}
+              onClick={() => (window.location.href = "/")}
             >
               Salir
             </Button>

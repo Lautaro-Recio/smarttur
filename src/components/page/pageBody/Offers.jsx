@@ -48,13 +48,16 @@ function Offers() {
                     <p className=" parraf">{exp.text}</p>
 
                     <span className="flex">
-                      <p className={`titles ${(exp.priceOff  !== null && exp.priceOff !== 0 && exp.priceOff < exp.price) ? "tached" : ""}`}>{formatPrice(exp.price)}</p>
+                      <p className={`titles ${(exp.priceOff !== null && exp.priceOff !== 0 && exp.priceOff < exp.price) ? "tached" : ""}`}>{formatPrice(exp.price)}</p>
                       {(exp.priceOff !== null && exp.priceOff !== 0 && exp.priceOff < exp.price) && (
                         <p className="titles">${exp.priceOff}</p>
                       )}
                     </span>
                     <a href="#experiences">Más Información</a>
-                    <p className="mt-3">Oferta valida hasta {exp.offerDate} </p>
+                    {(exp.offerDate && exp.initOfferDate) && (
+
+                      <p className="mt-3">Validez desde {exp.initOfferDate} hasta {exp.offerDate} </p>
+                    )}
                   </div>
                 </div>
               </Carousel.Item>
