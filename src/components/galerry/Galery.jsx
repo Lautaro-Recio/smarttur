@@ -1,12 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../AppProvider";
 import "./Galery.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Galery() {
   const { galery, title, parraf, offerPrice, price, categoryBd } =
     useContext(AppContext);
   const [data, setData] = useState(null);
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    navigate(-1); // Navega a la página anterior
+  };
 
   // Función para formatear precios, asegurando que estén definidos
   const formatPrice = (price) => {
@@ -53,6 +58,42 @@ function Galery() {
 
   return (
     <div className="galeryBody">
+      <button 
+        onClick={handleGoBack} 
+        className="back-button"
+        aria-label="Volver atrás" 
+        style={{
+          position: 'fixed',
+          top: '20px',
+          left: '20px',
+          background: 'rgba(255, 255, 255, 0.8)',
+          border: 'none',
+          borderRadius: '50%',
+          width: '40px',
+          height: '40px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+          boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+          zIndex: 1000,
+          transition: 'background 0.3s ease'
+        }}
+      >
+        <svg 
+          width="24" 
+          height="24" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="#333" 
+          strokeWidth="2" 
+          strokeLinecap="round" 
+          strokeLinejoin="round"
+        >
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
       <div className="containerWave">
         <div className="center">
           <h1 className="white">{data.categoryBd + " " + data.title}</h1>
