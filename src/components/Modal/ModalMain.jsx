@@ -14,6 +14,7 @@ function ModalMain() {
   const [archive, setArchive] = useState([]);
   const [category, setCategory] = useState("");
   const [currency, setCurrency] = useState("ARS");
+  const [errors, setErrors] = useState({});
 
   const handleClose = () => {
     setShow(false);
@@ -40,7 +41,25 @@ function ModalMain() {
   const handleCoinChange = (e) => {
     setCurrency(e.target.value);
   };
+  const validateForm = () => {
+    const newErrors = {};
+    if (!newName.trim()) newErrors.name = "El nombre del paquete es obligatorio";
+    if (!price || price <= 0) newErrors.price = "El precio es obligatorio y debe ser mayor a 0";
+    if (archive.length === 0) newErrors.archive = "Debe subir al menos una imagen";
+    if (!category) newErrors.category = "Debe seleccionar una categoría";
+    if (!currency) newErrors.currency = "Debe seleccionar una moneda";
+    return newErrors;
+  };
+
   const handleSaveChanges = () => {
+    const formErrors = validateForm();
+    
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      return;
+    }
+    
+    // Si no hay errores, proceder con el guardado
     createElement(
       newName,
       text,
@@ -51,11 +70,25 @@ function ModalMain() {
       "",
       0,
       category,
-      "",        // initOfferDate vacío
-      currency,  // ahora sí el currency en su lugar
-      false      // destacar por defecto
+      "",
+      currency,
+      false
     );
+    
+    // Limpiar errores y cerrar el modal
+    setErrors({});
     handleClose();
+  };
+  
+  // Función para limpiar el error cuando el usuario comienza a escribir
+  const clearError = (field) => {
+    if (errors[field]) {
+      setErrors(prev => {
+        const newErrors = {...prev};
+        delete newErrors[field];
+        return newErrors;
+      });
+    }
   };
 
   const isFormValid = () => {
@@ -75,14 +108,21 @@ function ModalMain() {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Nombre</Form.Label>
+              <Form.Label>Nombre del paquete <span className="text-danger">*</span></Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Paquete"
+                placeholder="Ej: Paquete a Bariloche"
                 autoFocus
                 value={newName}
-                onChange={handleNameChange}
+                onChange={(e) => {
+                  handleNameChange(e);
+                  clearError('name');
+                }}
+                isInvalid={!!errors.name}
               />
+              <Form.Control.Feedback type="invalid">
+                {errors.name}
+              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group
               className="mb-3"
@@ -98,29 +138,39 @@ function ModalMain() {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="currencySelect">Selecciona una moneda</Form.Label>
+              <Form.Label htmlFor="currencySelect">
+                Selecciona una moneda <span className="text-danger">*</span>
+              </Form.Label>
               <Form.Select
                 id="currencySelect"
-                onChange={(e) => handleCoinChange(e)}
+                onChange={(e) => {
+                  handleCoinChange(e);
+                  clearError('currency');
+                }}
                 value={currency}
+                isInvalid={!!errors.currency}
               >
+                <option value="">Selecciona una moneda</option>
                 <option value="ARS">Pesos (ARS)</option>
                 <option value="USD">Dólares (USD)</option>
                 <option value="EUR">Euros (EUR)</option>
                 <option value="BRL">Reales (BRL)</option>
               </Form.Select>
+              <Form.Control.Feedback type="invalid">
+                {errors.currency}
+              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
             >
-              <Form.Label>Precio</Form.Label>
+              <Form.Label>Precio <span className="text-danger">*</span></Form.Label>
               <InputGroup className="mb-3">
                 <InputGroup.Text id="basic-addon1">
                   {currencySymbols[currency]}
                 </InputGroup.Text>
                 <NumericFormat
-                  className="form-control"
+                  className={`form-control ${errors.price ? 'is-invalid' : ''}`}
                   value={price}
                   placeholder={"$150.000,00"}
                   thousandSeparator="."
@@ -130,38 +180,60 @@ function ModalMain() {
                   onValueChange={(values) => {
                     handlePriceChange({
                       target: {
-                        name,
+                        name: 'price',
                         value: values.floatValue,
                       },
                     });
+                    clearError('price');
                   }}
                 />
+                <Form.Control.Feedback type="invalid">
+                  {errors.price}
+                </Form.Control.Feedback>
               </InputGroup>
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="disabledSelect">
-                Selecciona a qué categoría pertenece
+              <Form.Label htmlFor="categorySelect">
+                Categoría <span className="text-danger">*</span>
               </Form.Label>
               <Form.Select
-                id="disabledSelect"
+                id="categorySelect"
+                onChange={(e) => {
+                  handleCategoryChange(e);
+                  clearError('category');
+                }}
                 value={category}
-                onChange={handleCategoryChange}
+                isInvalid={!!errors.category}
               >
-                <option value="">Selecciona una opción</option>
+                <option value="">Selecciona una categoría</option>
                 <option value="Educativo">Educativo</option>
                 <option value="Internacional">Internacional</option>
                 <option value="Nacional">Nacional</option>
                 <option value="Escapada">Escapada</option>
               </Form.Select>
+              <Form.Control.Feedback type="invalid">
+                {errors.category}
+              </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="formFileMultiple" className="mb-3">
-              <Form.Label>Imágenes para slider</Form.Label>
-              <Form.Control
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={handleFileChange}
+            <Form.Group controlId="formFile" className="mb-3">
+              <Form.Label>Subir imágenes del paquete <span className="text-danger">*</span></Form.Label>
+              <Form.Control 
+                type="file" 
+                multiple 
+                onChange={(e) => {
+                  handleFileChange(e);
+                  if (e.target.files.length > 0) {
+                    clearError('archive');
+                  }
+                }}
+                isInvalid={!!errors.archive}
               />
+              <Form.Control.Feedback type="invalid">
+                {errors.archive}
+              </Form.Control.Feedback>
+              <Form.Text className="text-muted">
+                Sube al menos una imagen para el paquete.
+              </Form.Text>
             </Form.Group>
           </Form>
         </Modal.Body>

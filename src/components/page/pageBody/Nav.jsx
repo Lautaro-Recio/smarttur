@@ -25,7 +25,7 @@ function Nav() {
         </button>
         <ul>
           <li className="subtitles"><a href="#Home">Home</a></li>
-          <li className="subtitles"><a href="#offers">Destacados de la semana</a></li>
+          <li className="subtitles"><a href="#offers">Destacados</a></li>
           <li className="subtitles"><a href="#experiences">Paquetes</a></li>
           <li className="subtitles"><a href="#info">¿Quienes Somos?</a></li>
           <li className="subtitles"><a href="#contact">Contacto</a></li>

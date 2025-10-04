@@ -44,6 +44,7 @@ function AccorBody(props) {
   const [archive, setArchive] = useState([]);
   const [category, setCategory] = useState("");
   const [currency, setCurrency] = useState("ARS");
+  const [errors, setErrors] = useState({});
 
   // Mapa de símbolos según la moneda
   const currencySymbols = {
@@ -79,11 +80,21 @@ function AccorBody(props) {
   const handleVisibleChange = (e) => {
     const isChecked = e.target.checked;
     setOffer(isChecked);
+
+    // Limpiar errores de oferta al desactivar
     if (!isChecked) {
       setOfferPrice(0);
       setOfferDate("");
       setInitOfferDate("");
 
+      // Limpiar errores relacionados con la oferta
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors.offerPrice;
+        delete newErrors.offerDate;
+        delete newErrors.initOfferDate;
+        return newErrors;
+      });
     }
   };
 
@@ -128,22 +139,73 @@ function AccorBody(props) {
     // Actualizar el estado de 'archive' con las imágenes restantes
   };
 
+  const validateForm = () => {
+    const newErrors = {};
+    if (!newName.trim()) newErrors.name = "El nombre del destino es obligatorio";
+    if (!mewprice || mewprice <= 0) newErrors.price = "El precio es obligatorio y debe ser mayor a 0";
+    if (images.length === 0 && (!archive || archive.length === 0)) newErrors.images = "Debe haber al menos una imagen";
+    if (!category && !categoryBD) newErrors.category = "Debe seleccionar una categoría";
+    if (!currency) newErrors.currency = "Debe seleccionar una moneda";
+
+    // Validar campos de oferta si está activada
+    if (offer) {
+      if (!offerPrice && offerPrice !== 0) {
+        newErrors.offerPrice = "El precio de oferta es obligatorio";
+      } else if (offerPrice <= 0) {
+        newErrors.offerPrice = "El precio de oferta debe ser mayor a 0";
+      }
+
+      if (!offerDate && !offerDateBD) {
+        newErrors.offerDate = "La fecha de cierre de oferta es obligatoria";
+      }
+
+      if (!initOfferDate && !initOfferDateBD) {
+        newErrors.initOfferDate = "La fecha de apertura de oferta es obligatoria";
+      }
+
+      // Validar que la fecha de inicio sea menor que la fecha de fin
+      const startDate = new Date(initOfferDate || initOfferDateBD);
+      const endDate = new Date(offerDate || offerDateBD);
+      if (startDate >= endDate) {
+        newErrors.offerDate = "La fecha de cierre debe ser posterior a la fecha de apertura";
+      }
+    }
+
+    return newErrors;
+  };
+
+  const clearError = (field) => {
+    if (errors[field]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
+    }
+  };
+
   const update = () => {
+    const formErrors = validateForm();
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      return;
+    }
+
     createElement(
       name,
       Newtext,
       mewprice,
       images,
       archive,
-      Boolean(offer), // Asegurar que sea booleano
+      Boolean(offer),
       offerDate ? offerDate : offerDateBD,
       offerPrice ? offerPrice : offerPriceBD,
       category ? category : categoryBD,
       initOfferDate ? initOfferDate : initOfferDateBD,
       currency ? currency : currencyBD,
-      Boolean(destacar !== undefined ? destacar : destacarBD), // Asegurar que sea booleano
+      Boolean(destacar !== undefined ? destacar : destacarBD),
     );
-    console.log(offerDate);
+
     Swal.fire({
       position: "center",
       width: 500,
@@ -233,24 +295,38 @@ function AccorBody(props) {
             {/* Primera fila: Destino y Categoría */}
             <div className="row mb-3">
               <div className="col-md-6">
-                <Formgroup
-                  name="text"
-                  func={handleNameChange}
-                  type="text"
-                  label="Destino"
-                  placeholder="Escribe tu texto aquí"
-                  value={name}
-                />
+                <Form.Group className="mb-3">
+                  <Form.Label>
+                    <span className="text-danger">*</span> Destino
+                  </Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={name}
+                    onChange={(e) => {
+                      handleNameChange(e);
+                      clearError('name');
+                    }}
+                    isInvalid={!!errors.name}
+                    placeholder="Escribe el nombre del destino"
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.name}
+                  </Form.Control.Feedback>
+                </Form.Group>
               </div>
               <div className="col-md-6">
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="disabledSelect">
-                    Selecciona a que categoria pertenece
+                  <Form.Label>
+                    <span className="text-danger">*</span> Categoría
                   </Form.Label>
                   <Form.Select
                     id="disabledSelect"
-                    onChange={(e) => handleCategoryChange(e)}
+                    onChange={(e) => {
+                      handleCategoryChange(e);
+                      clearError('category');
+                    }}
                     value={category ? category : categoryBD}
+                    isInvalid={!!errors.category}
                   >
                     <option>Educativo</option>
                     <option>Internacional</option>
@@ -265,11 +341,17 @@ function AccorBody(props) {
             <div className="row mb-3">
               <div className="col-md-4">
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="currencySelect">Selecciona una moneda</Form.Label>
+                  <Form.Label>
+                    <span className="text-danger">*</span> Moneda
+                  </Form.Label>
                   <Form.Select
                     id="currencySelect"
-                    onChange={(e) => handleCoinChange(e)}
+                    onChange={(e) => {
+                      handleCoinChange(e);
+                      clearError('currency');
+                    }}
                     value={currency}
+                    isInvalid={!!errors.currency}
                   >
                     <option value="ARS">Pesos (ARS)</option>
                     <option value="USD">Dólares (USD)</option>
@@ -280,8 +362,15 @@ function AccorBody(props) {
               </div>
               <div className="col-md-4">
                 <Form.Group controlId={name}>
-                  <Form.Label>Precio</Form.Label>
-                  <InputGroup className="mb-3">
+                  <Form.Label>
+                    <span className="text-danger">*</span> Precio
+                  </Form.Label>
+                  <InputGroup className="mb-3" hasValidation>
+                    {errors.price && (
+                      <Form.Control.Feedback type="invalid" style={{ display: 'block' }}>
+                        {errors.price}
+                      </Form.Control.Feedback>
+                    )}
                     <InputGroup.Text id="basic-addon1">
                       {currencySymbols[currency]}
                     </InputGroup.Text>
@@ -327,51 +416,83 @@ function AccorBody(props) {
 
             <div className="row mb-3">
               <div className="col-md-4">
-                <Formgroup
-                  name={initOfferDateBD ? initOfferDateBD : initOfferDate}
-                  func={handleInitOfferDate}
-                  type="date"
-                  label="Fecha de apertura de oferta"
-                  value={initOfferDateBD ? initOfferDateBD : initOfferDate}
-                  disabled={!offer}
-                />
-              </div>
-              <div className="col-md-4">
-                <Formgroup
-                  name={offerDateBD ? offerDateBD : offerDate}
-                  func={handleOfferDate}
-                  type="date"
-                  label="Fecha de cierre de oferta"
-                  value={offerDateBD ? offerDateBD : offerDate}
-                  disabled={!offer}
-                />
-              </div>
-              <div className="col-md-4">
-                <Form.Label>Precio de oferta</Form.Label>
-                <InputGroup className="mb-3">
-                  <InputGroup.Text id="basic-addon1">
-                    {currencySymbols[currency]}
-                  </InputGroup.Text>
-                  <NumericFormat
-                    name={offerPriceBD ? offerPriceBD : offerPrice}
-                    disabled={!offer}
-                    className="form-control"
-                    placeholder={"$150.000,00"}
-                    thousandSeparator="."
-                    decimalSeparator=","
-                    decimalScale={2}
-                    value={offerPriceBD ? offerPriceBD : offerPrice}
-                    fixedDecimalScale
-                    onValueChange={(values) => {
-                      handlePriceOffChange({
-                        target: {
-                          name,
-                          value: values.floatValue,
-                        },
-                      });
+                <Form.Group className="mb-3">
+                  <Form.Label className={offer ? 'required' : ''}>
+                    {offer && <span className="text-danger">*</span>} Fecha de apertura de oferta
+                  </Form.Label>
+                  <Form.Control
+                    type="date"
+                    value={initOfferDate || initOfferDateBD || ''}
+                    onChange={(e) => {
+                      handleInitOfferDate(e);
+                      clearError('initOfferDate');
                     }}
+                    disabled={!offer}
+                    isInvalid={!!errors.initOfferDate}
                   />
-                </InputGroup>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.initOfferDate}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </div>
+              <div className="col-md-4">
+                <Form.Group className="mb-3">
+                  <Form.Label className={offer ? 'required' : ''}>
+                    {offer && <span className="text-danger">*</span>} Fecha de cierre de oferta
+                  </Form.Label>
+                  <Form.Control
+                    type="date"
+                    value={offerDate || offerDateBD || ''}
+                    onChange={(e) => {
+                      handleOfferDate(e);
+                      clearError('offerDate');
+                    }}
+                    disabled={!offer}
+                    isInvalid={!!errors.offerDate}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.offerDate}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </div>
+              <div className="col-md-4">
+                <Form.Group className="mb-3">
+                  <Form.Label className={offer ? 'required' : ''}>
+                    {offer && <span className="text-danger">*</span>} Precio de oferta
+                  </Form.Label>
+                  <InputGroup className={errors.offerPrice ? 'is-invalid' : ''}>
+                    {errors.offerPrice && (
+                      <Form.Control.Feedback type="invalid" style={{ display: 'block' }}>
+                        {errors.offerPrice}
+                      </Form.Control.Feedback>
+                    )}
+                    <InputGroup.Text id="basic-addon1">
+                      {currencySymbols[currency]}
+                    </InputGroup.Text>
+                    <NumericFormat
+                      name={offerPriceBD ? offerPriceBD : offerPrice}
+                      disabled={!offer}
+                      className="form-control"
+                      placeholder={"$150.000,00"}
+                      thousandSeparator="."
+                      decimalSeparator=","
+                      decimalScale={2}
+                      value={offerPriceBD ? offerPriceBD : offerPrice}
+                      fixedDecimalScale
+                      onValueChange={(values) => {
+                        handlePriceOffChange({
+                          target: {
+                            name,
+                            value: values.floatValue,
+                          },
+                        });
+                        if (values.floatValue > 0) {
+                          clearError('offerPrice');
+                        }
+                      }}
+                    />
+                  </InputGroup>
+                </Form.Group>
 
               </div>
             </div>
@@ -394,7 +515,14 @@ function AccorBody(props) {
             {/* Imágenes */}
             <div className="row">
               <div className="col-12">
-                <h4 className="subtitles center blue">Imagenes</h4>
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                  <h4 className="subtitles blue mb-0">
+                    <span className="text-danger">*</span> Imágenes
+                  </h4>
+                  {errors.images && (
+                    <span className="text-danger">{errors.images}</span>
+                  )}
+                </div>
                 <Carousel fade className="fixed menu">
                   {images.map((imgs) => (
                     <Carousel.Item key={name + imgs.nameOfImage}>
