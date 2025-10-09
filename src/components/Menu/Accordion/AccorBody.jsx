@@ -1,14 +1,10 @@
-import Accordion from "react-bootstrap/Accordion";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, CardGroup, Form, InputGroup } from "react-bootstrap";
-import { useState } from "react";
+import "react-quill/dist/quill.snow.css";
+import { Accordion, Button, CardGroup, Form, InputGroup } from "react-bootstrap";
+import { useState, useEffect } from "react";
 import Formgroup from "./Formgroup";
 import Carousel from "react-bootstrap/Carousel";
-import {
-  createElement,
-  deleteElement,
-  deleteImages,
-} from "../../../../Firebase";
+import { createElement, deleteElement, deleteImages, uploadPdf, getPdfUrl, deletePdf, getFeaturedImage, setFeaturedImage as setFeaturedImageDB } from "../../../../Firebase";
 import Swal from "sweetalert2";
 import { NumericFormat } from "react-number-format";
 
@@ -30,9 +26,10 @@ function AccorBody(props) {
     ...props,
   };
 
+  console.log('initOfferDateBD ======> ', initOfferDateBD)
   const [mewprice, setprice] = useState(price);
   const [Newtext, setNewText] = useState(text);
-  const [newName, setNewName] = useState(text);
+  const [newName, setNewName] = useState(name);
 
   const [offer, setOffer] = useState(offerBD);
   const [destacar, setDestacar] = useState(destacarBD);
@@ -40,11 +37,88 @@ function AccorBody(props) {
   const [offerDate, setOfferDate] = useState("");
   const [initOfferDate, setInitOfferDate] = useState("");
 
-  const [offerPrice, setOfferPrice] = useState(0);
+  const [offerPrice, setOfferPrice] = useState(offerPriceBD || 0);
   const [archive, setArchive] = useState([]);
+  const [pdfFile, setPdfFile] = useState(null);
+  const [pdfUrl, setPdfUrl] = useState("");
+
+  // Cargar la URL del PDF existente al montar el componente
+  useEffect(() => {
+    const loadPdfUrl = async () => {
+      try {
+        const url = await getPdfUrl(name);
+        if (url) {
+          setPdfUrl(url);
+        }
+      } catch (error) {
+        console.error("Error al cargar el PDF:", error);
+      }
+    };
+
+    loadPdfUrl();
+  }, [name]);
   const [category, setCategory] = useState("");
   const [currency, setCurrency] = useState("ARS");
   const [errors, setErrors] = useState({});
+  const [featuredImage, setFeaturedImage] = useState(null);
+
+  // Cargar imagen destacada al montar/cambiar experiencia
+  useEffect(() => {
+    const loadFeatured = async () => {
+      try {
+        const img = await getFeaturedImage(name);
+        setFeaturedImage(img || null);
+      } catch (e) {
+        console.error('Error al cargar imagen destacada:', e);
+      }
+    };
+    loadFeatured();
+  }, [name]);
+
+  const handleSetFeaturedImage = async (imageName) => {
+    try {
+      await setFeaturedImageDB(name, imageName);
+      setFeaturedImage(imageName);
+      Swal.fire({
+        icon: 'success',
+        title: 'Imagen destacada',
+        text: 'Se actualizó la imagen destacada.',
+        timer: 1200,
+        showConfirmButton: false,
+      });
+    } catch (e) {
+      console.error('Error al establecer imagen destacada:', e);
+      Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo marcar como destacada.' });
+    }
+  };
+
+  // Eliminar PDF (tarifario) con confirmación
+  const handleDeletePdf = async () => {
+    if (!pdfUrl) return;
+    const result = await Swal.fire({
+      title: '¿Eliminar tarifario?',
+      text: 'Esta acción eliminará el PDF actual de forma permanente.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar'
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      await deletePdf(name);
+      setPdfUrl("");
+      const input = document.getElementById('formFilePdf');
+      if (input) input.value = '';
+      Swal.fire({ icon: 'success', title: 'Eliminado', text: 'El tarifario se eliminó correctamente.', timer: 1400, showConfirmButton: false });
+    } catch (err) {
+      console.error('Error eliminando PDF:', err);
+      Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo eliminar el tarifario.' });
+    }
+  };
 
   // Mapa de símbolos según la moneda
   const currencySymbols = {
@@ -142,18 +216,16 @@ function AccorBody(props) {
   const validateForm = () => {
     const newErrors = {};
     if (!newName.trim()) newErrors.name = "El nombre del destino es obligatorio";
-    if (!mewprice || mewprice <= 0) newErrors.price = "El precio es obligatorio y debe ser mayor a 0";
     if (images.length === 0 && (!archive || archive.length === 0)) newErrors.images = "Debe haber al menos una imagen";
     if (!category && !categoryBD) newErrors.category = "Debe seleccionar una categoría";
     if (!currency) newErrors.currency = "Debe seleccionar una moneda";
 
     // Validar campos de oferta si está activada
     if (offer) {
-      if (!offerPrice && offerPrice !== 0) {
-        newErrors.offerPrice = "El precio de oferta es obligatorio";
-      } else if (offerPrice <= 0) {
-        newErrors.offerPrice = "El precio de oferta debe ser mayor a 0";
-      }
+      const currentOfferPrice = (offerPrice !== undefined && offerPrice !== null)
+        ? offerPrice
+        : (offerPriceBD || 0);
+
 
       if (!offerDate && !offerDateBD) {
         newErrors.offerDate = "La fecha de cierre de oferta es obligatoria";
@@ -184,37 +256,75 @@ function AccorBody(props) {
     }
   };
 
-  const update = () => {
+  const update = async () => {
     const formErrors = validateForm();
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
       return;
     }
 
-    createElement(
-      name,
-      Newtext,
-      mewprice,
-      images,
-      archive,
-      Boolean(offer),
-      offerDate ? offerDate : offerDateBD,
-      offerPrice ? offerPrice : offerPriceBD,
-      category ? category : categoryBD,
-      initOfferDate ? initOfferDate : initOfferDateBD,
-      currency ? currency : currencyBD,
-      Boolean(destacar !== undefined ? destacar : destacarBD),
-    );
+    try {
+      // Si hay un archivo PDF seleccionado, subirlo primero
+      if (pdfFile) {
+        const loadingSwal = Swal.fire({
+          title: 'Subiendo PDF...',
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          }
+        });
 
-    Swal.fire({
-      position: "center",
-      width: 500,
-      height: 200,
-      icon: "success",
-      showConfirmButton: false,
-      text: `Datos cargados`,
-      timer: 1500,
-    });
+        try {
+          const url = await uploadPdf(name, pdfFile);
+          setPdfUrl(url);
+          loadingSwal.close();
+        } catch (error) {
+          loadingSwal.close();
+          throw new Error('Error al subir el PDF');
+        }
+      }
+
+      // Actualizar los demás datos
+      await createElement(
+        name,
+        Newtext,
+        mewprice,
+        images,
+        archive,
+        Boolean(offer),
+        offerDate ? offerDate : offerDateBD,
+        (offerPrice !== undefined && offerPrice !== null && offerPrice > 0) ? offerPrice : (offerPriceBD || 0),
+        category ? category : categoryBD,
+        initOfferDate ? initOfferDate : initOfferDateBD,
+        currency ? currency : currencyBD,
+        Boolean(destacar !== undefined ? destacar : destacarBD),
+      );
+
+      Swal.fire({
+        position: "center",
+        width: 500,
+        height: 200,
+        icon: "success",
+        showConfirmButton: false,
+        text: `Datos cargados`,
+        timer: 1500,
+      });
+
+      // Limpiar el input de archivo después de una carga exitosa
+      if (pdfFile) {
+        document.getElementById('formFilePdf').value = '';
+        setPdfFile(null);
+      }
+
+    } catch (error) {
+      console.error('Error al actualizar los datos:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: error.message || 'Ocurrió un error al actualizar los datos',
+        confirmButtonText: 'Aceptar'
+      });
+    }
   };
 
   const handlePriceChange = (e) => {
@@ -301,7 +411,7 @@ function AccorBody(props) {
                   </Form.Label>
                   <Form.Control
                     type="text"
-                    value={name}
+                    value={newName}
                     onChange={(e) => {
                       handleNameChange(e);
                       clearError('name');
@@ -363,7 +473,7 @@ function AccorBody(props) {
               <div className="col-md-4">
                 <Form.Group controlId={name}>
                   <Form.Label>
-                    <span className="text-danger">*</span> Precio
+                    Precio
                   </Form.Label>
                   <InputGroup className="mb-3" hasValidation>
                     {errors.price && (
@@ -458,7 +568,7 @@ function AccorBody(props) {
               <div className="col-md-4">
                 <Form.Group className="mb-3">
                   <Form.Label className={offer ? 'required' : ''}>
-                    {offer && <span className="text-danger">*</span>} Precio de oferta
+                    Precio de oferta
                   </Form.Label>
                   <InputGroup className={errors.offerPrice ? 'is-invalid' : ''}>
                     {errors.offerPrice && (
@@ -507,26 +617,28 @@ function AccorBody(props) {
                   as="textarea"
                   label="Texto presentación"
                   placeholder="Escribe tu texto aquí"
-                  value={text}
+                  value={Newtext}
                 />
               </div>
             </div>
 
             {/* Imágenes */}
-            <div className="row">
-              <div className="col-12">
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                  <h4 className="subtitles blue mb-0">
-                    <span className="text-danger">*</span> Imágenes
-                  </h4>
-                  {errors.images && (
-                    <span className="text-danger">{errors.images}</span>
-                  )}
-                </div>
+            <div className="row row-cell">
+
+              <div className="col-6">
+                <h4 className="subtitles center blue mb-0">
+                  <span className="text-danger">*</span> Imágenes
+                </h4>
+                {errors.images && (
+                  <span className="text-danger">{errors.images}</span>
+                )}
                 <Carousel fade className="fixed menu">
                   {images.map((imgs) => (
-                    <Carousel.Item key={name + imgs.nameOfImage}>
+                    <Carousel.Item key={name + imgs.nameOfImage} style={{ position: 'relative' }}>
                       <img src={imgs.url} className="" alt={imgs.nameOfImage} />
+                      {/* Botón para destacar imagen (estrella amarilla en esquina superior izquierda) */}
+
+
                       <Carousel.Caption className="deleteImage">
                         <Button
                           variant="danger"
@@ -535,6 +647,20 @@ function AccorBody(props) {
                         >
                           <ion-icon size="large" name="trash-outline"></ion-icon>
                         </Button>
+                        <Button
+                          variant={featuredImage === imgs.nameOfImage ? "warning" : "outline-warning"}
+                          className="featured-star"
+                          style={{ position: "absolute", top: 10, left: 10, zIndex: 5, pointerEvents: 'auto' }}
+                          onClick={() => handleSetFeaturedImage(imgs.nameOfImage)}
+                          title={featuredImage === imgs.nameOfImage ? "Imagen destacada" : "Marcar como destacada"}
+                        >
+                          <ion-icon
+                            size="large"
+                            name={featuredImage === imgs.nameOfImage ? "star" : "star-outline"}
+                            style={{ color: "#ffc107" }}
+                          ></ion-icon>
+                        </Button>
+
                       </Carousel.Caption>
                     </Carousel.Item>
                   ))}
@@ -546,10 +672,56 @@ function AccorBody(props) {
                   label="Subir nuevas fotos"
                 />
               </div>
+              <div className="col-6">
+                <h4 className="subtitles center blue mb-0">
+                  <span className="text-danger">*</span> Tarifario
+                </h4>
+                {pdfUrl && (
+                  <>
+                    <div className="mt-2 d-flex align-items-center gap-2 flex-wrap">
+                      <a
+                        href={pdfUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-sm btn-outline-success w-fit"
+                      >
+                        <i className="bi bi-file-earmark-pdf me-1"></i> Ver PDF actual
+                      </a>
+                      <Button variant="outline-danger" size="sm" className="w-fit" onClick={handleDeletePdf}>
+                        <i className="bi bi-trash me-1"></i> Eliminar PDF
+                      </Button>
+                    </div>
+                    {/* Vista previa embebida del PDF */}
+                    <div className="mt-3">
+                      <div style={{ height: "313px", width: "100%" }}>
+                        <iframe
+                          src={pdfUrl + '#view=FitH'}
+                          title="Vista previa tarifario PDF"
+                          style={{ width: '100%', height: '100%', border: 0 }}
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
+                <div className="mt-3">
+                  <Form.Group controlId="formFilePdf" className="mb-3">
+                    <Form.Label>PDF de tarifario</Form.Label>
+                    <Form.Control
+                      type="file"
+                      accept=".pdf"
+                      onChange={(e) => setPdfFile(e.target.files[0])}
+                      className="mb-2"
+                    />
+                    <Form.Text className="text-muted">
+                      El archivo se subirá al guardar los cambios.
+                    </Form.Text>
+                  </Form.Group>
+
+                </div>
+              </div>
             </div>
 
-          </Form> {/* <-- CIERRE DEL FORM */}
-
+          </Form>
           {/* Botones de acción */}
           <div className="d-flex justify-content-around mt-3">
             <Button onClick={() => update()}>Actualizar Datos</Button>

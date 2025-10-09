@@ -17,10 +17,10 @@ function Home() {
             <a href="https://wa.me/5493515184315" target="blank">
               <ion-icon size="large" name="logo-whatsapp"></ion-icon>
             </a>
-            <a href="https://www.instagram.com/smartturviajes/profilecard/?igsh=MWp2dm4xejZiaG5mNw==" target="blank">
+            <a href="https://www.instagram.com/grupturarg/" target="blank">
               <ion-icon size="large" name="logo-instagram"></ion-icon>
             </a>
-            <a href="https://www.facebook.com/share/PEJnxEtducBx9vqM/?mibextid=LQQJ4d" target="blank">
+            <a href="https://www.facebook.com/profile.php?id=61565716553425&locale=es_LA" target="blank">
               <ion-icon size="large" name="logo-facebook"></ion-icon>
             </a>
           </div>

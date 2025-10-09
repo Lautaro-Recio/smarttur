@@ -2,29 +2,44 @@
 .galery {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 20px; /* Espacio entre las imágenes */
+    gap: 20px;
+    /* Espacio entre las imágenes */
     padding: 1rem;
 }
+
 .galery img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    /* Ajusta la imagen sin deformarla */
+    object-position: center;
+    /* Centra la imagen */
     display: block;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave para la escala y la sombra */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra predeterminada */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* Efecto de escala y sombra al hacer hover sobre la imagen */
 .galery a:hover img {
-    transform: scale(1.05); /* Escala de la imagen */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Sombra más pronunciada */
+    transform: scale(1.05);
+    /* Escala de la imagen */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    /* Sombra más pronunciada */
 }
 
 /* Estilo base para el enlace dentro de la galería */
 .galery a {
     position: relative;
-    display: block;
-    overflow: hidden; /* Asegura que el span no sobresalga de la imagen */
+    display: flex;
+    /* Flexbox para centrar contenido */
+    justify-content: center;
+    /* Centra horizontalmente */
+    align-items: center;
+    /* Centra verticalmente */
+    overflow: hidden;
     border-radius: 25px;
+    height: 300px;
+    width: 100%;
 }
 
 /* Estilo para el span con el botón */
@@ -37,11 +52,17 @@
     z-index: 1001;
     display: grid;
     place-items: center;
-    opacity: 0; /* Inicialmente oculto */
-    background-color: rgba(71, 71, 71, 0.667); /* Fondo negro claro */
-    transition: opacity 0.3s ease; /* Transición suave para la opacidad */
+    opacity: 0;
+    background-color: rgba(71, 71, 71, 0.667);
+    transition: opacity 0.3s ease;
 }
-.galery span p{
+
+.galery a:hover span {
+    opacity: 1;
+    /* Hace visible el texto al pasar el mouse */
+}
+
+.galery span p {
     color: #fff;
     font-size: 21px;
     font-weight: 800;
@@ -49,17 +70,22 @@
 
 /* Efecto de desvanecimiento al hacer hover sobre el enlace */
 .galery a:hover span {
-    opacity: 1; /* Hacer visible el span */
-    animation: fadeIn 0.6s ease-out; /* Aplicar animación fadeIn */
+    opacity: 1;
+    /* Hacer visible el span */
+    animation: fadeIn 0.6s ease-out;
+    /* Aplicar animación fadeIn */
 }
 
 /* Animación de fadeIn */
 @keyframes fadeIn {
     0% {
-        opacity: 0; /* Comienza completamente transparente */
+        opacity: 0;
+        /* Comienza completamente transparente */
     }
+
     100% {
-        opacity: 1; /* Termina completamente opaco */
+        opacity: 1;
+        /* Termina completamente opaco */
     }
 }
 
@@ -71,11 +97,32 @@
 }
 
 .galeryBody h1 {
-    padding-top: 10px;
+    padding-top: 40px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 40px;
+}
+
+.galeryBody .informacion {
+    position: relative;
+    z-index: 100;
+
+    gap: 20px;
+    padding: 20px;
+
+}
+
+.galeryBody h3 {
+    padding-top: 50px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 40px;
 }
 
 .galeryBody p {
-    padding-inline: 40px;
+    padding-inline: 100px;
     font-size: 18px;
     padding-top: 10px;
 }
@@ -85,7 +132,7 @@
 }
 
 .galeryBody .containerWave {
-    height: 80vh;
+    height: 65vh;
     z-index: -100;
 }
 
@@ -105,6 +152,10 @@
     background-color: #f5f5f5;
     right: -8.5%;
     top: 90%;
+}
+
+.galeryBody .titles {
+    font-size: 21px !important;
 }
 
 .galeryBody .wave::after {
@@ -143,7 +194,8 @@
 /* Adaptaciones para pantallas pequeñas */
 @media (max-width: 768px) {
     .galery {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Ajustar la cantidad de columnas */
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        /* Ajustar la cantidad de columnas */
     }
 
 
@@ -184,5 +236,9 @@
 
     .galeryBody .titles {
         font-size: 30px !important;
+    }
+
+    .galeryCarrousel .carousel-item img {
+        height: 50dvh !important;
     }
 }

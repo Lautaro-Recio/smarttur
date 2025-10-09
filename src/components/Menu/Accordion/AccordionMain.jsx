@@ -61,7 +61,7 @@ function AccordionMain() {
             i={i}
             categoryBD={exp.category}
             currencyBD={exp.currency}
-            initOfferDateBD={exp.initOfferDateBD}
+            initOfferDateBD={exp.initOfferDate}
             destacarBD={exp.destacar}
           />
         ))}

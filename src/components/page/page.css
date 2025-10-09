@@ -323,7 +323,7 @@ body {
 .containerWave .experience-card div {
   left: 0rem;
   top: 0rem;
-  background-color: #9191915e;
+  background-color: #484848a8;
   padding: 2rem;
 }
 
@@ -1040,7 +1040,7 @@ button {
   }
 
   .galeryCarrousel .carousel-indicators {
-    bottom: 150px;
+    bottom: 250px;
   }
 
   .galeryCarrousel .carousel-item img {

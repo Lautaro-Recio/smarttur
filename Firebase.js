@@ -4,6 +4,7 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import {
   collection,
   deleteDoc,
+  deleteField,
   doc,
   getDoc,
   getDocs,
@@ -11,7 +12,7 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes, deleteObject } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
@@ -68,7 +69,7 @@ export const createElement = async (
     if (docSnap.exists()) {
       const updateData = {
         text,
-        price,
+        price: price || 0,
         images,
         offer: Boolean(offer),
         offerDate: offerDate || "",
@@ -113,6 +114,96 @@ export async function deleteImages(name, images) {
     });
   } catch (error) {
     console.error("Error al eliminar imagen", error);
+  }
+}
+
+// Guarda el nombre de la imagen destacada en Firestore
+export async function setFeaturedImage(experienceName, imageName) {
+  try {
+    const experienceRef = doc(db, "experiencias", experienceName);
+    await updateDoc(experienceRef, { featuredImage: imageName });
+    return true;
+  } catch (error) {
+    console.error("Error al establecer imagen destacada:", error);
+    throw error;
+  }
+}
+
+// Obtiene el nombre de la imagen destacada de Firestore
+export async function getFeaturedImage(experienceName) {
+  try {
+    const experienceRef = doc(db, "experiencias", experienceName);
+    const snap = await getDoc(experienceRef);
+    if (snap.exists()) {
+      return snap.data().featuredImage || null;
+    }
+    return null;
+  } catch (error) {
+    console.error("Error al obtener imagen destacada:", error);
+    throw error;
+  }
+}
+
+// Sube un archivo PDF a Firebase Storage y devuelve la URL de descarga
+export async function uploadPdf(experienceName, file) {
+  try {
+    // Crear una referencia al archivo en el storage
+    const storageRef = ref(storage, `tarifarios/${experienceName}/${file.name}`);
+    
+    // Subir el archivo
+    const snapshot = await uploadBytes(storageRef, file);
+    
+    // Obtener la URL de descarga
+    const downloadURL = await getDownloadURL(snapshot.ref);
+    
+    // Actualizar el documento en Firestore con la URL del PDF
+    const experienceRef = doc(db, "experiencias", experienceName);
+    await updateDoc(experienceRef, {
+      pdfUrl: downloadURL
+    });
+    
+    return downloadURL;
+  } catch (error) {
+    console.error("Error al subir el PDF:", error);
+    throw error;
+  }
+}
+
+// Obtiene la URL de un PDF existente para una experiencia
+export async function getPdfUrl(experienceName) {
+  try {
+    const docRef = doc(db, "experiencias", experienceName);
+    const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists() && docSnap.data().pdfUrl) {
+      return docSnap.data().pdfUrl;
+    }
+    return null;
+  } catch (error) {
+    console.error("Error al obtener la URL del PDF:", error);
+    throw error;
+  }
+}
+
+// Elimina el PDF (tarifario) de Storage y limpia el campo en Firestore
+export async function deletePdf(experienceName) {
+  try {
+    const docRef = doc(db, "experiencias", experienceName);
+    const snap = await getDoc(docRef);
+    const currentUrl = snap.exists() ? snap.data().pdfUrl : null;
+
+    if (currentUrl) {
+      // Crear referencia al archivo desde la URL de descarga y eliminarlo
+      const fileRef = ref(storage, currentUrl);
+      await deleteObject(fileRef);
+    }
+
+    // Remover el campo en Firestore
+    await updateDoc(docRef, { pdfUrl: deleteField() });
+    return true;
+  } catch (error) {
+    console.error("Error al eliminar el PDF:", error);
+    throw error;
   }
 }
 

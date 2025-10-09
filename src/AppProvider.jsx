@@ -13,6 +13,7 @@ const AppProvider = ({ children }) => {
   const [price, setPrice] = useState(0);
   const [offerPrice, setOfferPrice] = useState(0);
   const [categoryBd, setCategoryBD] = useState("");
+  const [pdfUrl, setPdfUrl] = useState("");
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -45,7 +46,9 @@ const AppProvider = ({ children }) => {
     setOfferPrice,
     offerPrice,
     setCategoryBD,
-    categoryBd
+    categoryBd,
+    setPdfUrl,
+    pdfUrl
   };
 
   return (

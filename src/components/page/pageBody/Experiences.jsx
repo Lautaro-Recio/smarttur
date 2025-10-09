@@ -16,6 +16,8 @@ function Experiences() {
     setOfferPrice,
     setPrice,
     setCategoryBD,
+    setPdfUrl,
+
   } = useContext(AppContext);
 
   const [category, setCategory] = useState([]);
@@ -65,8 +67,8 @@ function Experiences() {
       selectedCategories.length === 0
         ? elementos
         : elementos.filter((eles) =>
-            selectedCategories.includes(eles.category)
-          );
+          selectedCategories.includes(eles.category)
+        );
 
     if (experiences.length > 0) {
       const prices = experiences
@@ -115,9 +117,8 @@ function Experiences() {
           ].map((cat) => (
             <button
               key={cat.categ}
-              className={`category-item ${
-                selectedCategories.includes(cat.categ) ? "active" : ""
-              }`}
+              className={`category-item ${selectedCategories.includes(cat.categ) ? "active" : ""
+                }`}
               onClick={() => handleCategoryChange(cat.categ)}
             >
               <div className="icon-circle">
@@ -163,7 +164,7 @@ function Experiences() {
                 <div className="experience-card">
                   <span className="info">
                     <Link
-                      to={`experience/${exp.name}`}
+                      to={`experience/${exp.id}`}
                       onClick={() => {
                         setGalery(exp.images);
                         setTitle(exp.name);
@@ -171,6 +172,7 @@ function Experiences() {
                         setOfferPrice(exp.priceOff);
                         setPrice(exp.price);
                         setCategoryBD(exp.category);
+                        setPdfUrl(exp.pdfUrl)
                       }}
                       style={{ textDecoration: "none" }}
                       aria-label={`Ver más sobre ${exp.name}`}
@@ -186,11 +188,15 @@ function Experiences() {
                   <div>
                     <p className="subtitles">{`${exp.category} ${exp.name}`}</p>
                     <span className="flex">
-                      <p
-                        className={`titles ${(priceOff !== null && priceOff !== 0 && priceOff < price) ? "tached" : ""}`}
-                      >
-                        {exp.currency === "ARS" ? "$" : exp.currency === "USD" ? "US$" : exp.currency === "EUR" ? "€" : exp.currency === "BRL" ? "R$" : "$"} {formattedPrice}
-                      </p>
+                      {(price !== null && price !== 0) && (
+
+                        <p
+                          className={`titles ${(priceOff !== null && priceOff !== 0 && priceOff < price) ? "tached" : ""}`}
+                        >
+                          {exp.currency === "ARS" ? "$" : exp.currency === "USD" ? "US$" : exp.currency === "EUR" ? "€" : exp.currency === "BRL" ? "R$" : "$"} {formattedPrice}
+                        </p>
+                      )}
+
                       {(priceOff !== null && priceOff !== 0 && priceOff < price) && (
                         <p className="titles">{exp.currency === "ARS" ? "$" : exp.currency === "USD" ? "US$" : exp.currency === "EUR" ? "€" : exp.currency === "BRL" ? "R$" : "$"} {formattedPriceOff}</p>
                       )}
