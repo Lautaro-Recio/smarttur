@@ -96,6 +96,56 @@ body {
   z-index: 999999999999999999;
 }
 
+.redevtButton {
+  position: absolute;
+  top: 25%;
+  right: 150px;
+  background: linear-gradient(135deg, #fff, #e4e4e4);
+  color: #000;
+  padding: 12px 18px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 100;
+}
+
+.redevtButton a {
+  position: relative;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+/* Tooltip */
+.redevtButton a::after {
+  content: "Ir a RedEVT - Sistema de Gestión de Viajes";
+  position: absolute;
+  bottom: 160%;
+
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1c1c1c;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  transition: opacity 0.3s ease, bottom 0.3s ease;
+}
+
+.redevtButton a:hover::after {
+  opacity: 1;
+  bottom: 150%;
+}
+
 /* Estilos de la barra de navegación */
 .nav {
   padding: 1rem 2rem;
@@ -155,7 +205,7 @@ body {
 
 .nav img {
   height: 4rem;
-  width: 4rem;
+  width: 4.2rem;
 }
 
 .nav .hidden {
@@ -300,6 +350,7 @@ body {
 
 /* Estilos de la sección de ofertas */
 .containerWave {
+  display: none;
   position: relative;
   background: #1c1c1c;
   height: 110vh;
@@ -442,7 +493,7 @@ body {
 
 /* Experiencias */
 .experience {
-  margin-top: 10rem;
+  margin-top: 2rem;
 }
 
 .experienceBody {
@@ -881,6 +932,12 @@ button {
 
 
 @media (max-width: 768px) {
+
+  .redevtButton {
+    top: 60%;
+    right: 150px;
+  }
+
   .localImages {
     display: grid !important;
     height: 400px;
@@ -987,8 +1044,9 @@ button {
 
   .home h2 {
     font-size: 30px;
-
+    max-width: 15rem;
   }
+
 
   .content button {
     font-size: 15px;
@@ -1172,7 +1230,8 @@ button {
   }
 
   .home .content {
-    margin-top: 15%;
+    margin-top: 90%;
+    margin-left: 15%;
   }
 
 
